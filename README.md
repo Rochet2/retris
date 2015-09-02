@@ -1,14 +1,6 @@
 # retris
-retris, eli siis tetris ihan vaan huvinpitoon ja ajanvietteeseen.
+retris, eli siis perinteinen tetris peli ihan vaan huvinpitoon ja ajanvietteeseen.
 
-## käyttäjät
-Opiskelijat ja natiaiset
-
-## toiminnot
-- pelin aloitus
-- pelin keskeytys
-- pelin lopetus
-- perinteisen tetriksen mukaan palikoiden valuminen alas ruudulla
-- palikoiden ohjaus (sivuille, pyöritys)
-- ...
-- huijauskoodeja pelin kehittäjille
+- [Kurssisivu](https://github.com/javaLabra/Javalabra2015-1)
+- [Kuvaus ja Rakenne](dokumentointi/aiheenKuvausJaRakenne.md)
+- [Tuntikirjanpito](dokumentointi/tuntikirjanpito.md)
