@@ -16,49 +16,42 @@
  */
 package logic;
 
-import java.util.ArrayList;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
  * @author rochet2_2
  */
-public class Board {
-    private ArrayList<Piece> pieces;
-    private final int width;
-    private final int height;
-
-    /**
-     * @param width laudan leveys
-     * @param height laudan korkeus
-     * @return pelilauta
-     */
-    Board(int width, int height) {
-        this.width = width;
-        this.height = height;
-        this.pieces = new ArrayList<Piece>();
+public class PositionTest {
+    
+    public PositionTest() {
+    }
+    
+    @BeforeClass
+    public static void setUpClass() {
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
+    }
+    
+    @Before
+    public void setUp() {
+    }
+    
+    @After
+    public void tearDown() {
     }
 
-    /**
-     * @return palat laudalla
-     */
-    public ArrayList<Piece> getPieces() {
-        return pieces;
-    }
-
-    /**
-     * @return laudan leveys
-     */
-    public int getWidth() {
-        return width;
-    }
-
-    /**
-     * @return laudan korkeus
-     */
-    public int getHeight() {
-        return height;
-    }
-
-    void update() {
+    @Test
+    public void testGetX() {
+        System.out.println("getX");
+        Position position = new Position();
+        assertEquals(0, position.getX());
     }
 }

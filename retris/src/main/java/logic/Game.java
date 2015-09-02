@@ -16,13 +16,29 @@
  */
 package logic;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author rochet2_2
  */
-public class retrisMain {
-    public static void main(String[] args) {
-        Game game = new Game(100, 300);
-        game.run();
+public class Game {
+    private Board board;
+    
+    Game(int width, int height) {
+        this.board = new Board(width, height);
     }
+    
+    public void run() {
+        while (true) {
+            board.update();
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
 }

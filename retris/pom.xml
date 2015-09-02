@@ -46,4 +46,5 @@
         </plugin>
     </plugins>
 </build>
+    <name>retris</name>
 </project>

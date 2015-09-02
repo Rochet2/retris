@@ -66,5 +66,16 @@ public class Position {
     public void setOrientation(int orientation) {
         this.orientation = orientation;
     }
+
+    /**
+     * @param y y-koordinaatti
+     * @return orientaatio, suunta
+     */
+    public boolean isWithin(int width, int height) {
+        boolean correctWidth = getX() >= 0 && getX() <= width;
+        boolean correctHeight = getY() <= 0 && getY() <= height;
+        
+        return correctWidth && correctHeight;
+    }
     
 }
