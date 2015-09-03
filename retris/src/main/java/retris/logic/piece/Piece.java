@@ -55,7 +55,7 @@ public class Piece {
     /**
      * @return the shape
      */
-    public int[][] getShapeArray() {
+    public int[][] getForm() {
         int[][][] shapes = ShapeFactory.getShape(getShape());
         if (shapeIndex >= 0 && shapeIndex < shapes.length)
             return shapes[shapeIndex];
@@ -86,6 +86,33 @@ public class Piece {
      */
     public Shape getShape() {
         return shape;
+    }
+
+    public boolean collides(Piece piece) {
+        int[][] form1 = getForm();
+        int[][] form2 = piece.getForm();
+        for (int y1 = 0; y1 < form1.length; ++y1) {
+            for (int x1 = 0; x1 < form1[y1].length; ++x1) {
+                if (form1[y1][x1] == 0) {
+                    continue;
+                }
+                for (int y2 = 0; y2 < form1.length; ++y2) {
+                    if (getPosition().getY() + y1 != piece.getPosition().getY() + y2) {
+                        continue;
+                    }
+                    for (int x2 = 0; x2 < form1[y2].length; ++x2) {
+                        if (getPosition().getX() + x1 != piece.getPosition().getX() + x2) {
+                            continue;
+                        }
+                        if (form2[y2][x2] == 0) {
+                            continue;
+                        }
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 }

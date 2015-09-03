@@ -42,7 +42,7 @@ public class Board {
         this.boardWidth = width;
         this.boardHeight = height;
         this.piecesOnBoard = new ArrayList<Piece>();
-        this.currentPiece = null;
+        dropNewPiece();
     }
 
     /**
@@ -69,7 +69,7 @@ public class Board {
     /**
      * @return laudan korkeus
      */
-    public void placeNewPiece() {
+    public void dropNewPiece() {
         if (currentPiece != null) {
             piecesOnBoard.add(currentPiece);
         }
@@ -77,6 +77,41 @@ public class Board {
         int center = Math.round(getWidth() / 2.0f - ShapeFactory.getMaxWidth(piece.getShape()) / 2.0f);
         piece.getPosition().setX(center);
         currentPiece = piece;
+    }
+
+    /**
+     * @return laudan korkeus
+     */
+    public boolean isOnBoard(int x, int y) {
+        return x >= 0 && y >= 0 && x <= getWidth() && y <= getHeight();
+    }
+
+    public boolean isOnBoard(Piece piece) {
+        Position offset = piece.getPosition();
+        int[][] form = piece.getForm();
+        for (int y = 0; y < form.length; ++y) {
+            for (int x = 0; x < form[y].length; ++x) {
+                if (form[y][x] == 1) {
+                    if (!isOnBoard(offset.getX() + x, offset.getY() + y)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean collidesWithBoardPieces(Piece piece) {
+        for (Piece pieceOnBoard : getPiecesOnBoard()) {
+            if (pieceOnBoard.collides(piece)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean collidesOnBoard(Piece piece) {
+        return !isOnBoard(piece) || collidesWithBoardPieces(piece);
     }
 
     void updateBoard() {
