@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package logic;
+package retris.logic;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -28,30 +28,56 @@ import static org.junit.Assert.*;
  * @author rochet2_2
  */
 public class PositionTest {
-    
+
     public PositionTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
+    
+    public void positionHelper(Position position) {
+        assertTrue(position.isWithinRange(100, 100));
+        assertFalse(position.isWithinRange(-1, 100));
+        assertFalse(position.isWithinRange(100, -1));
+        assertFalse(position.isWithinRange(-100, -100));
+    }
 
     @Test
-    public void testGetX() {
-        System.out.println("getX");
+    public void testIsWithinRange() {
         Position position = new Position();
-        assertEquals(0, position.getX());
+        positionHelper(position);
+        assertTrue(position.isWithinRange(0, 0));
+        position.setX(1);
+        position.setY(1);
+        positionHelper(position);
+        assertTrue(position.isWithinRange(1, 1));
+        position.setX(100);
+        position.setY(100);
+        positionHelper(position);
+        position.setX(-1);
+        position.setY(-1);
+        assertFalse(position.isWithinRange(100, 100));
+        assertFalse(position.isWithinRange(-100, -100));
+        position.setX(-20);
+        position.setY(10);
+        assertFalse(position.isWithinRange(100, 100));
+        assertFalse(position.isWithinRange(-100, -100));
+        position.setX(10);
+        position.setY(-10);
+        assertFalse(position.isWithinRange(100, 100));
+        assertFalse(position.isWithinRange(-100, -100));
     }
 }

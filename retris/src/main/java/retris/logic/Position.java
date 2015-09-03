@@ -14,13 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package logic;
+package retris.logic;
 
 /**
  *
  * @author rochet2_2
  */
 public class Position {
+
     private int x;
     private int y;
     private int orientation;
@@ -68,14 +69,15 @@ public class Position {
     }
 
     /**
-     * @param y y-koordinaatti
-     * @return orientaatio, suunta
+     * @param width leveysalue
+     * @param height korkeusalue
+     * @return kertoo onko paikka alueella
      */
-    public boolean isWithin(int width, int height) {
+    public boolean isWithinRange(int width, int height) {
         boolean correctWidth = getX() >= 0 && getX() <= width;
-        boolean correctHeight = getY() <= 0 && getY() <= height;
-        
+        boolean correctHeight = getY() >= 0 && getY() <= height;
+
         return correctWidth && correctHeight;
     }
-    
+
 }

@@ -14,51 +14,43 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package logic;
-
-import java.util.ArrayList;
+package retris.logic;
 
 /**
  *
  * @author rochet2_2
  */
-public class Board {
-    private ArrayList<Piece> pieces;
-    private final int width;
-    private final int height;
+public class Piece {
+
+    private Position position;
+    private int color;
 
     /**
-     * @param width laudan leveys
-     * @param height laudan korkeus
-     * @return pelilauta
+     * @return the position
      */
-    Board(int width, int height) {
-        this.width = width;
-        this.height = height;
-        this.pieces = new ArrayList<Piece>();
+    public Position getPosition() {
+        return position;
     }
 
     /**
-     * @return palat laudalla
+     * @param position the position to set
      */
-    public ArrayList<Piece> getPieces() {
-        return pieces;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     /**
-     * @return laudan leveys
+     * @return the color
      */
-    public int getWidth() {
-        return width;
+    public int getColor() {
+        return color;
     }
 
     /**
-     * @return laudan korkeus
+     * @param color the color to set
      */
-    public int getHeight() {
-        return height;
+    public void setColor(int color) {
+        this.color = color;
     }
 
-    void update() {
-    }
 }

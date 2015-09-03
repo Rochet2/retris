@@ -14,42 +14,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package logic;
+package retris.logic;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author rochet2_2
  */
-public class Piece {
-    private Position position;
-    private int color;
+public class Game {
 
-    /**
-     * @return the position
-     */
-    public Position getPosition() {
-        return position;
+    private Board board;
+
+    public Game(int width, int height) {
+        this.board = new Board(width, height);
     }
 
-    /**
-     * @param position the position to set
-     */
-    public void setPosition(Position position) {
-        this.position = position;
+    public void run() {
+        while (true) {
+            board.update();
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
-    /**
-     * @return the color
-     */
-    public int getColor() {
-        return color;
-    }
-
-    /**
-     * @param color the color to set
-     */
-    public void setColor(int color) {
-        this.color = color;
-    }
-    
 }

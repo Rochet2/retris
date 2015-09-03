@@ -14,31 +14,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package logic;
+package retris;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import retris.logic.Game;
 
 /**
  *
  * @author rochet2_2
  */
-public class Game {
-    private Board board;
-    
-    Game(int width, int height) {
-        this.board = new Board(width, height);
-    }
-    
-    public void run() {
-        while (true) {
-            board.update();
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
+public class retrisMain {
 
+    public static void main(String[] args) {
+        Game game = new Game(100, 300);
+        game.run();
+    }
 }
