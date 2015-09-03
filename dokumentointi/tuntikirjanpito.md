@@ -1,3 +1,4 @@
 - 1.9. 1h, projektin alkuvalmistelut
 - 2.9. 2h, koodin aloitus ja erinäisten ongelmien kanssa taistelu
 - 3.9. 2h, lisää taistelua pitin ja muun kanssa. Ilmeisesti syynä oli muunmuassa main class polku. Se oli väärässä paikassa, eikä sitä voinut lennossa muuttaa väliaikaisesti.
+- 3.9. 6h, perus logiikan kanssa taistelua

@@ -14,43 +14,43 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package retris.logic;
+package retris.logic.piece;
 
 /**
  *
  * @author rochet2_2
  */
-public class Piece {
+public class Position {
 
-    private Position position;
-    private int color;
+    private int x;
+    private int y;
 
     /**
-     * @return the position
+     * @return x-koordinaatti
      */
-    public Position getPosition() {
-        return position;
+    public int getX() {
+        return x;
     }
 
     /**
-     * @param position the position to set
+     * @param x x-koordinaatti
      */
-    public void setPosition(Position position) {
-        this.position = position;
+    public void setX(int x) {
+        this.x = x;
     }
 
     /**
-     * @return the color
+     * @return y-koordinaatti
      */
-    public int getColor() {
-        return color;
+    public int getY() {
+        return y;
     }
 
     /**
-     * @param color the color to set
+     * @param y y-koordinaatti
      */
-    public void setColor(int color) {
-        this.color = color;
+    public void setY(int y) {
+        this.y = y;
     }
 
 }
