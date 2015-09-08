@@ -16,7 +16,6 @@
  */
 package retris.logic;
 
-import javax.swing.text.Position;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -103,5 +102,41 @@ public class BoardTest {
         assertFalse(board.isOnBoard(piece));
         piece.relocate(-width, -height);
         assertFalse(board.isOnBoard(piece));
+    }
+
+    @Test
+    public void testFillSpaceOnBoardWithValidSpaces() {
+        int width = 10;
+        int height= 16;
+        Board board = new Board(width, height);
+        board.fillSpaceOnBoard(0, 0);
+        board.fillSpaceOnBoard(1, 0);
+        board.fillSpaceOnBoard(0, 1);
+        board.fillSpaceOnBoard(width, height);
+        board.fillSpaceOnBoard(width-1, height);
+        board.fillSpaceOnBoard(width, height-1);
+        assertTrue(board.isFilledSpaceOnBoard(0, 0));
+        assertTrue(board.isFilledSpaceOnBoard(1, 0));
+        assertTrue(board.isFilledSpaceOnBoard(0, 1));
+        assertTrue(board.isFilledSpaceOnBoard(width, height));
+        assertTrue(board.isFilledSpaceOnBoard(width-1, height));
+        assertTrue(board.isFilledSpaceOnBoard(width, height-1));
+    }
+
+    @Test
+    public void testFillSpaceOnBoardWithInvalidSpaces() {
+        int width = 10;
+        int height= 16;
+        Board board = new Board(width, height);
+        board.fillSpaceOnBoard(-1, 0);
+        board.fillSpaceOnBoard(0, -1);
+        board.fillSpaceOnBoard(-width, -height);
+        board.fillSpaceOnBoard(width+1, height);
+        board.fillSpaceOnBoard(width, height+1);
+        assertFalse(board.isFilledSpaceOnBoard(-1, 0));
+        assertFalse(board.isFilledSpaceOnBoard(0, -1));
+        assertFalse(board.isFilledSpaceOnBoard(-width, -height));
+        assertFalse(board.isFilledSpaceOnBoard(width+1, height));
+        assertFalse(board.isFilledSpaceOnBoard(width, height+1));
     }
 }

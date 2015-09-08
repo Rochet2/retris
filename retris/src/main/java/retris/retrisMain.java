@@ -17,6 +17,7 @@
 package retris;
 
 import retris.logic.Game;
+import retris.logic.shape.ShapeL;
 
 /**
  *
@@ -26,6 +27,7 @@ public class retrisMain {
 
     public static void main(String[] args) {
         Game game = new Game(100, 300);
+        game.addShapeToGame(new ShapeL());
         game.run();
     }
 }

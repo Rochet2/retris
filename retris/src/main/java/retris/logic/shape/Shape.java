@@ -99,7 +99,7 @@ public class Shape {
             return;
         }
         boolean[][][] boolArray = integerArrayToBooleanArray(shapeFormRotations);
-        if (formsHaveOneTrue(boolArray)) {
+        if (!formsHaveOneTrue(boolArray)) {
             return;
         }
         this.shapeFormRotations = boolArray;
@@ -115,10 +115,10 @@ public class Shape {
     private boolean formsHaveOneTrue(boolean[][][] formArray) {
         for (boolean[][] formRotation : formArray) {
             if (!hasOneTrue(formRotation)) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     /**
@@ -153,7 +153,7 @@ public class Shape {
         if (!arrayDimensionLengthsAboveZero(shapeFormRotations)) {
             return;
         }
-        if (formsHaveOneTrue(shapeFormRotations)) {
+        if (!formsHaveOneTrue(shapeFormRotations)) {
             return;
         }
         this.shapeFormRotations = shapeFormRotations;
@@ -215,8 +215,8 @@ public class Shape {
     private boolean[][][] integerArrayToBooleanArray(int[][][] intArray) {
         boolean[][][] boolArray = new boolean[intArray.length][intArray[0].length][intArray[0][0].length];
         for (int i = 0; i < intArray.length; ++i) {
-            for (int j = 0; j < intArray.length; ++j) {
-                for (int k = 0; k < intArray.length; ++k) {
+            for (int j = 0; j < intArray[i].length; ++j) {
+                for (int k = 0; k < intArray[i][j].length; ++k) {
                     boolArray[i][j][k] = intArray[i][j][k] != 0;
                 }
             }

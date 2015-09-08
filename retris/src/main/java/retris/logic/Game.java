@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import retris.logic.shape.Shape;
-import retris.logic.shape.ShapeL;
 
 /**
  *
@@ -29,7 +28,7 @@ import retris.logic.shape.ShapeL;
 public class Game {
 
     private final Board gameBoard;
-    private ArrayList<Shape> gameShapes = new ArrayList<Shape>();
+    private final ArrayList<Shape> gameShapes = new ArrayList<Shape>();
 
     /**
      * Luo uuden pelin.
@@ -39,7 +38,6 @@ public class Game {
      */
     public Game(int width, int height) {
         this.gameBoard = new Board(width, height);
-        this.gameShapes.add(new ShapeL());
     }
 
     public void run() {
@@ -58,6 +56,18 @@ public class Game {
         } catch (InterruptedException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    /**
+     * Lisää muodon peliin
+     *
+     * @param shape muoto
+     */
+    public void addShapeToGame(Shape shape) {
+        if (shape == null) {
+            return;
+        }
+        gameShapes.add(shape);
     }
 
 }

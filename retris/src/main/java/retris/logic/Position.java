@@ -27,6 +27,24 @@ public class Position {
     private int y;
 
     /**
+     * Luo uuden paikan nollakoordinaateilla
+     */
+    Position() {
+        this(0, 0);
+    }
+
+    /**
+     * Luo uuden paikan annetuilla koordinaateilla
+     *
+     * @param x
+     * @param y
+     */
+    Position(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
      * Palauttaa paikan X-koordinaatin
      *
      * @return

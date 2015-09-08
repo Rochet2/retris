@@ -16,37 +16,29 @@
  */
 package retris.logic;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author rochet2_2
  */
 public class Board {
 
-    private final ArrayList<Piece> piecesOnBoard;
+    private final boolean[][] filledBoardSpaces;
     private final int boardWidth;
     private final int boardHeight;
 
     /**
      * Luo uuden laudan annetulla koolla
      *
-     * @param width laudan leveys
-     * @param height laudan korkeus
+     * @param width laudan leveys, min 1
+     * @param height laudan korkeus, min 1
      */
     public Board(int width, int height) {
+        width = Math.max(0, width);
+        height = Math.max(0, height);
+
         this.boardWidth = width;
         this.boardHeight = height;
-        this.piecesOnBoard = new ArrayList<Piece>();
-    }
-
-    /**
-     * Palauttaa laudalla olevat palat
-     *
-     * @return palat laudalla
-     */
-    public ArrayList<Piece> getPiecesOnBoard() {
-        return piecesOnBoard;
+        this.filledBoardSpaces = new boolean[width + 1][height + 1];
     }
 
     /**
@@ -54,7 +46,7 @@ public class Board {
      *
      * @return laudan leveys
      */
-    public int getWidth() {
+    public int getBoardWidth() {
         return boardWidth;
     }
 
@@ -63,21 +55,10 @@ public class Board {
      *
      * @return laudan korkeus
      */
-    public int getHeight() {
+    public int getBoardHeight() {
         return boardHeight;
     }
 
-    /*
-     public void dropNewPiece() {
-     if (currentPiece != null) {
-     piecesOnBoard.add(currentPiece);
-     }
-     Piece piece = new Piece(Shape.getRandomShape());
-     int center = Math.round(getWidth() / 2.0f - piece.getShape().getMaxWidth() / 2.0f);
-     piece.setX(center);
-     currentPiece = piece;
-     }
-     */
     /**
      * Kertoo onko koordinaattien määrittämä paikka laudalla
      *
@@ -86,7 +67,7 @@ public class Board {
      * @return paikka on laudalla
      */
     public boolean isOnBoard(int x, int y) {
-        return x >= 0 && y >= 0 && x <= getWidth() && y <= getHeight();
+        return x >= 0 && y >= 0 && x <= getBoardWidth() && y <= getBoardHeight();
     }
 
     /**
@@ -96,11 +77,43 @@ public class Board {
      * @return pala on laudalla
      */
     public boolean isOnBoard(Piece piece) {
+        if (piece == null) {
+            return false;
+        }
         boolean[][] form = piece.getCurrentForm();
         for (int y = 0; y < form.length; ++y) {
             for (int x = 0; x < form[y].length; ++x) {
                 if (form[y][x]) {
-                    if (!isOnBoard(piece.getX() + x, piece.getY() + y)) {
+                    if (!isOnBoard(piece.getPosition().getX() + x, piece.getPosition().getY() + y)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    void updateBoard() {
+    }
+
+    /**
+     * Kertoo onko pala vapaassa paikassa
+     *
+     * @param piece pala
+     * @return on vapaassa paikassa
+     */
+    public boolean isInFreeSpaceOnBoard(Piece piece) {
+        if (piece == null) {
+            return false;
+        }
+        if (isOnBoard(piece)) {
+            return false;
+        }
+        boolean[][] form = piece.getCurrentForm();
+        for (int y = 0; y < form.length; ++y) {
+            for (int x = 0; x < form[y].length; ++x) {
+                if (form[y][x]) {
+                    if (isFilledSpaceOnBoard(piece.getPosition().getX() + x, piece.getPosition().getY() + y)) {
                         return false;
                     }
                 }
@@ -110,30 +123,47 @@ public class Board {
     }
 
     /**
-     * Kertoo onko pala jonkin laudalla olevan palan päällä
+     * Palauttaa arrayn joka kertoo kaikki vapaat ja täytetyt kohdat laudalla
      *
-     * @param piece pala
-     * @return pala on jonkin laudan palan päällä
+     * @return täytetyt paikat
      */
-    public boolean collidesWithBoardPieces(Piece piece) {
-        for (Piece pieceOnBoard : getPiecesOnBoard()) {
-            if (pieceOnBoard.collidesWithPiece(piece)) {
-                return true;
-            }
-        }
-        return false;
+    private boolean[][] getFilledBoardSpaces() {
+        return filledBoardSpaces;
     }
 
     /**
-     * Kertoo onko pala vapaalla paikalla laudalla
+     * Kertoo onko koordinaattien määräämässä paikassa jotakin laudalla
      *
-     * @param piece pala
-     * @return pala on vapaalla paikalla
+     * @param x X-koordinaatti
+     * @param y Y-koordinaatti
+     * @return paikka ei ole tyhjä
      */
-    public boolean isInFreeBoardSpace(Piece piece) {
-        return isOnBoard(piece) && !collidesWithBoardPieces(piece);
+    public boolean isFilledSpaceOnBoard(int x, int y) {
+        if (!isOnBoard(x, y)) {
+            return false;
+        }
+        return getFilledBoardSpaces()[x][y];
+    }
+    
+    public void fillPieceToBoard(Piece piece) {
+        if (piece == null) {
+            return;
+        }
+        boolean[][] form = piece.getCurrentForm();
+        Position position = piece.getPosition();
+        for (int y = 0; y < form.length; ++y) {
+            for (int x = 0; x < form[y].length; ++x) {
+                if (form[y][x]) {
+                    fillSpaceOnBoard(position.getX() + x, position.getY() + y);
+                }
+            }
+        }
     }
 
-    void updateBoard() {
+    public void fillSpaceOnBoard(int x, int y) {
+        if (!isOnBoard(x, y)) {
+            return;
+        }
+        getFilledBoardSpaces()[x][y] = true;
     }
 }
