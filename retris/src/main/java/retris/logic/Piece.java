@@ -22,93 +22,94 @@ import retris.logic.shape.Shape;
  *
  * @author rochet2_2
  */
-public class Piece {
+public class Piece extends Position {
 
-    private int x;
-    private int y;
-    private int rotationIndex;
+    private int rotation;
     private final Shape shape;
 
+    /**
+     * Luo uuden palan oletusmuodolla ja koordinaateilla
+     */
     public Piece() {
         this(new Shape(), 0, 0);
     }
 
+    /**
+     * Luo uuden palan annetulla muodolla ja oletus koordinaateilla
+     *
+     * @param shape
+     */
     public Piece(Shape shape) {
         this(shape, 0, 0);
     }
 
-    public Piece(int x, int y) {
-        this(Shape.getRandomShape(), x, y);
-    }
-
+    /**
+     * Luo uuden palan annetulla muodolla ja koordinaateilla
+     *
+     * @param shape
+     * @param x
+     * @param y
+     */
     public Piece(Shape shape, int x, int y) {
         if (shape == null) {
-            this.shape = Shape.getDefaultShape();
-        } else {
-            this.shape = shape;
+            throw new NullPointerException("Piece's shape can not be null");
         }
-        this.rotationIndex = 0;
+        this.shape = shape;
+        this.rotation = 0;
         relocate(x, y);
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public final void relocate(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
     /**
-     * @return the shape
+     * Palauttaa tämänhetkisen käännösvaiheen muodon
+     *
+     * @return vaiheen muoto
      */
-    public boolean[][] getForm() {
-        boolean[][][] shapeFormRotations = shape.getShapeFormRotations();
-        return shapeFormRotations[rotationIndex];
+    public boolean[][] getCurrentForm() {
+        boolean[][][] shapeFormRotations = getShape().getShapeFormRotations();
+        return shapeFormRotations[getRotation()];
     }
 
     /**
-     * @return the shape
+     * Palauttaa palan muodon
+     *
+     * @return muoto
      */
     public Shape getShape() {
         return shape;
     }
 
     /**
-     * @return the orientation
+     * Palauttaa palan käännösvaiheen numeron
+     *
+     * @return käännösvaiheen numero
      */
-    public int getRotationIndex() {
-        return rotationIndex;
+    public int getRotation() {
+        return rotation;
     }
 
     /**
-     * @param rotationIndex rotationIndex to use
+     * Asettaa palan käännösvaiheen.
+     *
+     * @param rotation käännösvaiheen numero - skaalataan vaiheiden määrään
      */
-    public void setRotationIndex(int rotationIndex) {
+    public void setRotation(int rotation) {
         boolean[][][] shapes = getShape().getShapeFormRotations();
-        rotationIndex = rotationIndex % shapes.length;
-        if (rotationIndex < 0) {
-            rotationIndex += shapes.length;
+        rotation = rotation % shapes.length;
+        if (rotation < 0) {
+            rotation += shapes.length;
         }
-        this.rotationIndex = rotationIndex;
+        this.rotation = rotation;
     }
 
-    public boolean collides(Piece piece) {
-        boolean[][] form1 = getForm();
-        boolean[][] form2 = piece.getForm();
+    /**
+     * Tarkistaa ovatko palaset jossakin kohtaa päällekkäin.
+     *
+     * @param piece
+     * @return palaset ovat toistensa päällä
+     */
+    public boolean collidesWithPiece(Piece piece) {
+        boolean[][] form1 = getCurrentForm();
+        boolean[][] form2 = piece.getCurrentForm();
         for (int y1 = 0; y1 < form1.length; ++y1) {
             for (int x1 = 0; x1 < form1[y1].length; ++x1) {
                 if (!form1[y1][x1]) {

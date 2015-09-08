@@ -16,49 +16,33 @@
  */
 package retris.logic.shape;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 /**
+ * Tämä luokka toimii pohjana eri tetromino palasille. Aliluokat, eli eri
+ * palasten luokat, kutsuvat metodia setShapeFormRotations konstruktorissaan
+ * asettaakseen palaselle jonkin muodon.
  *
  * @author rochet2_2
  */
 public class Shape {
 
-    private static final Random random = new Random();
-
-    private static final boolean[][][] shapeFormRotationsTemplate = {
-        {{true}}
-    };
     private boolean[][][] shapeFormRotations = {
         {{true}}
     };
-    private static ArrayList<Shape> allShapeTemplates;
 
-    static {
-        ArrayList<Shape> temp = new ArrayList<Shape>();
-        temp.add(new ShapeL());
-        allShapeTemplates = temp;
-    }
-
-    public static ArrayList<Shape> getAllShapeTemplates() {
-        return allShapeTemplates;
-    }
-
+    /**
+     * Palauttaa muodon eri käännösvaiheet
+     *
+     * @return
+     */
     public boolean[][][] getShapeFormRotations() {
         return shapeFormRotations;
     }
 
-    public static boolean[][][] getShapeFormRotationsTemplate() {
-        return shapeFormRotationsTemplate;
-    }
-
-    public static Shape getDefaultShape() {
-        Shape shape = new Shape();
-        shape.setShapeFormRotations(shapeFormRotationsTemplate);
-        return shape;
-    }
-
+    /**
+     * Palauttaa muodon maksimileveyden
+     *
+     * @return muodon leveys maksimissaan
+     */
     public int getMaxWidth() {
         int width = 0;
         for (boolean[][] form : shapeFormRotations) {
@@ -69,6 +53,11 @@ public class Shape {
         return width;
     }
 
+    /**
+     * Palauttaa muodon maksimikorkeuden
+     *
+     * @return muodon korkeus maksimissaan
+     */
     public int getMaxHeight() {
         int height = 0;
         for (boolean[][] form : shapeFormRotations) {
@@ -77,40 +66,107 @@ public class Shape {
         return height;
     }
 
-    public static final Shape getRandomShape() {
-        return allShapeTemplates.get(random.nextInt(allShapeTemplates.size()));
-    }
-
+    /**
+     * Asettaa muodon ulkonäön eri käännösvaiheille.
+     *
+     * @param shapeFormRotations muotoa      <pre>
+     * {
+     *     {
+     *         {0,0,1},
+     *         {1,1,1},
+     *         {0,0,0},
+     *     },
+     *     {
+     *         {1,1,0},
+     *         {0,1,0},
+     *         {0,1,0},
+     *     },
+     *     {
+     *         {0,0,0},
+     *         {1,1,1},
+     *         {1,0,0},
+     *     },
+     *     {
+     *         {0,1,0},
+     *         {0,1,0},
+     *         {0,1,1},
+     *     },
+     * }
+     * </pre>
+     */
     public void setShapeFormRotations(int[][][] shapeFormRotations) {
-        if (!arrayHasContent(shapeFormRotations)) {
+        if (!arrayDimensionLenghtsAboveZero(shapeFormRotations)) {
             return;
         }
         boolean[][][] boolArray = integerArrayToBooleanArray(shapeFormRotations);
-
-        for (boolean[][] formRotation : boolArray) {
-            if (!hasOneOrMoreTrue(formRotation)) {
-                return;
-            }
+        if (formsHaveOneTrue(boolArray)) {
+            return;
         }
-
         this.shapeFormRotations = boolArray;
     }
 
-    public void setShapeFormRotations(boolean[][][] shapeFormRotations) {
-        if (!arrayHasContent(shapeFormRotations)) {
-            return;
-        }
-
-        for (boolean[][] formRotation : shapeFormRotations) {
-            if (!hasOneOrMoreTrue(formRotation)) {
-                return;
+    /**
+     * Tarkistaa että joka muodon käännösvaihe sisältää ainakin yhden true
+     * arvon, eli ettei mikään vaihe ole näkymätön
+     *
+     * @param formArray
+     * @return kaikilla käännösvaiheet ovat näkyviä
+     */
+    private boolean formsHaveOneTrue(boolean[][][] formArray) {
+        for (boolean[][] formRotation : formArray) {
+            if (!hasOneTrue(formRotation)) {
+                return true;
             }
         }
+        return false;
+    }
 
+    /**
+     * Asettaa muodon ulkonäön eri käännösvaiheille.
+     *
+     * @param shapeFormRotations muotoa      <pre>
+     * {
+     *     {
+     *         {false,false,true },
+     *         {true ,true ,true },
+     *         {false,false,false},
+     *     },
+     *     {
+     *         {true ,true ,false},
+     *         {false,true ,false},
+     *         {false,true ,false},
+     *     },
+     *     {
+     *         {false,false,false},
+     *         {true ,true ,true },
+     *         {true ,false,false},
+     *     },
+     *     {
+     *         {false,true ,false},
+     *         {false,true ,false},
+     *         {false,true ,true },
+     *     },
+     * }
+     * </pre>
+     */
+    public void setShapeFormRotations(boolean[][][] shapeFormRotations) {
+        if (!arrayDimensionLengthsAboveZero(shapeFormRotations)) {
+            return;
+        }
+        if (formsHaveOneTrue(shapeFormRotations)) {
+            return;
+        }
         this.shapeFormRotations = shapeFormRotations;
     }
 
-    private boolean arrayHasContent(int[][][] integerArray) {
+    /**
+     * Palauttaa true jos syötteessä olevien tasojen pituudet ovat suurempia tai
+     * yhtäsuuria yhden kanssa.
+     *
+     * @param integerArray
+     * @return tasojen pituudet nollaa isompia
+     */
+    private boolean arrayDimensionLenghtsAboveZero(int[][][] integerArray) {
         if (integerArray == null) {
             return false;
         }
@@ -126,7 +182,14 @@ public class Shape {
         return true;
     }
 
-    private boolean arrayHasContent(boolean[][][] integerArray) {
+    /**
+     * Palauttaa true jos syötteessä olevien tasojen pituudet ovat suurempia tai
+     * yhtäsuuria yhden kanssa.
+     *
+     * @param integerArray
+     * @return tasojen pituudet nollaa isompia
+     */
+    private boolean arrayDimensionLengthsAboveZero(boolean[][][] integerArray) {
         if (integerArray == null) {
             return false;
         }
@@ -142,6 +205,13 @@ public class Shape {
         return true;
     }
 
+    /**
+     * Palauttaa uuden arrayn jossa syötteen arvot ovat totuutensa mukaan
+     * muutettu booleaneiksi.
+     *
+     * @param intArray
+     * @return
+     */
     private boolean[][][] integerArrayToBooleanArray(int[][][] intArray) {
         boolean[][][] boolArray = new boolean[intArray.length][intArray[0].length][intArray[0][0].length];
         for (int i = 0; i < intArray.length; ++i) {
@@ -154,7 +224,13 @@ public class Shape {
         return boolArray;
     }
 
-    private boolean hasOneOrMoreTrue(boolean[][] boolArray) {
+    /**
+     * Palauttaa true jos syöte sisältää yhden true arvon.
+     *
+     * @param boolArray
+     * @return sisältää ainakin yhden tosi arvon
+     */
+    private boolean hasOneTrue(boolean[][] boolArray) {
         for (boolean[] dimension1 : boolArray) {
             for (boolean value : dimension1) {
                 if (value) {

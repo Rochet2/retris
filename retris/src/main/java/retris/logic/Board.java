@@ -17,7 +17,6 @@
 package retris.logic;
 
 import java.util.ArrayList;
-import retris.logic.shape.Shape;
 
 /**
  *
@@ -30,6 +29,8 @@ public class Board {
     private final int boardHeight;
 
     /**
+     * Luo uuden laudan annetulla koolla
+     *
      * @param width laudan leveys
      * @param height laudan korkeus
      */
@@ -40,6 +41,8 @@ public class Board {
     }
 
     /**
+     * Palauttaa laudalla olevat palat
+     *
      * @return palat laudalla
      */
     public ArrayList<Piece> getPiecesOnBoard() {
@@ -47,6 +50,8 @@ public class Board {
     }
 
     /**
+     * Palauttaa laudan leveyden.
+     *
      * @return laudan leveys
      */
     public int getWidth() {
@@ -54,6 +59,8 @@ public class Board {
     }
 
     /**
+     * Palauttaa laudan korkeuden.
+     *
      * @return laudan korkeus
      */
     public int getHeight() {
@@ -61,23 +68,35 @@ public class Board {
     }
 
     /*
-    public void dropNewPiece() {
-        if (currentPiece != null) {
-            piecesOnBoard.add(currentPiece);
-        }
-        Piece piece = new Piece(Shape.getRandomShape());
-        int center = Math.round(getWidth() / 2.0f - piece.getShape().getMaxWidth() / 2.0f);
-        piece.setX(center);
-        currentPiece = piece;
-    }
-    */
-
+     public void dropNewPiece() {
+     if (currentPiece != null) {
+     piecesOnBoard.add(currentPiece);
+     }
+     Piece piece = new Piece(Shape.getRandomShape());
+     int center = Math.round(getWidth() / 2.0f - piece.getShape().getMaxWidth() / 2.0f);
+     piece.setX(center);
+     currentPiece = piece;
+     }
+     */
+    /**
+     * Kertoo onko koordinaattien määrittämä paikka laudalla
+     *
+     * @param x X-koordinaatti
+     * @param y Y-koordinaatti
+     * @return paikka on laudalla
+     */
     public boolean isOnBoard(int x, int y) {
         return x >= 0 && y >= 0 && x <= getWidth() && y <= getHeight();
     }
 
+    /**
+     * Kertoo onko pala laudalla
+     *
+     * @param piece pala
+     * @return pala on laudalla
+     */
     public boolean isOnBoard(Piece piece) {
-        boolean[][] form = piece.getForm();
+        boolean[][] form = piece.getCurrentForm();
         for (int y = 0; y < form.length; ++y) {
             for (int x = 0; x < form[y].length; ++x) {
                 if (form[y][x]) {
@@ -90,17 +109,29 @@ public class Board {
         return true;
     }
 
+    /**
+     * Kertoo onko pala jonkin laudalla olevan palan päällä
+     *
+     * @param piece pala
+     * @return pala on jonkin laudan palan päällä
+     */
     public boolean collidesWithBoardPieces(Piece piece) {
         for (Piece pieceOnBoard : getPiecesOnBoard()) {
-            if (pieceOnBoard.collides(piece)) {
+            if (pieceOnBoard.collidesWithPiece(piece)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean collidesOnBoard(Piece piece) {
-        return !isOnBoard(piece) || collidesWithBoardPieces(piece);
+    /**
+     * Kertoo onko pala vapaalla paikalla laudalla
+     *
+     * @param piece pala
+     * @return pala on vapaalla paikalla
+     */
+    public boolean isInFreeBoardSpace(Piece piece) {
+        return isOnBoard(piece) && !collidesWithBoardPieces(piece);
     }
 
     void updateBoard() {

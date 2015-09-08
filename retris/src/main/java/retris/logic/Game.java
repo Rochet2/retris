@@ -16,25 +16,35 @@
  */
 package retris.logic;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import retris.logic.shape.Shape;
+import retris.logic.shape.ShapeL;
 
 /**
  *
  * @author rochet2_2
  */
 public class Game {
-    
-    private final Board board;
-    
+
+    private final Board gameBoard;
+    private ArrayList<Shape> gameShapes = new ArrayList<Shape>();
+
+    /**
+     * Luo uuden pelin.
+     *
+     * @param width pelilaudan leveys
+     * @param height pelilaudan korkeus
+     */
     public Game(int width, int height) {
-        this.board = new Board(width, height);
+        this.gameBoard = new Board(width, height);
+        this.gameShapes.add(new ShapeL());
     }
-    
+
     public void run() {
         while (true) {
-            board.updateBoard();
+            gameBoard.updateBoard();
             waitForTime(100);
         }
     }
@@ -49,5 +59,5 @@ public class Game {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

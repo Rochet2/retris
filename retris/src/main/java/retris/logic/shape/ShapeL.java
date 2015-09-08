@@ -17,12 +17,16 @@
 package retris.logic.shape;
 
 /**
+ * L muotoisen palan ulkonäön määrittely
  *
  * @author rimi
  */
 public class ShapeL extends Shape {
 
-    ShapeL() {
+    /**
+     * Asettaa palan eri käännösvaiheiden muodot
+     */
+    public ShapeL() {
         setShapeFormRotations(new int[][][]{
             {
                 {0,0,1},
