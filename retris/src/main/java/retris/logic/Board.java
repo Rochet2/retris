@@ -16,12 +16,8 @@
  */
 package retris.logic;
 
-import retris.logic.piece.Position;
-import retris.logic.piece.Piece;
 import java.util.ArrayList;
-import java.util.Random;
 import retris.logic.shape.Shape;
-import retris.logic.shape.ShapeFactory;
 
 /**
  *
@@ -30,7 +26,6 @@ import retris.logic.shape.ShapeFactory;
 public class Board {
 
     private final ArrayList<Piece> piecesOnBoard;
-    private Piece currentPiece;
     private final int boardWidth;
     private final int boardHeight;
 
@@ -42,7 +37,6 @@ public class Board {
         this.boardWidth = width;
         this.boardHeight = height;
         this.piecesOnBoard = new ArrayList<Piece>();
-        dropNewPiece();
     }
 
     /**
@@ -66,39 +60,34 @@ public class Board {
         return boardHeight;
     }
 
-    /**
-     * @return laudan korkeus
-     */
+    /*
     public void dropNewPiece() {
         if (currentPiece != null) {
             piecesOnBoard.add(currentPiece);
         }
         Piece piece = new Piece(Shape.getRandomShape());
-        int center = Math.round(getWidth() / 2.0f - ShapeFactory.getMaxWidth(piece.getShape()) / 2.0f);
-        piece.getPosition().setX(center);
+        int center = Math.round(getWidth() / 2.0f - piece.getShape().getMaxWidth() / 2.0f);
+        piece.setX(center);
         currentPiece = piece;
     }
+    */
 
-    /**
-     * @return laudan korkeus
-     */
     public boolean isOnBoard(int x, int y) {
         return x >= 0 && y >= 0 && x <= getWidth() && y <= getHeight();
     }
 
     public boolean isOnBoard(Piece piece) {
-        Position offset = piece.getPosition();
-        int[][] form = piece.getForm();
+        boolean[][] form = piece.getForm();
         for (int y = 0; y < form.length; ++y) {
             for (int x = 0; x < form[y].length; ++x) {
-                if (form[y][x] == 1) {
-                    if (!isOnBoard(offset.getX() + x, offset.getY() + y)) {
-                        return true;
+                if (form[y][x]) {
+                    if (!isOnBoard(piece.getX() + x, piece.getY() + y)) {
+                        return false;
                     }
                 }
             }
         }
-        return false;
+        return true;
     }
 
     public boolean collidesWithBoardPieces(Piece piece) {

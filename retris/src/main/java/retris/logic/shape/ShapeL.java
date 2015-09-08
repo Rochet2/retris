@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 rochet2_2
+ * Copyright (C) 2015 rimi
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,43 +14,36 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package retris.logic.piece;
+package retris.logic.shape;
 
 /**
  *
- * @author rochet2_2
+ * @author rimi
  */
-public class Position {
+public class ShapeL extends Shape {
 
-    private int x;
-    private int y;
-
-    /**
-     * @return x-koordinaatti
-     */
-    public int getX() {
-        return x;
+    ShapeL() {
+        setShapeFormRotations(new int[][][]{
+            {
+                {0,0,1},
+                {1,1,1},
+                {0,0,0},
+            },
+            {
+                {1,1,0},
+                {0,1,0},
+                {0,1,0},
+            },
+            {
+                {0,0,0},
+                {1,1,1},
+                {1,0,0},
+            },
+            {
+                {0,1,0},
+                {0,1,0},
+                {0,1,1},
+            },
+        });
     }
-
-    /**
-     * @param x x-koordinaatti
-     */
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    /**
-     * @return y-koordinaatti
-     */
-    public int getY() {
-        return y;
-    }
-
-    /**
-     * @param y y-koordinaatti
-     */
-    public void setY(int y) {
-        this.y = y;
-    }
-
 }

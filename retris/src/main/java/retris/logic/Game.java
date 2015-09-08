@@ -16,28 +16,22 @@
  */
 package retris.logic;
 
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import retris.logic.shape.Shape;
-import retris.logic.shape.ShapeFactory;
 
 /**
  *
  * @author rochet2_2
  */
 public class Game {
-
-    private Board board;
-
+    
+    private final Board board;
+    
     public Game(int width, int height) {
-        for (Shape shape : Shape.getShapes()) {
-            width = Math.max(ShapeFactory.getMaxWidth(shape), width);
-            height = Math.max(ShapeFactory.getMaxHeight(shape), height);
-        }
         this.board = new Board(width, height);
     }
-
+    
     public void run() {
         while (true) {
             board.updateBoard();
@@ -46,8 +40,8 @@ public class Game {
     }
 
     /**
-    * @param timetowait aika jonka ohjelma odottaa ennen jatkamista
-    */
+     * @param timetowait aika jonka ohjelma odottaa ennen jatkamista
+     */
     private void waitForTime(int timetowait) {
         try {
             Thread.sleep(timetowait);
@@ -55,5 +49,5 @@ public class Game {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
 }
