@@ -25,17 +25,35 @@ package retris.logic.shape;
  */
 public class Shape {
 
-    private boolean[][][] shapeFormRotations = {
-        {{true}}
+    private int shapeFormIndex;
+    private int[][][] shapeFormRotations = {
+        {{1}}
     };
+
+    /**
+     * Luo kopion annetusta muodosta
+     *
+     * @param shape kopio muodosta
+     */
+    public Shape(Shape shape) {
+        if (shape != null) {
+            this.shapeFormRotations = shape.shapeFormRotations.clone();
+        }
+    }
+
+    /**
+     * Luo uuden muodon perusmuodolla
+     */
+    public Shape() {
+    }
 
     /**
      * Palauttaa muodon eri käännösvaiheet
      *
-     * @return
+     * @return kopio käännösvaiheista
      */
-    public boolean[][][] getShapeFormRotations() {
-        return shapeFormRotations;
+    public int[][][] getShapeFormRotations() {
+        return shapeFormRotations.clone();
     }
 
     /**
@@ -45,8 +63,8 @@ public class Shape {
      */
     public int getMaxWidth() {
         int width = 0;
-        for (boolean[][] form : shapeFormRotations) {
-            for (boolean[] row : form) {
+        for (int[][] form : shapeFormRotations) {
+            for (int[] row : form) {
                 width = Math.max(width, row.length);
             }
         }
@@ -60,7 +78,7 @@ public class Shape {
      */
     public int getMaxHeight() {
         int height = 0;
-        for (boolean[][] form : shapeFormRotations) {
+        for (int[][] form : shapeFormRotations) {
             height = Math.max(height, form.length);
         }
         return height;
@@ -95,14 +113,11 @@ public class Shape {
      * </pre>
      */
     public void setShapeFormRotations(int[][][] shapeFormRotations) {
-        if (!arrayDimensionLenghtsAboveZero(shapeFormRotations)) {
+        if (!arrayDimensionLenghtsAboveZero(shapeFormRotations)
+                || !formsAreVisible(shapeFormRotations)) {
             return;
         }
-        boolean[][][] boolArray = integerArrayToBooleanArray(shapeFormRotations);
-        if (!formsHaveOneTrue(boolArray)) {
-            return;
-        }
-        this.shapeFormRotations = boolArray;
+        this.shapeFormRotations = shapeFormRotations;
     }
 
     /**
@@ -112,9 +127,9 @@ public class Shape {
      * @param formArray
      * @return kaikilla käännösvaiheet ovat näkyviä
      */
-    private boolean formsHaveOneTrue(boolean[][][] formArray) {
-        for (boolean[][] formRotation : formArray) {
-            if (!hasOneTrue(formRotation)) {
+    private boolean formsAreVisible(int[][][] formArray) {
+        for (int[][] formRotation : formArray) {
+            if (!hasOneNotZero(formRotation)) {
                 return false;
             }
         }
@@ -122,122 +137,63 @@ public class Shape {
     }
 
     /**
-     * Asettaa muodon ulkonäön eri käännösvaiheille.
-     *
-     * @param shapeFormRotations muotoa      <pre>
-     * {
-     *     {
-     *         {false,false,true },
-     *         {true ,true ,true },
-     *         {false,false,false},
-     *     },
-     *     {
-     *         {true ,true ,false},
-     *         {false,true ,false},
-     *         {false,true ,false},
-     *     },
-     *     {
-     *         {false,false,false},
-     *         {true ,true ,true },
-     *         {true ,false,false},
-     *     },
-     *     {
-     *         {false,true ,false},
-     *         {false,true ,false},
-     *         {false,true ,true },
-     *     },
-     * }
-     * </pre>
-     */
-    public void setShapeFormRotations(boolean[][][] shapeFormRotations) {
-        if (!arrayDimensionLengthsAboveZero(shapeFormRotations)) {
-            return;
-        }
-        if (!formsHaveOneTrue(shapeFormRotations)) {
-            return;
-        }
-        this.shapeFormRotations = shapeFormRotations;
-    }
-
-    /**
      * Palauttaa true jos syötteessä olevien tasojen pituudet ovat suurempia tai
      * yhtäsuuria yhden kanssa.
      *
-     * @param integerArray
+     * @param array
      * @return tasojen pituudet nollaa isompia
      */
-    private boolean arrayDimensionLenghtsAboveZero(int[][][] integerArray) {
-        if (integerArray == null) {
-            return false;
-        }
-        if (integerArray.length < 1) {
-            return false;
-        }
-        if (integerArray[0].length < 1) {
-            return false;
-        }
-        if (integerArray[0][0].length < 1) {
-            return false;
-        }
-        return true;
+    private boolean arrayDimensionLenghtsAboveZero(int[][][] array) {
+        return array != null && array.length >= 1
+                && array[0].length >= 1 && array[0][0].length >= 1;
     }
 
     /**
-     * Palauttaa true jos syötteessä olevien tasojen pituudet ovat suurempia tai
-     * yhtäsuuria yhden kanssa.
+     * Palauttaa true jos syöte sisältää yhden nollasta poikkeavan arvon.
      *
-     * @param integerArray
-     * @return tasojen pituudet nollaa isompia
+     * @param array
+     * @return sisältää ainakin yhden nollasta poikkeavan arvon
      */
-    private boolean arrayDimensionLengthsAboveZero(boolean[][][] integerArray) {
-        if (integerArray == null) {
-            return false;
-        }
-        if (integerArray.length < 1) {
-            return false;
-        }
-        if (integerArray[0].length < 1) {
-            return false;
-        }
-        if (integerArray[0][0].length < 1) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Palauttaa uuden arrayn jossa syötteen arvot ovat totuutensa mukaan
-     * muutettu booleaneiksi.
-     *
-     * @param intArray
-     * @return
-     */
-    private boolean[][][] integerArrayToBooleanArray(int[][][] intArray) {
-        boolean[][][] boolArray = new boolean[intArray.length][intArray[0].length][intArray[0][0].length];
-        for (int i = 0; i < intArray.length; ++i) {
-            for (int j = 0; j < intArray[i].length; ++j) {
-                for (int k = 0; k < intArray[i][j].length; ++k) {
-                    boolArray[i][j][k] = intArray[i][j][k] != 0;
-                }
-            }
-        }
-        return boolArray;
-    }
-
-    /**
-     * Palauttaa true jos syöte sisältää yhden true arvon.
-     *
-     * @param boolArray
-     * @return sisältää ainakin yhden tosi arvon
-     */
-    private boolean hasOneTrue(boolean[][] boolArray) {
-        for (boolean[] dimension1 : boolArray) {
-            for (boolean value : dimension1) {
-                if (value) {
+    private boolean hasOneNotZero(int[][] array) {
+        for (int[] dimension1 : array) {
+            for (int value : dimension1) {
+                if (value != 0) {
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    /**
+     * Asettaa palan käännösvaiheen.
+     *
+     * @param formIndex käännösvaiheen numero - skaalataan vaiheiden määrään
+     */
+    public void setShapeFormIndex(int formIndex) {
+        int shapecount = shapeFormRotations.length;
+        formIndex = formIndex % shapecount;
+        if (formIndex < 0) {
+            formIndex += shapecount;
+        }
+        this.shapeFormIndex = formIndex;
+    }
+
+    /**
+     * Palauttaa palan käännösvaiheen numeron
+     *
+     * @return käännösvaiheen numero
+     */
+    public int getShapeFormIndex() {
+        return shapeFormIndex;
+    }
+
+    /**
+     * Palauttaa tämänhetkisen muodon
+     *
+     * @return muoto arraynä
+     */
+    public int[][] getCurrentForm() {
+        return shapeFormRotations[shapeFormIndex].clone();
     }
 }

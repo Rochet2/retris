@@ -16,6 +16,7 @@
  */
 package retris;
 
+import retris.timer.TimeDifferenceCounter;
 import retris.logic.Game;
 import retris.logic.shape.ShapeL;
 
@@ -26,8 +27,33 @@ import retris.logic.shape.ShapeL;
 public class retrisMain {
 
     public static void main(String[] args) {
-        Game game = new Game(100, 300);
+        // TODO: Wrap this in try catch and close program on error
+        runGame();
+    }
+
+    /**
+     * Käynnistää ja suorittaa peliä käyttöliittymineen.
+     */
+    private static void runGame() {
+        Game game = createGame();
+        TimeDifferenceCounter diffTime = new TimeDifferenceCounter();
+        while (game.isRunning()) {
+            long diff = diffTime.getTimeSinceLastCall();
+            game.update(diff);
+            // TODO: GUI
+            // gui.update(diff, game);
+        }
+    }
+
+    /**
+     * Luo halutun pelin. Muokkaa pelin kokoa ja nopeutta Game konstruktorin
+     * kutsussa. Lisää pelissä olevia muotoja kutsumalla game.addShapeToGame
+     *
+     * @return peli
+     */
+    private static Game createGame() {
+        Game game = new Game(20, 20, 500);
         game.addShapeToGame(new ShapeL());
-        game.run();
+        return game;
     }
 }

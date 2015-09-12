@@ -67,7 +67,7 @@ public class Board {
      * @return paikka on laudalla
      */
     public boolean isOnBoard(int x, int y) {
-        return x >= 0 && y >= 0 && x <= getBoardWidth() && y <= getBoardHeight();
+        return x >= 0 && y >= 0 && x <= boardWidth && y <= boardHeight;
     }
 
     /**
@@ -80,20 +80,18 @@ public class Board {
         if (piece == null) {
             return false;
         }
-        boolean[][] form = piece.getCurrentForm();
+        int[][] form = piece.GetShape().getCurrentForm();
+        Position position = piece.getPosition();
         for (int y = 0; y < form.length; ++y) {
             for (int x = 0; x < form[y].length; ++x) {
-                if (form[y][x]) {
-                    if (!isOnBoard(piece.getPosition().getX() + x, piece.getPosition().getY() + y)) {
+                if (form[y][x] != 0) {
+                    if (!isOnBoard(position.getX() + x, position.getY() + y)) {
                         return false;
                     }
                 }
             }
         }
         return true;
-    }
-
-    void updateBoard() {
     }
 
     /**
@@ -103,17 +101,15 @@ public class Board {
      * @return on vapaassa paikassa
      */
     public boolean isInFreeSpaceOnBoard(Piece piece) {
-        if (piece == null) {
+        if (piece == null || !isOnBoard(piece)) {
             return false;
         }
-        if (isOnBoard(piece)) {
-            return false;
-        }
-        boolean[][] form = piece.getCurrentForm();
+        int[][] form = piece.GetShape().getCurrentForm();
+        Position position = piece.getPosition();
         for (int y = 0; y < form.length; ++y) {
             for (int x = 0; x < form[y].length; ++x) {
-                if (form[y][x]) {
-                    if (isFilledSpaceOnBoard(piece.getPosition().getX() + x, piece.getPosition().getY() + y)) {
+                if (form[y][x] != 0) {
+                    if (isFilledSpaceOnBoard(position.getX() + x, position.getY() + y)) {
                         return false;
                     }
                 }
@@ -123,12 +119,13 @@ public class Board {
     }
 
     /**
-     * Palauttaa arrayn joka kertoo kaikki vapaat ja täytetyt kohdat laudalla
+     * Palauttaa kopion arraysta joka kertoo kaikki vapaat ja täytetyt kohdat
+     * laudalla
      *
      * @return täytetyt paikat
      */
-    private boolean[][] getFilledBoardSpaces() {
-        return filledBoardSpaces;
+    public boolean[][] getFilledBoardSpaces() {
+        return filledBoardSpaces.clone();
     }
 
     /**
@@ -142,18 +139,18 @@ public class Board {
         if (!isOnBoard(x, y)) {
             return false;
         }
-        return getFilledBoardSpaces()[x][y];
+        return filledBoardSpaces[x][y];
     }
-    
+
     public void fillPieceToBoard(Piece piece) {
         if (piece == null) {
             return;
         }
-        boolean[][] form = piece.getCurrentForm();
+        int[][] form = piece.GetShape().getCurrentForm();
         Position position = piece.getPosition();
         for (int y = 0; y < form.length; ++y) {
             for (int x = 0; x < form[y].length; ++x) {
-                if (form[y][x]) {
+                if (form[y][x] != 0) {
                     fillSpaceOnBoard(position.getX() + x, position.getY() + y);
                 }
             }
@@ -164,6 +161,6 @@ public class Board {
         if (!isOnBoard(x, y)) {
             return;
         }
-        getFilledBoardSpaces()[x][y] = true;
+        filledBoardSpaces[x][y] = true;
     }
 }

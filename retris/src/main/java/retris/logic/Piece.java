@@ -25,9 +25,23 @@ import retris.logic.shape.Shape;
  */
 public class Piece {
 
-    private int formIndex;
-    private final Shape shape;
-    private Position position;
+    private Shape shape;
+    private final Position position;
+
+    /**
+     * Luo kopion annetusta palasta
+     *
+     * @param droppingPiece kopio
+     */
+    Piece(Piece droppingPiece) {
+        if (droppingPiece != null) {
+            this.shape = new Shape(droppingPiece.shape);
+            this.position = new Position(droppingPiece.position);
+        } else {
+            this.shape = new Shape();
+            this.position = new Position();
+        }
+    }
 
     /**
      * Luo uuden palan oletusmuodolla ja koordinaateilla
@@ -56,60 +70,37 @@ public class Piece {
         if (shape == null) {
             shape = new Shape();
         }
-        this.shape = shape;
-        this.formIndex = 0;
+        this.shape = new Shape(shape);
         this.position = new Position(x, y);
     }
 
     /**
-     * Palauttaa tämänhetkisen käännösvaiheen muodon
+     * Palauttaa palan muodon kopion
      *
-     * @return vaiheen muoto
+     * @return muoto kopio
      */
-    public boolean[][] getCurrentForm() {
-        boolean[][][] shapeFormRotations = getShape().getShapeFormRotations();
-        return shapeFormRotations[getFormIndex()];
+    public Shape GetShape() {
+        return new Shape(shape);
     }
 
     /**
-     * Palauttaa palan muodon
+     * Asettaa palan muodon jos annettu muoto on oikea
      *
-     * @return muoto
+     * @param shape muoto
      */
-    public Shape getShape() {
-        return shape;
-    }
-
-    /**
-     * Palauttaa palan käännösvaiheen numeron
-     *
-     * @return käännösvaiheen numero
-     */
-    public int getFormIndex() {
-        return formIndex;
-    }
-
-    /**
-     * Asettaa palan käännösvaiheen.
-     *
-     * @param formIndex käännösvaiheen numero - skaalataan vaiheiden määrään
-     */
-    public void setFormIndex(int formIndex) {
-        boolean[][][] shapes = getShape().getShapeFormRotations();
-        formIndex = formIndex % shapes.length;
-        if (formIndex < 0) {
-            formIndex += shapes.length;
+    public void setShape(Shape shape) {
+        if (shape != null) {
+            this.shape = new Shape(shape);
         }
-        this.formIndex = formIndex;
     }
 
     /**
-     * Palauttaa palan paikan
+     * Palauttaa kopion palan paikasta
      *
-     * @return paikka
+     * @return kopio paikasta
      */
     public Position getPosition() {
-        return position;
+        return new Position(position);
     }
 
     /**
@@ -119,7 +110,23 @@ public class Piece {
      * @param y
      */
     void relocate(int x, int y) {
-        getPosition().relocate(x, y);
+        position.relocate(x, y);
+    }
+
+    void moveUp() {
+        position.setY(position.getY() - 1);
+    }
+
+    void moveDown() {
+        position.setY(position.getY() + 1);
+    }
+
+    void moveLeft() {
+        position.setX(position.getX() - 1);
+    }
+
+    void moveRight() {
+        position.setX(position.getX() + 1);
     }
 
 }

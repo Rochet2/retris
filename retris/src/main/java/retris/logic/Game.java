@@ -16,45 +16,83 @@
  */
 package retris.logic;
 
+import retris.timer.Timer;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Random;
 import retris.logic.shape.Shape;
 
 /**
  *
  * @author rochet2_2
  */
-public class Game {
+public final class Game {
 
-    private final Board gameBoard;
     private final ArrayList<Shape> gameShapes = new ArrayList<Shape>();
+    private final Board gameBoard;
+    private final Piece droppingPiece;
+    private final Random random = new Random();
+    private final Timer pieceDropTimer;
+    private boolean running = true;
 
     /**
      * Luo uuden pelin.
      *
      * @param width pelilaudan leveys
      * @param height pelilaudan korkeus
+     * @param dropSpeedMs palan putoamisvauhti millisekunneissa
      */
-    public Game(int width, int height) {
+    public Game(int width, int height, long dropSpeedMs) {
         this.gameBoard = new Board(width, height);
+        this.droppingPiece = new Piece();
+        this.pieceDropTimer = new Timer(Math.max(0, dropSpeedMs));
+        resetPiece();
     }
 
-    public void run() {
-        while (true) {
-            gameBoard.updateBoard();
-            waitForTime(100);
+    public boolean isRunning() {
+        return running;
+    }
+
+    public void stopRunning() {
+        this.running = false;
+    }
+
+    /**
+     * Päivittää pelin asetelman
+     *
+     * @param diff aika viime päivityksestä millisekunteina
+     */
+    public void update(long diff) {
+        if (pieceDropTimer.updateAndCheckPassed(diff)) {
+            movePieceDown();
         }
     }
 
     /**
-     * @param timetowait aika jonka ohjelma odottaa ennen jatkamista
+     * Siirtää palaa alas yhden pykälän ja tarkistaa onko se pohjalla. Jos pala
+     * on pohjalla niin pala "täytetään" pohjaan ja resetoidaan.
      */
-    private void waitForTime(int timetowait) {
-        try {
-            Thread.sleep(timetowait);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+    public void movePieceDown() {
+        System.out.println("Moving down");
+        droppingPiece.moveDown();
+        if (!gameBoard.isInFreeSpaceOnBoard(droppingPiece)) {
+            System.out.println("Hit bottom at " + droppingPiece.getPosition().getX() + " " + droppingPiece.getPosition().getY());
+
+            droppingPiece.moveUp();
+            getGameBoard().fillPieceToBoard(droppingPiece);
+            resetPiece();
+        }
+    }
+
+    /**
+     * Asettaa uuden muodon palalle ja asettaa sen laudan keskelle ylös
+     */
+    public void resetPiece() {
+        System.out.println("Resetting piece");
+        Shape shape = selectRandomGameShape();
+        droppingPiece.setShape(shape);
+        droppingPiece.relocate(getGameBoard().getBoardWidth() / 2 - shape.getMaxWidth(), 0);
+        if (!gameBoard.isInFreeSpaceOnBoard(droppingPiece)) {
+            stopRunning();
         }
     }
 
@@ -67,7 +105,37 @@ public class Game {
         if (shape == null) {
             return;
         }
-        gameShapes.add(shape);
+        gameShapes.add(new Shape(shape));
+    }
+
+    /**
+     * Valikoi satunnaisen pelin muodoista tai palauttaa perusmuodon
+     *
+     * @return muoto
+     */
+    public Shape selectRandomGameShape() {
+        if (gameShapes.isEmpty()) {
+            return new Shape();
+        }
+        return new Shape(gameShapes.get(random.nextInt(gameShapes.size())));
+    }
+
+    /**
+     * Palauttaa pelilaudan
+     *
+     * @return pelilauta
+     */
+    public Board getGameBoard() {
+        return gameBoard;
+    }
+
+    /**
+     * Palauttaa palan joka tippuu
+     *
+     * @return tippuva pala
+     */
+    public Piece getDroppingPiece() {
+        return droppingPiece;
     }
 
 }

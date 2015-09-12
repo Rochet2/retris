@@ -52,26 +52,29 @@ public class ShapeTest {
      * testaa muodon oikeiden käännösvaiheiden asetus boolean arrayllä
      */
     @Test
-    public void testSetShapeFormRotationsBooleanValid() {
-        boolean[][][] expResult;
-        boolean[][][] result;
+    public void testSetShapeFormRotationsValid() {
+        int[][][] expResult;
+        int[][][] result;
         Shape shape = new Shape();
 
-        expResult = new boolean[][][]{{{true}}};
+        expResult = new int[][][]{{{1}}};
         result = shape.getShapeFormRotations();
         assertArrayEquals(expResult, result);
 
-        expResult = new boolean[][][]{
+        expResult = new int[][][]{
             {
-                {true, true, true},
-                {true, false, true},
-                {true, true, true},},
+                {1, 1, 1},
+                {1, 0, 1},
+                {1, 1, 1},},
             {
-                {false, false},
-                {false, true},
-                {false, false},},
+                {0, 0},
+                {0, 1},
+                {0, 0},},
             {
-                {true},},};
+                {0, 0, 0},
+                {0, 1, 0},},
+            {
+                {1},},};
         shape.setShapeFormRotations(expResult);
         result = shape.getShapeFormRotations();
         assertArrayEquals(expResult, result);
@@ -81,49 +84,30 @@ public class ShapeTest {
      * testaa muodon väärien käännösvaiheiden asetus boolean arrayllä
      */
     @Test
-    public void testSetShapeFormRotationsBooleanInvalid() {
-        boolean[][][] expResult = new boolean[][][]{{{true}}};
-        boolean[][][] result;
+    public void testSetShapeFormRotationsInvalid() {
+        int[][][] expResult = new int[][][]{{{1}}};
+        int[][][] result;
         Shape shape = new Shape();
         shape.setShapeFormRotations(expResult);
 
-        shape.setShapeFormRotations(new boolean[][][]{{{false}}});
+        shape.setShapeFormRotations(new int[][][]{{{0}}});
         result = shape.getShapeFormRotations();
         assertArrayEquals(expResult, result);
 
-        shape.setShapeFormRotations(new boolean[][][]{
-            {
-                {true, true, true},
-                {true, false, true},
-                {true, true, true},},
-            {
-                {false, false},
-                {false, false},
-                {false, false},},
-            {
-                {true},},});
-        result = shape.getShapeFormRotations();
-        assertArrayEquals(expResult, result);
-    }
-
-    /**
-     * testaa muodon väärien käännösvaiheiden asetus int arrayllä
-     */
-    @Test
-    public void testSetShapeFormRotationsIntegerInvalid() {
-        boolean[][][] expResult = new boolean[][][]{{{true}}};
-        boolean[][][] result;
-        Shape shape = new Shape();
-
-        shape.setShapeFormRotations(new int[][][]{{{1}}});
-        result = shape.getShapeFormRotations();
-        assertArrayEquals(expResult, result);
-        
         shape.setShapeFormRotations(new int[][][]{
             {
                 {1, 1, 1},
                 {1, 0, 1},
                 {1, 1, 1},},
+            {
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},}
+        });
+        result = shape.getShapeFormRotations();
+        assertArrayEquals(expResult, result);
+
+        shape.setShapeFormRotations(new int[][][]{
             {
                 {0, 0},
                 {0, 0},
@@ -131,18 +115,9 @@ public class ShapeTest {
         result = shape.getShapeFormRotations();
         assertArrayEquals(expResult, result);
 
-        expResult = new boolean[][][]{
-            {
-                {false, false},
-                {false, true},
-                {false, false},}
-        };
         shape.setShapeFormRotations(new int[][][]{
             {
-                {0, 0},
-                {0, 1},
-                {0, 0},}
-        });
+                {0},},});
         result = shape.getShapeFormRotations();
         assertArrayEquals(expResult, result);
     }
