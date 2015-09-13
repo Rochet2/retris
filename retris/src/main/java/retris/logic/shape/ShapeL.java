@@ -17,14 +17,14 @@
 package retris.logic.shape;
 
 /**
- * L muotoisen palan ulkonäön määrittely
+ * L muotoisen mudon ulkonäön määrittely
  *
  * @author rimi
  */
 public class ShapeL extends Shape {
 
     /**
-     * Asettaa palan eri käännösvaiheiden muodot
+     * Asettaa muodon eri käännösvaiheiden muodot
      */
     public ShapeL() {
         setShapeFormRotations(new int[][][]{

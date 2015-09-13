@@ -16,10 +16,12 @@
  */
 package retris.logic;
 
-import retris.timer.Timer;
+import retris.logic.timer.Timer;
 import java.util.ArrayList;
 import java.util.Random;
+import retris.gui.GameWindow;
 import retris.logic.shape.Shape;
+import retris.logic.timer.TimeDifferenceCounter;
 
 /**
  *
@@ -90,7 +92,7 @@ public final class Game {
         System.out.println("Resetting piece");
         Shape shape = selectRandomGameShape();
         droppingPiece.setShape(shape);
-        droppingPiece.relocate(getGameBoard().getBoardWidth() / 2 - shape.getMaxWidth(), 0);
+        droppingPiece.relocate((int)Math.floor(getGameBoard().getBoardWidth() / 2.0 - shape.getMaxWidth() / 2.0), 0);
         if (!gameBoard.isInFreeSpaceOnBoard(droppingPiece)) {
             stopRunning();
         }
@@ -136,6 +138,22 @@ public final class Game {
      */
     public Piece getDroppingPiece() {
         return droppingPiece;
+    }
+
+    /**
+     * Suorittaa peliä käyttöliittymineen.
+     */
+    public void runGame() {
+        GameWindow gui = new GameWindow(this);
+        TimeDifferenceCounter diffTime = new TimeDifferenceCounter();
+        resetPiece();
+        while (isRunning()) {
+            long diff = diffTime.getTimeSinceLastCall();
+            if (diff <= 0)
+                continue;
+            update(diff);
+            gui.updateGUI(this);
+        }
     }
 
 }

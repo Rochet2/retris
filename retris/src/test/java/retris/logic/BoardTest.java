@@ -56,8 +56,8 @@ public class BoardTest {
         Board board = new Board(width, height);
         assertTrue(board.isOnBoard(0, 0));
         assertTrue(board.isOnBoard(1, 1));
-        assertTrue(board.isOnBoard(width, height));
         assertTrue(board.isOnBoard(width-1, height-1));
+        assertTrue(board.isOnBoard(width-2, height-2));
         assertTrue(board.isOnBoard(width/2, height/2));
     }
 
@@ -67,7 +67,7 @@ public class BoardTest {
         int height= 16;
         Board board = new Board(width, height);
         assertFalse(board.isOnBoard(-1, -1));
-        assertFalse(board.isOnBoard(width+1, height+1));
+        assertFalse(board.isOnBoard(width, height));
         assertFalse(board.isOnBoard(-width, -height));
     }
 
@@ -82,9 +82,9 @@ public class BoardTest {
         assertTrue(board.isOnBoard(piece));
         piece.relocate(1, 1);
         assertTrue(board.isOnBoard(piece));
-        piece.relocate(width, height);
-        assertTrue(board.isOnBoard(piece));
         piece.relocate(width-1, height-1);
+        assertTrue(board.isOnBoard(piece));
+        piece.relocate(width-2, height-2);
         assertTrue(board.isOnBoard(piece));
         piece.relocate(width/2, height/2);
         assertTrue(board.isOnBoard(piece));
@@ -98,7 +98,7 @@ public class BoardTest {
         Piece piece = new Piece();
         piece.relocate(-1, -1);
         assertFalse(board.isOnBoard(piece));
-        piece.relocate(width+1, height+1);
+        piece.relocate(width, height);
         assertFalse(board.isOnBoard(piece));
         piece.relocate(-width, -height);
         assertFalse(board.isOnBoard(piece));
@@ -109,18 +109,18 @@ public class BoardTest {
         int width = 10;
         int height= 16;
         Board board = new Board(width, height);
-        board.fillSpaceOnBoard(0, 0);
-        board.fillSpaceOnBoard(1, 0);
-        board.fillSpaceOnBoard(0, 1);
-        board.fillSpaceOnBoard(width, height);
-        board.fillSpaceOnBoard(width-1, height);
-        board.fillSpaceOnBoard(width, height-1);
+        board.setSpaceStateOnBoard(0, 0, 1);
+        board.setSpaceStateOnBoard(1, 0, 1);
+        board.setSpaceStateOnBoard(0, 1, 1);
+        board.setSpaceStateOnBoard(width-1, height-1, 1);
+        board.setSpaceStateOnBoard(width-2, height-1, 1);
+        board.setSpaceStateOnBoard(width-1, height-2, 1);
         assertTrue(board.isFilledSpaceOnBoard(0, 0));
         assertTrue(board.isFilledSpaceOnBoard(1, 0));
         assertTrue(board.isFilledSpaceOnBoard(0, 1));
-        assertTrue(board.isFilledSpaceOnBoard(width, height));
-        assertTrue(board.isFilledSpaceOnBoard(width-1, height));
-        assertTrue(board.isFilledSpaceOnBoard(width, height-1));
+        assertTrue(board.isFilledSpaceOnBoard(width-1, height-1));
+        assertTrue(board.isFilledSpaceOnBoard(width-2, height-1));
+        assertTrue(board.isFilledSpaceOnBoard(width-1, height-2));
     }
 
     @Test
@@ -128,15 +128,15 @@ public class BoardTest {
         int width = 10;
         int height= 16;
         Board board = new Board(width, height);
-        board.fillSpaceOnBoard(-1, 0);
-        board.fillSpaceOnBoard(0, -1);
-        board.fillSpaceOnBoard(-width, -height);
-        board.fillSpaceOnBoard(width+1, height);
-        board.fillSpaceOnBoard(width, height+1);
+        board.setSpaceStateOnBoard(-1, 0, 1);
+        board.setSpaceStateOnBoard(0, -1, 1);
+        board.setSpaceStateOnBoard(-width, -height, 1);
+        board.setSpaceStateOnBoard(width, height-1, 1);
+        board.setSpaceStateOnBoard(width-1, height, 1);
         assertFalse(board.isFilledSpaceOnBoard(-1, 0));
         assertFalse(board.isFilledSpaceOnBoard(0, -1));
         assertFalse(board.isFilledSpaceOnBoard(-width, -height));
-        assertFalse(board.isFilledSpaceOnBoard(width+1, height));
-        assertFalse(board.isFilledSpaceOnBoard(width, height+1));
+        assertFalse(board.isFilledSpaceOnBoard(width, height-1));
+        assertFalse(board.isFilledSpaceOnBoard(width-1, height));
     }
 }

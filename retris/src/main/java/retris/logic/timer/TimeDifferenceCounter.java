@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package retris.timer;
+package retris.logic.timer;
 
 /**
  *
@@ -28,9 +28,7 @@ public class TimeDifferenceCounter {
      * Luo uuden aikaerolaskurin
      */
     public TimeDifferenceCounter() {
-        // this.startTime = System.currentTimeMillis();
         this.lastTime = System.currentTimeMillis();
-        // this.countedPassedTime = 0;
     }
 
     /**

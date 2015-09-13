@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package retris.timer;
+package retris.logic.timer;
 
 /**
  *
@@ -63,14 +63,19 @@ public class Timer {
     }
 
     /**
-     * @return the timeCounter
+     * Palauttaa ajastimen luonnista kuluneen ajan joka on kertynyt
+     * päivityksistä
+     *
+     * @return kulunut aika
      */
     public long getTimeCounter() {
         return timeCounter;
     }
 
     /**
-     * @return the triggerTime
+     * Palauttaa ajastimen alkuhetkestä kuluneen ajan jolloin ajastin raukeaa.
+     *
+     * @return ajastettu aika
      */
     public long getTriggerTime() {
         return triggerTime;

@@ -109,23 +109,23 @@ public class Piece {
      * @param x
      * @param y
      */
-    void relocate(int x, int y) {
+    public void relocate(int x, int y) {
         position.relocate(x, y);
     }
 
-    void moveUp() {
+    public void moveUp() {
         position.setY(position.getY() - 1);
     }
 
-    void moveDown() {
+    public void moveDown() {
         position.setY(position.getY() + 1);
     }
 
-    void moveLeft() {
+    public void moveLeft() {
         position.setX(position.getX() - 1);
     }
 
-    void moveRight() {
+    public void moveRight() {
         position.setX(position.getX() + 1);
     }
 

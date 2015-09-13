@@ -37,7 +37,7 @@ public class Shape {
      */
     public Shape(Shape shape) {
         if (shape != null) {
-            this.shapeFormRotations = shape.shapeFormRotations.clone();
+            this.shapeFormRotations = shape.getShapeFormRotations();
         }
     }
 
@@ -53,7 +53,8 @@ public class Shape {
      * @return kopio käännösvaiheista
      */
     public int[][][] getShapeFormRotations() {
-        return shapeFormRotations.clone();
+        int[][][] forms = cloneArray3D(shapeFormRotations);
+        return forms;
     }
 
     /**
@@ -117,7 +118,19 @@ public class Shape {
                 || !formsAreVisible(shapeFormRotations)) {
             return;
         }
-        this.shapeFormRotations = shapeFormRotations;
+        int[][][] forms = cloneArray3D(shapeFormRotations);
+        this.shapeFormRotations = forms;
+    }
+
+    private int[][][] cloneArray3D(int[][][] shapeFormRotations1) {
+        int[][][] forms = shapeFormRotations1.clone();
+        for (int i = 0; i < shapeFormRotations1.length; ++i) {
+            forms[i] = shapeFormRotations1[i].clone();
+            for (int j = 0; j < shapeFormRotations1[i].length; ++j) {
+                forms[i][j] = shapeFormRotations1[i][j].clone();
+            }
+        }
+        return forms;
     }
 
     /**

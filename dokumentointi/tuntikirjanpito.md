@@ -5,4 +5,5 @@
 - 4.9. 3h, palasten logiikan kanssa taistelua
 - 9.9. 4h, testien ja dokumentoinnin kanssa taistelua
 - 10.9. 1h, Luokkakaavio ja pit-raportti
-
+- 12.9. 6h, GUI ja bugikorjauksia jotka ilmeni GUI:ssa
+- 13.9. 1h, Ratkaistu GUI:n välkkyminen

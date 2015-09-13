@@ -22,7 +22,7 @@ package retris.logic;
  */
 public class Board {
 
-    private final boolean[][] filledBoardSpaces;
+    private final int[][] boardState;
     private final int boardWidth;
     private final int boardHeight;
 
@@ -33,12 +33,12 @@ public class Board {
      * @param height laudan korkeus, min 1
      */
     public Board(int width, int height) {
-        width = Math.max(0, width);
-        height = Math.max(0, height);
+        width = Math.max(1, width);
+        height = Math.max(1, height);
 
         this.boardWidth = width;
         this.boardHeight = height;
-        this.filledBoardSpaces = new boolean[width + 1][height + 1];
+        this.boardState = new int[height][width];
     }
 
     /**
@@ -67,7 +67,7 @@ public class Board {
      * @return paikka on laudalla
      */
     public boolean isOnBoard(int x, int y) {
-        return x >= 0 && y >= 0 && x <= boardWidth && y <= boardHeight;
+        return x >= 0 && y >= 0 && x < boardWidth && y < boardHeight;
     }
 
     /**
@@ -124,8 +124,14 @@ public class Board {
      *
      * @return täytetyt paikat
      */
-    public boolean[][] getFilledBoardSpaces() {
-        return filledBoardSpaces.clone();
+    public int[][] getBoardState() {
+        int[][] state = new int[boardHeight][boardWidth];
+        for (int y = 0; y < boardHeight; ++y) {
+            for (int x = 0; x < boardWidth; ++x) {
+                state[y][x] = boardState[y][x];
+            }
+        }
+        return state;
     }
 
     /**
@@ -139,7 +145,7 @@ public class Board {
         if (!isOnBoard(x, y)) {
             return false;
         }
-        return filledBoardSpaces[x][y];
+        return boardState[y][x] != 0;
     }
 
     public void fillPieceToBoard(Piece piece) {
@@ -151,16 +157,16 @@ public class Board {
         for (int y = 0; y < form.length; ++y) {
             for (int x = 0; x < form[y].length; ++x) {
                 if (form[y][x] != 0) {
-                    fillSpaceOnBoard(position.getX() + x, position.getY() + y);
+                    setSpaceStateOnBoard(position.getX() + x, position.getY() + y, form[y][x]);
                 }
             }
         }
     }
 
-    public void fillSpaceOnBoard(int x, int y) {
+    public void setSpaceStateOnBoard(int x, int y, int spaceState) {
         if (!isOnBoard(x, y)) {
             return;
         }
-        filledBoardSpaces[x][y] = true;
+        boardState[y][x] = spaceState;
     }
 }
