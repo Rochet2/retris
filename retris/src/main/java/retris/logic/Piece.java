@@ -80,7 +80,7 @@ public class Piece {
      * @return muoto kopio
      */
     public Shape GetShape() {
-        return new Shape(shape);
+        return shape;
     }
 
     /**
@@ -95,12 +95,12 @@ public class Piece {
     }
 
     /**
-     * Palauttaa kopion palan paikasta
+     * Palauttaa palan paikan
      *
-     * @return kopio paikasta
+     * @return paikka
      */
     public Position getPosition() {
-        return new Position(position);
+        return position;
     }
 
     /**
@@ -113,20 +113,27 @@ public class Piece {
         position.relocate(x, y);
     }
 
-    public void moveUp() {
-        position.setY(position.getY() - 1);
-    }
-
-    public void moveDown() {
-        position.setY(position.getY() + 1);
-    }
-
-    public void moveLeft() {
-        position.setX(position.getX() - 1);
-    }
-
-    public void moveRight() {
-        position.setX(position.getX() + 1);
+    /**
+     * Täyttää muodon annettuun arrayyn palan koordinaatteihin
+     *
+     * @param array
+     */
+    public void fillFormToArray(int[][] array) {
+        int[][] form = shape.getCurrentForm();
+        for (int y = 0; y < form.length; ++y) {
+            for (int x = 0; x < form[y].length; ++x) {
+                if (form[y][x] == 0) {
+                    continue;
+                }
+                int yCoord = position.getY() + y;
+                int xCoord = position.getX() + x;
+                if (yCoord < 0 || xCoord < 0
+                        || yCoord >= array.length || xCoord >= array[y].length) {
+                    continue;
+                }
+                array[yCoord][xCoord] = form[y][x];
+            }
+        }
     }
 
 }

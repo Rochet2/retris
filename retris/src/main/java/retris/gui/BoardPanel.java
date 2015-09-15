@@ -19,11 +19,9 @@ package retris.gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.util.HashMap;
+import java.util.Random;
 import javax.swing.JPanel;
-import retris.logic.Board;
-import retris.logic.Game;
-import retris.logic.Piece;
-import retris.logic.Position;
 
 /**
  *
@@ -31,11 +29,13 @@ import retris.logic.Position;
  */
 public class BoardPanel extends JPanel {
 
-    int width = 20;
-    int height = 20;
-    int spacing = 1;
+    private final int width = 20;
+    private final int height = 20;
+    private final int spacing = 1;
+    private final HashMap<Integer, Color> colors = new HashMap<>();
+    private final Random random = new Random();
 
-    int[][] boardState = {{}};
+    private int[][] boardState = {{}};
 
     public BoardPanel(int boardWidth, int boardHeight) {
         boardWidth = spacing + (boardWidth) * (width + spacing);
@@ -45,7 +45,7 @@ public class BoardPanel extends JPanel {
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
+    protected synchronized void paintComponent(Graphics g) {
         super.paintComponent(g);
         setBackground(Color.BLACK);
 
@@ -55,40 +55,40 @@ public class BoardPanel extends JPanel {
                 if (boardState[y][x] == 0) {
                     continue;
                 }
-                g2.setColor(Color.RED);
+                g2.setColor(getColor(boardState[y][x]));
                 g2.fillRect(spacing + x * (spacing + width), spacing + y * (spacing + height), width, height);
             }
         }
         g2.dispose();
     }
 
-    void drawBoard(Game game) {
-        Board board = game.getGameBoard();
-        Piece piece = game.getDroppingPiece();
-
-        int[][] array = board.getBoardState();
-        Position position = piece.getPosition();
-        int[][] form = piece.GetShape().getCurrentForm();
-
-        fillPieceFormToBoard(form, position, array);
-
-        boardState = array;
-        repaint();
+    private Color getColor(int seed) {
+        Color rgb = colors.get(seed);
+        if (rgb != null) {
+            return rgb;
+        }
+        int col = seed % 3;
+        int r = getSingleColor(col == 0);
+        int g = getSingleColor(col == 1);
+        int b  = getSingleColor(col == 2);
+        rgb = new Color(r, g, b);
+        colors.put(seed, rgb);
+        return rgb;
     }
 
-    private void fillPieceFormToBoard(int[][] form, Position position, int[][] array) {
-        for (int y = 0; y < form.length; ++y) {
-            for (int x = 0; x < form[y].length; ++x) {
-                if (form[y][x] == 0) {
-                    continue;
-                }
-                int yCoord = position.getY() + y;
-                int xCoord = position.getX() + x;
-                if (yCoord >= array.length || xCoord >= array[y].length) {
-                    continue;
-                }
-                array[yCoord][xCoord] = form[y][x];
-            }
+    private int getSingleColor(boolean notRandom) {
+        int base = 256;
+        if (notRandom)
+            return (base/2 + random.nextInt(base/2));
+        else
+            return (random.nextInt(base));
+    }
+
+    public synchronized void setDrawnArray(int[][] array) {
+        if (array == null) {
+            return;
         }
+        boardState = array;
+        repaint();
     }
 }

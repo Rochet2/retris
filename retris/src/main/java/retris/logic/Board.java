@@ -124,7 +124,7 @@ public class Board {
      *
      * @return täytetyt paikat
      */
-    public int[][] getBoardState() {
+    public int[][] getBoardStateCopy() {
         int[][] state = new int[boardHeight][boardWidth];
         for (int y = 0; y < boardHeight; ++y) {
             for (int x = 0; x < boardWidth; ++x) {

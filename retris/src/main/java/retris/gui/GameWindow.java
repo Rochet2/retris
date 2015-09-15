@@ -19,7 +19,6 @@ package retris.gui;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
-import retris.logic.Board;
 import retris.logic.Game;
 
 /**
@@ -31,14 +30,9 @@ public class GameWindow {
     private final JFrame gameWindow;
     private final BoardPanel boardPanel;
 
-    public GameWindow(final Game game) {
-        if (game == null) {
-            System.exit(0);
-        }
-
+    public GameWindow(final Game game, int width, int height) {
         this.gameWindow = new JFrame("Retris");
-        Board board = game.getGameBoard();
-        this.boardPanel = new BoardPanel(board.getBoardWidth(), board.getBoardHeight());
+        this.boardPanel = new BoardPanel(width, height);
         gameWindow.add(boardPanel);
 
         gameWindow.addKeyListener(new KeyListener() {
@@ -52,16 +46,19 @@ public class GameWindow {
                 int keyCode = e.getKeyCode();
                 switch (keyCode) {
                     case KeyEvent.VK_UP:
-                        game.getDroppingPiece().moveUp();
+                        game.rotatePiece();
                         break;
                     case KeyEvent.VK_DOWN:
-                        game.getDroppingPiece().moveDown();
+                        game.movePieceDown();
                         break;
                     case KeyEvent.VK_LEFT:
-                        game.getDroppingPiece().moveLeft();
+                        game.movePieceLeft();
                         break;
                     case KeyEvent.VK_RIGHT:
-                        game.getDroppingPiece().moveRight();
+                        game.movePieceRight();
+                        break;
+                    case KeyEvent.VK_SPACE:
+                        game.movePieceUp();
                         break;
                 }
             }
@@ -82,11 +79,8 @@ public class GameWindow {
         gameWindow.setVisible(true);
     }
 
-    public void updateGUI(Game game) {
-        if (game == null) {
-            return;
-        }
-        boardPanel.drawBoard(game);
+    public void updateGUI(int[][] boardState) {
+        boardPanel.setDrawnArray(boardState);
     }
 
 }

@@ -50,11 +50,11 @@ public final class Game {
         resetPiece();
     }
 
-    public boolean isRunning() {
+    private boolean isRunning() {
         return running;
     }
 
-    public void stopRunning() {
+    private void stopRunning() {
         this.running = false;
     }
 
@@ -63,37 +63,29 @@ public final class Game {
      *
      * @param diff aika viime päivityksestä millisekunteina
      */
-    public void update(long diff) {
+    public synchronized void update(long diff) {
         if (pieceDropTimer.updateAndCheckPassed(diff)) {
             movePieceDown();
         }
     }
 
     /**
-     * Siirtää palaa alas yhden pykälän ja tarkistaa onko se pohjalla. Jos pala
-     * on pohjalla niin pala "täytetään" pohjaan ja resetoidaan.
+     * Asettaa uuden muodon palalle ja asettaa sen laudan keskelle ylös
      */
-    public void movePieceDown() {
-        System.out.println("Moving down");
-        droppingPiece.moveDown();
-        if (!gameBoard.isInFreeSpaceOnBoard(droppingPiece)) {
-            System.out.println("Hit bottom at " + droppingPiece.getPosition().getX() + " " + droppingPiece.getPosition().getY());
-
-            droppingPiece.moveUp();
-            getGameBoard().fillPieceToBoard(droppingPiece);
-            resetPiece();
-        }
+    private void resetPiece() {
+        Shape shape = selectRandomGameShape();
+        droppingPiece.setShape(shape);
+        droppingPiece.relocate((int) Math.floor(gameBoard.getBoardWidth() / 2.0 - shape.getMaxWidth() / 2.0), 0);
+        endGameIfShould();
     }
 
     /**
-     * Asettaa uuden muodon palalle ja asettaa sen laudan keskelle ylös
+     * Tarkistaa loppuiko peli ja lopettaa jos loppui
      */
-    public void resetPiece() {
-        System.out.println("Resetting piece");
-        Shape shape = selectRandomGameShape();
-        droppingPiece.setShape(shape);
-        droppingPiece.relocate((int)Math.floor(getGameBoard().getBoardWidth() / 2.0 - shape.getMaxWidth() / 2.0), 0);
+    private void endGameIfShould() {
         if (!gameBoard.isInFreeSpaceOnBoard(droppingPiece)) {
+            droppingPiece.setShape(new Shape());
+            droppingPiece.getPosition().setY(-1);
             stopRunning();
         }
     }
@@ -103,7 +95,7 @@ public final class Game {
      *
      * @param shape muoto
      */
-    public void addShapeToGame(Shape shape) {
+    public synchronized void addShapeToGame(Shape shape) {
         if (shape == null) {
             return;
         }
@@ -115,7 +107,7 @@ public final class Game {
      *
      * @return muoto
      */
-    public Shape selectRandomGameShape() {
+    private Shape selectRandomGameShape() {
         if (gameShapes.isEmpty()) {
             return new Shape();
         }
@@ -123,37 +115,108 @@ public final class Game {
     }
 
     /**
-     * Palauttaa pelilaudan
-     *
-     * @return pelilauta
-     */
-    public Board getGameBoard() {
-        return gameBoard;
-    }
-
-    /**
-     * Palauttaa palan joka tippuu
-     *
-     * @return tippuva pala
-     */
-    public Piece getDroppingPiece() {
-        return droppingPiece;
-    }
-
-    /**
      * Suorittaa peliä käyttöliittymineen.
      */
     public void runGame() {
-        GameWindow gui = new GameWindow(this);
-        TimeDifferenceCounter diffTime = new TimeDifferenceCounter();
         resetPiece();
+        TimeDifferenceCounter diffTime = new TimeDifferenceCounter();
+        GameWindow gui = new GameWindow(this, gameBoard.getBoardWidth(), gameBoard.getBoardHeight());
         while (isRunning()) {
             long diff = diffTime.getTimeSinceLastCall();
-            if (diff <= 0)
-                continue;
-            update(diff);
-            gui.updateGUI(this);
+            if (diff > 0) {
+                update(diff);
+                gui.updateGUI(getCurrentBoardState());
+            }
         }
+    }
+
+    /**
+     * Palauttaa koko pelin tämänhetkisen tilan arraynä laudasta kaikkine
+     * paloineen
+     *
+     * @return pelilaudan tila arraynä
+     */
+    private int[][] getCurrentBoardState() {
+        int[][] array = gameBoard.getBoardStateCopy();
+        droppingPiece.fillFormToArray(array);
+        return array;
+    }
+
+    /**
+     * Liikuttaa palaa pelissä ylös jos pystyy.
+     *
+     * @return palaa liikutettiin
+     */
+    public synchronized boolean movePieceUp() {
+        Position pos = droppingPiece.getPosition();
+        pos.setY(pos.getY() - 1);
+        if (!gameBoard.isInFreeSpaceOnBoard(droppingPiece)) {
+            pos.setY(pos.getY() + 1);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Liikuttaa palaa pelissä alas jos pystyy. Jos ei voi, pala "laskeutuu".
+     *
+     * @return palaa liikutettiin
+     */
+    public synchronized boolean movePieceDown() {
+        Position pos = droppingPiece.getPosition();
+        pos.setY(pos.getY() + 1);
+        if (!gameBoard.isInFreeSpaceOnBoard(droppingPiece)) {
+            pos.setY(pos.getY() - 1);
+            gameBoard.fillPieceToBoard(droppingPiece);
+            resetPiece();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Liikuttaa palaa pelissä vasemmalle jos pystyy.
+     *
+     * @return palaa liikutettiin
+     */
+    public synchronized boolean movePieceLeft() {
+        Position pos = droppingPiece.getPosition();
+        pos.setX(pos.getX() - 1);
+        if (!gameBoard.isInFreeSpaceOnBoard(droppingPiece)) {
+            pos.setX(pos.getX() + 1);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Liikuttaa palaa pelissä oikealle jos pystyy.
+     *
+     * @return palaa liikutettiin
+     */
+    public synchronized boolean movePieceRight() {
+        Position pos = droppingPiece.getPosition();
+        pos.setX(pos.getX() + 1);
+        if (!gameBoard.isInFreeSpaceOnBoard(droppingPiece)) {
+            pos.setX(pos.getX() - 1);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Kääntää palaa jos voi.
+     *
+     * @return käännettiin palaa
+     */
+    public synchronized boolean rotatePiece() {
+        Shape shape = droppingPiece.GetShape();
+        shape.setShapeFormIndex(shape.getShapeFormIndex() + 1);
+        if (!gameBoard.isInFreeSpaceOnBoard(droppingPiece)) {
+            shape.setShapeFormIndex(shape.getShapeFormIndex() - 1);
+            return false;
+        }
+        return true;
     }
 
 }

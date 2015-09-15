@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 rochet2_2
+ * Copyright (C) 2015 rimi
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,27 +14,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package retris;
-
-import retris.logic.Game;
-import retris.logic.shape.ShapeI;
-import retris.logic.shape.ShapeJ;
-import retris.logic.shape.ShapeL;
-import retris.logic.shape.ShapeO;
+package retris.logic.shape;
 
 /**
+ * L muotoisen mudon ulkonäön määrittely
  *
- * @author rochet2_2
+ * @author rimi
  */
-public class retrisMain {
+public class ShapeO extends Shape {
 
-    public static void main(String[] args) {
-        // TODO: Wrap this in try catch and close program on error
-        Game game = new Game(20, 20, 500);
-        game.addShapeToGame(new ShapeL());
-        game.addShapeToGame(new ShapeJ());
-        game.addShapeToGame(new ShapeO());
-        game.addShapeToGame(new ShapeI());
-        game.runGame();
+    /**
+     * Asettaa muodon eri käännösvaiheiden muodot
+     */
+    public ShapeO() {
+        setShapeFormRotations(new int[][][]{
+            {
+                {3,3},
+                {3,3},
+            },
+        });
     }
 }
