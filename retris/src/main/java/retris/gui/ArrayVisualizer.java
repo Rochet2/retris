@@ -27,7 +27,7 @@ import javax.swing.JPanel;
  *
  * @author rochet2_2
  */
-public class BoardPanel extends JPanel {
+public class ArrayVisualizer extends JPanel {
 
     private final int width = 20;
     private final int height = 20;
@@ -37,13 +37,24 @@ public class BoardPanel extends JPanel {
 
     private int[][] boardState = {{}};
 
-    public BoardPanel(int boardWidth, int boardHeight) {
+    /**
+     * Luo uuden paneelin joka piirtää arraytä
+     *
+     * @param boardWidth paneelin leveys
+     * @param boardHeight paneelin korkeus
+     */
+    public ArrayVisualizer(int boardWidth, int boardHeight) {
         boardWidth = spacing + (boardWidth) * (width + spacing);
         boardHeight = spacing + (boardHeight) * (height + spacing);
         Dimension dimension = new Dimension(boardWidth, boardHeight);
         setPreferredSize(dimension);
     }
 
+    /**
+     * Piirtää olion.
+     *
+     * @param g piirtämiseen käytettävä olio
+     */
     @Override
     protected synchronized void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -62,28 +73,47 @@ public class BoardPanel extends JPanel {
         g2.dispose();
     }
 
+    /**
+     * Palauttaa ei mustan värin annetulle arvolle. Sama arvo palauttaa aina
+     * saman värin.
+     *
+     * @param seed luku jota käytetään värin luonnissa
+     * @return annetun arvon väri
+     */
     private Color getColor(int seed) {
         Color rgb = colors.get(seed);
         if (rgb != null) {
             return rgb;
         }
         int col = seed % 3;
-        int r = getSingleColor(col == 0);
-        int g = getSingleColor(col == 1);
-        int b  = getSingleColor(col == 2);
+        int r = getNumberFromUint8Range(col == 0);
+        int g = getNumberFromUint8Range(col == 1);
+        int b = getNumberFromUint8Range(col == 2);
         rgb = new Color(r, g, b);
         colors.put(seed, rgb);
         return rgb;
     }
 
-    private int getSingleColor(boolean notRandom) {
+    /**
+     * Palauttaa arvon väliltä 0-255 tai (256/2)-255 jos notRandom on asetettu.
+     *
+     * @param halfRange Käytä väliä (256/2)-255
+     * @return arvo väliltä 0-255
+     */
+    private int getNumberFromUint8Range(boolean halfRange) {
         int base = 256;
-        if (notRandom)
-            return (base/2 + random.nextInt(base/2));
-        else
+        if (halfRange) {
+            return (base / 2 + random.nextInt(base / 2));
+        } else {
             return (random.nextInt(base));
+        }
     }
 
+    /**
+     * Asettaa paneelin piirtämän arrayn sisällön
+     *
+     * @param array array joka tulisi piirtää
+     */
     public synchronized void setDrawnArray(int[][] array) {
         if (array == null) {
             return;

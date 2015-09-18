@@ -63,7 +63,7 @@ public final class Game {
      *
      * @param diff aika viime päivityksestä millisekunteina
      */
-    public synchronized void update(long diff) {
+    private synchronized void update(long diff) {
         if (pieceDropTimer.updateAndCheckPassed(diff)) {
             movePieceDown();
         }
@@ -107,7 +107,7 @@ public final class Game {
      *
      * @return muoto
      */
-    private Shape selectRandomGameShape() {
+    public Shape selectRandomGameShape() {
         if (gameShapes.isEmpty()) {
             return new Shape();
         }

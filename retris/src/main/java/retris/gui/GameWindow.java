@@ -28,11 +28,18 @@ import retris.logic.Game;
 public class GameWindow {
 
     private final JFrame gameWindow;
-    private final BoardPanel boardPanel;
+    private final ArrayVisualizer boardPanel;
 
+    /**
+     * Luo uuden peli-ikkunan joka näyttää pelin visuaalisen tilan.
+     *
+     * @param game peli jota piirretään
+     * @param width ikkunan leveys
+     * @param height ikkunan korkeus
+     */
     public GameWindow(final Game game, int width, int height) {
         this.gameWindow = new JFrame("Retris");
-        this.boardPanel = new BoardPanel(width, height);
+        this.boardPanel = new ArrayVisualizer(width, height);
         gameWindow.add(boardPanel);
 
         gameWindow.addKeyListener(new KeyListener() {
@@ -79,6 +86,11 @@ public class GameWindow {
         gameWindow.setVisible(true);
     }
 
+    /**
+     * Välittää piirrettävän pelilaudan muodon piirtokomponentille
+     *
+     * @param boardState laudan tila
+     */
     public void updateGUI(int[][] boardState) {
         boardPanel.setDrawnArray(boardState);
     }

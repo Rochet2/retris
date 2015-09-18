@@ -121,7 +121,7 @@ public class Shape {
         this.shapeFormRotations = forms;
     }
 
-    private int[][][] cloneArray3D(int[][][] shapeFormRotations1) {
+    public int[][][] cloneArray3D(int[][][] shapeFormRotations1) {
         int[][][] forms = shapeFormRotations1.clone();
         for (int i = 0; i < shapeFormRotations1.length; ++i) {
             forms[i] = shapeFormRotations1[i].clone();
@@ -155,7 +155,7 @@ public class Shape {
      * @param array
      * @return tasojen pituudet nollaa isompia
      */
-    private boolean arrayDimensionLenghtsAboveZero(int[][][] array) {
+    public boolean arrayDimensionLenghtsAboveZero(int[][][] array) {
         return array != null && array.length >= 1
                 && array[0].length >= 1 && array[0][0].length >= 1;
     }

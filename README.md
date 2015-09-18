@@ -6,4 +6,5 @@ retris, eli siis perinteinen tetris peli ihan vaan huvinpitoon ja ajanvietteesee
 - [Tuntikirjanpito](dokumentointi/tuntikirjanpito.md)
 
 ##Luokkakaavio
-![dokumentointi/määrittelyvaiheen luokkakaavio.png](dokumentointi/määrittelyvaiheen luokkakaavio.png)
+![dokumentointi/JAVALABRA luokkakaavio tarkentunut.png](dokumentointi/JAVALABRA luokkakaavio tarkentunut.png)
+

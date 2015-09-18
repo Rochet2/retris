@@ -38,7 +38,7 @@ public class Timer {
     }
 
     /**
-     * Palauttaa ajastimen aikavälin
+     * Palauttaa ajastimen aikavälin millisekunteina.
      *
      * @return aikaväli
      */
@@ -66,7 +66,7 @@ public class Timer {
      * Palauttaa ajastimen luonnista kuluneen ajan joka on kertynyt
      * päivityksistä
      *
-     * @return kulunut aika
+     * @return kulunut aika millisekunteina
      */
     public long getTimeCounter() {
         return timeCounter;
@@ -75,7 +75,7 @@ public class Timer {
     /**
      * Palauttaa ajastimen alkuhetkestä kuluneen ajan jolloin ajastin raukeaa.
      *
-     * @return ajastettu aika
+     * @return ajastettu aika millisekunteina
      */
     public long getTriggerTime() {
         return triggerTime;

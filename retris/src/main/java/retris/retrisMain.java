@@ -23,18 +23,32 @@ import retris.logic.shape.ShapeL;
 import retris.logic.shape.ShapeO;
 
 /**
+ * Ohjelman alkupiste. Luo pelin ja suorittaa sen
  *
  * @author rochet2_2
  */
 public class retrisMain {
 
+    /**
+     * Ohjelman alkupiste. Luo pelin ja suorittaa sen. Virheet johtavat ohjelman
+     * sulkemiseen.
+     *
+     * @param args ohjelman lisäargumentit
+     */
     public static void main(String[] args) {
-        // TODO: Wrap this in try catch and close program on error
-        Game game = new Game(20, 20, 500);
-        game.addShapeToGame(new ShapeL());
-        game.addShapeToGame(new ShapeJ());
-        game.addShapeToGame(new ShapeO());
-        game.addShapeToGame(new ShapeI());
-        game.runGame();
+        try {
+            Game game = new Game(20, 20, 500);
+            game.addShapeToGame(new ShapeL());
+            game.addShapeToGame(new ShapeJ());
+            game.addShapeToGame(new ShapeO());
+            game.addShapeToGame(new ShapeI());
+            game.runGame();
+        } catch (Exception e) {
+            try {
+                System.exit(1);
+            } catch (Exception e2) {
+
+            }
+        }
     }
 }

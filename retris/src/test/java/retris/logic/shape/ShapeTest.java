@@ -169,4 +169,159 @@ public class ShapeTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * testaa muodon kopiointia
+     */
+    @Test
+    public void testCopyConstructor() {
+        int[][][] expResult = {
+            {
+                {1, 1, 1},
+                {1, 0, 1},
+                {1, 1, 1},},
+            {
+                {0, 0},
+                {0, 1},
+                {0, 0},},
+            {
+                {0, 0, 0},
+                {0, 1, 0},},
+            {
+                {1},},};
+        Shape shape = new Shape();
+        shape.setShapeFormRotations(expResult);
+        int[][][] result = new Shape(shape).getShapeFormRotations();
+        assertArrayEquals(expResult, result);
+    }
+
+    /**
+     * testaa arrayn kopiointia
+     */
+    @Test
+    public void testCloneArray3D() {
+        int[][][] expResult = {
+            {
+                {1, 1, 1},
+                {1, 0, 1},
+                {1, 1, 1},},
+            {
+                {0, 0},
+                {0, 1},
+                {0, 0},},
+            {
+                {0, 0, 0},
+                {0, 1, 0},},
+            {
+                {1},},};
+        Shape shape = new Shape();
+        int[][][] result = shape.cloneArray3D(expResult);
+        assertArrayEquals(expResult, result);
+    }
+
+    /**
+     * testaa arrayn pituuksia
+     */
+    @Test
+    public void testArrayDimensionLengthsValid() {
+        int[][][] expResult = {
+            {
+                {1, 1, 1},
+                {1, 0, 1},
+                {1, 1, 1},},
+            {
+                {0, 0},
+                {0, 1},
+                {0, 0},},
+            {
+                {0, 0, 0},
+                {0, 1, 0},},
+            {
+                {1},},};
+        Shape shape = new Shape();
+        boolean result = shape.arrayDimensionLenghtsAboveZero(expResult);
+        assertEquals(true, result);
+    }
+
+    /**
+     * testaa arrayn pituuksia
+     */
+    @Test
+    public void testArrayDimensionLengthsValid2() {
+        int[][][] expResult = {{{1}}};
+        Shape shape = new Shape();
+        boolean result = shape.arrayDimensionLenghtsAboveZero(expResult);
+        assertTrue(result);
+    }
+
+    /**
+     * testaa arrayn pituuksia
+     */
+    @Test
+    public void testArrayDimensionLengthsInvalid() {
+        int[][][] expResult = {{{}}};
+        Shape shape = new Shape();
+        boolean result = shape.arrayDimensionLenghtsAboveZero(expResult);
+        assertFalse(result);
+    }
+
+    /**
+     * testaa arrayn pituuksia
+     */
+    @Test
+    public void testArrayDimensionLengthsInvalid2() {
+        int[][][] expResult = {{}};
+        Shape shape = new Shape();
+        boolean result = shape.arrayDimensionLenghtsAboveZero(expResult);
+        assertFalse(result);
+    }
+
+    /**
+     * testaa arrayn pituuksia
+     */
+    @Test
+    public void testArrayDimensionLengthsInvalid3() {
+        int[][][] expResult = {};
+        Shape shape = new Shape();
+        boolean result = shape.arrayDimensionLenghtsAboveZero(expResult);
+        assertFalse(result);
+    }
+
+    /**
+     * testaa muodon käännösvaiheita
+     */
+    @Test
+    public void testSetShapeFormIndex() {
+        int expResult = 0;
+        Shape shape = new Shape();
+        shape.setShapeFormIndex(expResult);
+        int result = shape.getShapeFormIndex();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * testaa muodon käännösvaiheita
+     */
+    @Test
+    public void testSetShapeFormIndex2() {
+        int expResult = 2;
+        Shape shape = new Shape();
+        shape.setShapeFormRotations(new int[][][]{{{1}},{{1}},{{1}},{{1}}});
+        shape.setShapeFormIndex(expResult);
+        int result = shape.getShapeFormIndex();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * testaa muodon käännösvaiheita
+     */
+    @Test
+    public void testSetShapeFormIndex3() {
+        int expResult = 0;
+        Shape shape = new Shape();
+        shape.setShapeFormRotations(new int[][][]{{{1}},{{1}},{{1}}});
+        shape.setShapeFormIndex(3);
+        int result = shape.getShapeFormIndex();
+        assertEquals(expResult, result);
+    }
+
 }
