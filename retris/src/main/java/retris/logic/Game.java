@@ -24,6 +24,7 @@ import retris.logic.shape.Shape;
 import retris.logic.timer.TimeDifferenceCounter;
 
 /**
+ * Suorittaa peliä.
  *
  * @author rochet2_2
  */
@@ -50,10 +51,18 @@ public final class Game {
         resetPiece();
     }
 
+    /**
+     * Kertoo pitäisikö pelin vielä jatkua
+     *
+     * @return jatka
+     */
     private boolean isRunning() {
         return running;
     }
 
+    /**
+     * Kertoo pelille että sen tulisi pysäyttää peli
+     */
     private void stopRunning() {
         this.running = false;
     }

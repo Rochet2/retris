@@ -25,10 +25,13 @@ import retris.logic.shape.Shape;
  * @author rimi
  */
 public class PieceTest {
-    
+
     public PieceTest() {
     }
 
+    /**
+     * testaa palan muodon hakua
+     */
     @Test
     public void testGetShape() {
         Piece instance = new Piece();
@@ -37,9 +40,12 @@ public class PieceTest {
         assertArrayEquals(expResult, result.getShapeFormRotations());
     }
 
+    /**
+     * testaa palan muodon asetusta
+     */
     @Test
     public void testSetShape() {
-        int[][][] expected = {{{1,1}}};
+        int[][][] expected = {{{1, 1}}};
         Shape shape = new Shape();
         shape.setShapeFormRotations(expected);
         Piece instance = new Piece();
@@ -47,16 +53,22 @@ public class PieceTest {
         assertArrayEquals(expected, instance.GetShape().getShapeFormRotations());
     }
 
+    /**
+     * testaa palan muodon asetusta
+     */
     @Test
     public void testSetShapeInvalid() {
         int[][][] expected = {{{1}}};
         Shape shape = new Shape();
-        shape.setShapeFormRotations(new int[][][]{{{1,1}}, {{0}}});
+        shape.setShapeFormRotations(new int[][][]{{{1, 1}}, {{0}}});
         Piece instance = new Piece();
         instance.setShape(shape);
         assertArrayEquals(expected, instance.GetShape().getShapeFormRotations());
     }
 
+    /**
+     * testaa palan paikan hakua
+     */
     @Test
     public void testGetPosition() {
         Piece instance = new Piece();
@@ -65,6 +77,9 @@ public class PieceTest {
         assertEquals(0, result.getY());
     }
 
+    /**
+     * testaa palan paikan hakua
+     */
     @Test
     public void testGetPosition2() {
         int x = 123;
@@ -76,6 +91,9 @@ public class PieceTest {
         assertEquals(y, result.getY());
     }
 
+    /**
+     * testaa palan paikan muutosta
+     */
     @Test
     public void testRelocate() {
         int x = 123;
@@ -86,22 +104,48 @@ public class PieceTest {
         assertEquals(y, instance.getPosition().getY());
     }
 
+    /**
+     * testaa täyttää arraytä arrayyn
+     */
     @Test
     public void testFillFormToArray() {
         int[][] array = {
-            {0,0,0,0},
-            {0,0,0,0},
-            {0,0,0,0},
-        };
+            {0, 0, 0, 0},
+            {0, 0, 0, 0},
+            {0, 0, 0, 0},};
         int[][] expectedArray = {
-            {1,0,0,0},
-            {1,0,0,0},
-            {0,0,0,0},
-        };
+            {1, 0, 0, 0},
+            {1, 0, 0, 0},
+            {0, 0, 0, 0},};
         Piece instance = new Piece();
-        instance.GetShape().setShapeFormRotations(new int[][][]{{{1},{1}}});
+        instance.GetShape().setShapeFormRotations(new int[][][]{{{1}, {1}}});
         instance.fillFormToArray(array);
         assertArrayEquals(expectedArray, array);
     }
-    
+
+    /**
+     * testaa täyttää arraytä arrayyn
+     */
+    @Test
+    public void testFillFormToArray2() {
+        int[][] array = {
+            {0, 0, 0, 0},
+            {0, 0, 0, 0},
+            {0, 0, 0, 0},};
+        int[][] expectedArray = {
+            {1, 0, 0, 0},
+            {1, 0, 0, 0},
+            {1, 0, 1, 1},};
+        Piece instance = new Piece();
+        instance.GetShape().setShapeFormRotations(new int[][][]{
+            {
+                {1},
+                {1},
+                {1, 0, 1, 1, 1},
+                {1},}
+        });
+        instance.fillFormToArray(array);
+        assertArrayEquals(expectedArray, array);
+    }
+
 }

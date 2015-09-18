@@ -116,7 +116,7 @@ public class Piece {
     /**
      * Täyttää muodon annettuun arrayyn palan koordinaatteihin
      *
-     * @param array
+     * @param array muokattava array
      */
     public void fillFormToArray(int[][] array) {
         int[][] form = shape.getCurrentForm();

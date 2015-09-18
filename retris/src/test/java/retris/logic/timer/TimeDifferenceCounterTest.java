@@ -14,40 +14,39 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package retris.logic;
+package retris.logic.timer;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import retris.logic.shape.Shape;
 
 /**
  *
  * @author rimi
  */
-public class GameTest {
+public class TimeDifferenceCounterTest {
 
-    public GameTest() {
+    public TimeDifferenceCounterTest() {
     }
 
     /**
-     * testaa muodon lisäystä peliin
+     * Testaa aikaerolaskurin aikaeroja
      */
     @Test
-    public void testAddShapeToGame() {
-        int[][][] expected = {{{1, 1}}};
-        Shape shape = new Shape();
-        shape.setShapeFormRotations(expected);
-        Game instance = new Game(10, 10, 10);
-        assertNotNull(instance.selectRandomGameShape());
-        instance.addShapeToGame(shape);
-        assertArrayEquals(expected, instance.selectRandomGameShape().getShapeFormRotations());
+    public void testGetTimeSinceLastCall() {
+        int delta = 10;
+        TimeDifferenceCounter instance = new TimeDifferenceCounter();
+        long result = instance.getTimeSinceLastCall();
+        assertEquals(0, result, delta);
+        instance.getTimeSinceLastCall();
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TimeDifferenceCounterTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        long result2 = instance.getTimeSinceLastCall();
+        assertEquals(100, result2, delta);
     }
 
-    /* Laukaisee GUIn. Siirrä GUI?
-     @Test
-     public void testRunGame() {
-     Game instance = new Game(10, 10, 10);
-     instance.runGame();
-     }
-     */
 }

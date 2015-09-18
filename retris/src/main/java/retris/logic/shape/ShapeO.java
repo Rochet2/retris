@@ -17,7 +17,7 @@
 package retris.logic.shape;
 
 /**
- * L muotoisen mudon ulkonäön määrittely
+ * O muotoisen mudon ulkonäön määrittely
  *
  * @author rimi
  */

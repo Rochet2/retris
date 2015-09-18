@@ -17,6 +17,7 @@
 package retris.logic;
 
 /**
+ * Pitää kirjaa pelilaudan tilasta.
  *
  * @author rochet2_2
  */
@@ -148,6 +149,11 @@ public class Board {
         return boardState[y][x] != 0;
     }
 
+    /**
+     * Täyttää palan laudalle
+     *
+     * @param piece pala
+     */
     public void fillPieceToBoard(Piece piece) {
         if (piece == null) {
             return;
@@ -163,6 +169,13 @@ public class Board {
         }
     }
 
+    /**
+     * Asettaa koordinaattien paikan tilan
+     *
+     * @param x paikan Y-koordinaatti
+     * @param y paikan X-koordinaatti
+     * @param spaceState paikan tila
+     */
     public void setSpaceStateOnBoard(int x, int y, int spaceState) {
         if (!isOnBoard(x, y)) {
             return;

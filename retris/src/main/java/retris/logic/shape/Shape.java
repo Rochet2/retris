@@ -121,12 +121,18 @@ public class Shape {
         this.shapeFormRotations = forms;
     }
 
-    public int[][][] cloneArray3D(int[][][] shapeFormRotations1) {
-        int[][][] forms = shapeFormRotations1.clone();
-        for (int i = 0; i < shapeFormRotations1.length; ++i) {
-            forms[i] = shapeFormRotations1[i].clone();
-            for (int j = 0; j < shapeFormRotations1[i].length; ++j) {
-                forms[i][j] = shapeFormRotations1[i][j].clone();
+    /**
+     * Kopioi kolmiulotteisen arrayn
+     *
+     * @param array 3D array
+     * @return kopio
+     */
+    public int[][][] cloneArray3D(int[][][] array) {
+        int[][][] forms = array.clone();
+        for (int i = 0; i < array.length; ++i) {
+            forms[i] = array[i].clone();
+            for (int j = 0; j < array[i].length; ++j) {
+                forms[i][j] = array[i][j].clone();
             }
         }
         return forms;
@@ -136,7 +142,7 @@ public class Shape {
      * Tarkistaa että joka muodon käännösvaihe sisältää ainakin yhden true
      * arvon, eli ettei mikään vaihe ole näkymätön
      *
-     * @param formArray
+     * @param formArray array jossa on muodot
      * @return kaikilla käännösvaiheet ovat näkyviä
      */
     private boolean formsAreVisible(int[][][] formArray) {
@@ -208,5 +214,5 @@ public class Shape {
     public int[][] getCurrentForm() {
         return shapeFormRotations[shapeFormIndex];
     }
-    
+
 }

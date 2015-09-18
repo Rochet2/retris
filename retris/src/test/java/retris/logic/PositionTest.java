@@ -24,10 +24,13 @@ import static org.junit.Assert.*;
  * @author rimi
  */
 public class PositionTest {
-    
+
     public PositionTest() {
     }
 
+    /**
+     * testaa paikan luontia
+     */
     @Test
     public void testConstructor() {
         int x = 0;
@@ -37,6 +40,9 @@ public class PositionTest {
         assertEquals(y, instance.getY());
     }
 
+    /**
+     * testaa paikan luotia koordinaateilla
+     */
     @Test
     public void testConstructor2() {
         int x = 123;
@@ -46,6 +52,9 @@ public class PositionTest {
         assertEquals(y, instance.getY());
     }
 
+    /**
+     * testaa paikan kopiointia
+     */
     @Test
     public void testCloneConstructor() {
         int x = 123;
@@ -55,6 +64,9 @@ public class PositionTest {
         assertEquals(y, instance.getY());
     }
 
+    /**
+     * testaa paikan koordinaattien hakua
+     */
     @Test
     public void testGetX() {
         Position instance = new Position();
@@ -63,6 +75,9 @@ public class PositionTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * testaa paikan koordinaattien hakua
+     */
     @Test
     public void testGetY() {
         Position instance = new Position();
@@ -71,6 +86,9 @@ public class PositionTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * testaa paikan koordinaattien asetusta
+     */
     @Test
     public void testSetX() {
         int expected = 324;
@@ -80,6 +98,9 @@ public class PositionTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * testaa paikan koordinaattien asetusta
+     */
     @Test
     public void testSetY() {
         int expected = 324;
@@ -89,6 +110,9 @@ public class PositionTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * testaa paikan koordinaattien asetusta
+     */
     @Test
     public void testRelocate() {
         int x = 123;
@@ -98,5 +122,5 @@ public class PositionTest {
         assertEquals(x, instance.getX());
         assertEquals(y, instance.getY());
     }
-    
+
 }

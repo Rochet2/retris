@@ -24,10 +24,13 @@ import static org.junit.Assert.*;
  * @author rimi
  */
 public class TimerTest {
-    
+
     public TimerTest() {
     }
 
+    /**
+     * testaa ajastimeen asetettua aikaa
+     */
     @Test
     public void testGetTimerDelay() {
         long delay = 123L;
@@ -37,6 +40,9 @@ public class TimerTest {
         assertEquals(delay, instance.getTimerDelay());
     }
 
+    /**
+     * testaa ajastimen raukeamista
+     */
     @Test
     public void testUpdateAndCheckPassed() {
         long delay = 100L;
@@ -48,6 +54,9 @@ public class TimerTest {
         assertFalse(instance.updateAndCheckPassed(5));
     }
 
+    /**
+     * testaa ajastimen käsitystä kuluneesta ajasta
+     */
     @Test
     public void testGetTimeCounter() {
         Timer instance = new Timer(100);
@@ -62,6 +71,9 @@ public class TimerTest {
         assertEquals(-100, instance.getTimeCounter());
     }
 
+    /**
+     * testaa ajastimen ajastettua aikaa
+     */
     @Test
     public void testGetTriggerTime() {
         Timer instance = new Timer(100);
@@ -69,5 +81,5 @@ public class TimerTest {
         instance.updateAndCheckPassed(10);
         assertEquals(100, instance.getTriggerTime());
     }
-    
+
 }

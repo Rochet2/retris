@@ -17,6 +17,7 @@
 package retris.logic.timer;
 
 /**
+ * Pitää kirjaa kuluneesta ajasta
  *
  * @author rimi
  */
@@ -42,14 +43,5 @@ public class TimeDifferenceCounter {
         long diff = currentTime - lastTime;
         lastTime = currentTime;
         return diff;
-    }
-
-    /**
-     * Palauta viimekertaisen tarkistuksen aika
-     *
-     * @return viime tarkistusaika
-     */
-    public long getLastTime() {
-        return lastTime;
     }
 }

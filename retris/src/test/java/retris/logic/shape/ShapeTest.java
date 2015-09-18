@@ -16,10 +16,6 @@
  */
 package retris.logic.shape;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -32,24 +28,8 @@ public class ShapeTest {
     public ShapeTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
-
     /**
-     * testaa muodon oikeiden käännösvaiheiden asetus boolean arrayllä
+     * testaa muodon oikeiden käännösvaiheiden asetusta
      */
     @Test
     public void testSetShapeFormRotationsValid() {
@@ -81,7 +61,7 @@ public class ShapeTest {
     }
 
     /**
-     * testaa muodon väärien käännösvaiheiden asetus boolean arrayllä
+     * testaa muodon väärien käännösvaiheiden asetusta
      */
     @Test
     public void testSetShapeFormRotationsInvalid() {
@@ -305,7 +285,7 @@ public class ShapeTest {
     public void testSetShapeFormIndex2() {
         int expResult = 2;
         Shape shape = new Shape();
-        shape.setShapeFormRotations(new int[][][]{{{1}},{{1}},{{1}},{{1}}});
+        shape.setShapeFormRotations(new int[][][]{{{1}}, {{1}}, {{1}}, {{1}}});
         shape.setShapeFormIndex(expResult);
         int result = shape.getShapeFormIndex();
         assertEquals(expResult, result);
@@ -318,7 +298,7 @@ public class ShapeTest {
     public void testSetShapeFormIndex3() {
         int expResult = 0;
         Shape shape = new Shape();
-        shape.setShapeFormRotations(new int[][][]{{{1}},{{1}},{{1}}});
+        shape.setShapeFormRotations(new int[][][]{{{1}}, {{1}}, {{1}}});
         shape.setShapeFormIndex(3);
         int result = shape.getShapeFormIndex();
         assertEquals(expResult, result);

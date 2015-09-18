@@ -17,7 +17,7 @@
 package retris.logic.timer;
 
 /**
- *
+ * Ajastin joka pitää kirjaa siitä onko ajastimen aika kulunut.
  * @author rimi
  */
 public class Timer {
