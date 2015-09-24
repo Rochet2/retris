@@ -22,10 +22,11 @@ import javax.swing.JFrame;
 import retris.logic.Game;
 
 /**
+ * Pelin UI
  *
  * @author rochet2_2
  */
-public class GameWindow {
+public class GameWindow extends GameUI {
 
     private final JFrame gameWindow;
     private final ArrayVisualizer boardPanel;
@@ -33,15 +34,24 @@ public class GameWindow {
     /**
      * Luo uuden peli-ikkunan joka näyttää pelin visuaalisen tilan.
      *
-     * @param game peli jota piirretään
      * @param width ikkunan leveys
      * @param height ikkunan korkeus
      */
-    public GameWindow(final Game game, int width, int height) {
+    public GameWindow(int width, int height) {
         this.gameWindow = new JFrame("Retris");
         this.boardPanel = new ArrayVisualizer(width, height);
         gameWindow.add(boardPanel);
 
+        addKeyListener();
+
+        showGameWindow();
+    }
+
+    /**
+     * Lisää näppäinkuutenlijan
+     */
+    public final void addKeyListener() {
+        final GameUI ui = this;
         gameWindow.addKeyListener(new KeyListener() {
 
             @Override
@@ -50,6 +60,10 @@ public class GameWindow {
 
             @Override
             public void keyPressed(KeyEvent e) {
+                Game game = ui.getGame();
+                if (game == null) {
+                    return;
+                }
                 int keyCode = e.getKeyCode();
                 switch (keyCode) {
                     case KeyEvent.VK_UP:
@@ -74,10 +88,11 @@ public class GameWindow {
             public void keyReleased(KeyEvent e) {
             }
         });
-
-        showGameWindow();
     }
 
+    /**
+     * Viimeistelee ja näyttää ikkunan
+     */
     private void showGameWindow() {
         gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameWindow.setResizable(false);
@@ -91,7 +106,8 @@ public class GameWindow {
      *
      * @param boardState laudan tila
      */
-    public void updateGUI(int[][] boardState) {
+    @Override
+    public void updateUI(int[][] boardState) {
         boardPanel.setDrawnArray(boardState);
     }
 

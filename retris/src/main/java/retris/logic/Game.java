@@ -19,7 +19,7 @@ package retris.logic;
 import retris.logic.timer.Timer;
 import java.util.ArrayList;
 import java.util.Random;
-import retris.gui.GameWindow;
+import retris.gui.GameUI;
 import retris.logic.shape.Shape;
 import retris.logic.timer.TimeDifferenceCounter;
 
@@ -36,19 +36,24 @@ public final class Game {
     private final Random random = new Random();
     private final Timer pieceDropTimer;
     private boolean running = true;
+    private final GameUI ui;
 
     /**
      * Luo uuden pelin.
      *
+     * @param ui käyttöliittymä tai null
      * @param width pelilaudan leveys
      * @param height pelilaudan korkeus
      * @param dropSpeedMs palan putoamisvauhti millisekunneissa
      */
-    public Game(int width, int height, long dropSpeedMs) {
+    public Game(GameUI ui, int width, int height, long dropSpeedMs) {
         this.gameBoard = new Board(width, height);
         this.droppingPiece = new Piece();
         this.pieceDropTimer = new Timer(Math.max(0, dropSpeedMs));
-        resetPiece();
+        this.ui = ui;
+        if (ui != null) {
+            ui.setGame(this);
+        }
     }
 
     /**
@@ -81,7 +86,7 @@ public final class Game {
     /**
      * Asettaa uuden muodon palalle ja asettaa sen laudan keskelle ylös
      */
-    private void resetPiece() {
+    public synchronized void resetPiece() {
         Shape shape = selectRandomGameShape();
         droppingPiece.setShape(shape);
         droppingPiece.relocate((int) Math.floor(gameBoard.getBoardWidth() / 2.0 - shape.getMaxWidth() / 2.0), 0);
@@ -129,12 +134,13 @@ public final class Game {
     public void runGame() {
         resetPiece();
         TimeDifferenceCounter diffTime = new TimeDifferenceCounter();
-        GameWindow gui = new GameWindow(this, gameBoard.getBoardWidth(), gameBoard.getBoardHeight());
         while (isRunning()) {
             long diff = diffTime.getTimeSinceLastCall();
             if (diff > 0) {
                 update(diff);
-                gui.updateGUI(getCurrentBoardState());
+                if (ui != null) {
+                    ui.updateUI(getCurrentBoardState());
+                }
             }
         }
     }
@@ -226,6 +232,15 @@ public final class Game {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Palauttaa kopion pelilaudan tilasta
+     *
+     * @return pelilaudan tila
+     */
+    public synchronized int[][] getGameStateCopy() {
+        return getCurrentBoardState();
     }
 
 }

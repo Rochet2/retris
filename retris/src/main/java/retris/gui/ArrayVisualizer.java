@@ -24,7 +24,8 @@ import java.util.Random;
 import javax.swing.JPanel;
 
 /**
- *
+ * Piirtää arraytä ruudulle
+ * 
  * @author rochet2_2
  */
 public class ArrayVisualizer extends JPanel {

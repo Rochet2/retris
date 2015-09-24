@@ -19,6 +19,8 @@ package retris.logic;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import retris.logic.shape.Shape;
+import retris.logic.shape.ShapeL;
+import retris.logic.shape.ShapeO;
 
 /**
  *
@@ -37,17 +39,112 @@ public class GameTest {
         int[][][] expected = {{{1, 1}}};
         Shape shape = new Shape();
         shape.setShapeFormRotations(expected);
-        Game instance = new Game(10, 10, 10);
-        assertNotNull(instance.selectRandomGameShape());
-        instance.addShapeToGame(shape);
-        assertArrayEquals(expected, instance.selectRandomGameShape().getShapeFormRotations());
+        Game game = new Game(null, 10, 10, 10);
+        assertNotNull(game.selectRandomGameShape());
+        game.addShapeToGame(shape);
+        assertArrayEquals(expected, game.selectRandomGameShape().getShapeFormRotations());
     }
 
-    /* Laukaisee GUIn. Siirrä GUI?
-     @Test
-     public void testRunGame() {
-     Game instance = new Game(10, 10, 10);
-     instance.runGame();
-     }
-     */
+    @Test
+    public void testRunGame() {
+        Game game = new Game(null, 5, 5, 10);
+        game.addShapeToGame(new ShapeO());
+        game.runGame();
+    }
+
+    @Test
+    public void testSimulateGame() {
+        Game game = new Game(null, 5, 5, 10);
+        game.addShapeToGame(new ShapeL());
+        int[][] expected = {
+            {1, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}
+        };
+        assertArrayEquals(expected, game.getGameStateCopy());
+
+        game.resetPiece();
+        expected = new int[][]{
+            {0, 0, 0, 1, 0},
+            {0, 1, 1, 1, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}
+        };
+        assertArrayEquals(expected, game.getGameStateCopy());
+
+        game.movePieceDown();
+        expected = new int[][]{
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 1, 0},
+            {0, 1, 1, 1, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}
+        };
+        assertArrayEquals(expected, game.getGameStateCopy());
+
+        game.movePieceLeft();
+        expected = new int[][]{
+            {0, 0, 0, 0, 0},
+            {0, 0, 1, 0, 0},
+            {1, 1, 1, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}
+        };
+        assertArrayEquals(expected, game.getGameStateCopy());
+
+        game.movePieceLeft();
+        expected = new int[][]{
+            {0, 0, 0, 0, 0},
+            {0, 0, 1, 0, 0},
+            {1, 1, 1, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}
+        };
+        assertArrayEquals(expected, game.getGameStateCopy());
+
+        game.movePieceDown();
+        expected = new int[][]{
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 1, 0, 0},
+            {1, 1, 1, 0, 0},
+            {0, 0, 0, 0, 0}
+        };
+        assertArrayEquals(expected, game.getGameStateCopy());
+
+        game.movePieceRight();
+        game.movePieceRight();
+        game.movePieceRight();
+        expected = new int[][]{
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 1},
+            {0, 0, 1, 1, 1},
+            {0, 0, 0, 0, 0}
+        };
+        assertArrayEquals(expected, game.getGameStateCopy());
+
+        game.rotatePiece();
+        expected = new int[][]{
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 1, 1, 0},
+            {0, 0, 0, 1, 0},
+            {0, 0, 0, 1, 0}
+        };
+        assertArrayEquals(expected, game.getGameStateCopy());
+
+        game.movePieceDown();
+        expected = new int[][]{
+            {0, 0, 0, 1, 0},
+            {0, 1, 1, 1, 0},
+            {0, 0, 1, 1, 0},
+            {0, 0, 0, 1, 0},
+            {0, 0, 0, 1, 0}
+        };
+        assertArrayEquals(expected, game.getGameStateCopy());
+    }
 }

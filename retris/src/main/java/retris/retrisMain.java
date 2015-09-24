@@ -16,6 +16,8 @@
  */
 package retris;
 
+import retris.gui.GameUI;
+import retris.gui.GameWindow;
 import retris.logic.Game;
 import retris.logic.shape.ShapeI;
 import retris.logic.shape.ShapeJ;
@@ -37,11 +39,7 @@ public class retrisMain {
      */
     public static void main(String[] args) {
         try {
-            Game game = new Game(20, 20, 500);
-            game.addShapeToGame(new ShapeL());
-            game.addShapeToGame(new ShapeJ());
-            game.addShapeToGame(new ShapeO());
-            game.addShapeToGame(new ShapeI());
+            Game game = initializeGame();
             game.runGame();
         } catch (Exception e) {
             try {
@@ -50,5 +48,32 @@ public class retrisMain {
 
             }
         }
+    }
+
+    /**
+     * Alustaa pelin
+     *
+     * @return peli
+     */
+    public static Game initializeGame() {
+        final int width = 10;
+        final int height = 16;
+        final int speedMs = 500;
+        GameUI ui = new GameWindow(width, height);
+        Game game = new Game(ui, width, height, speedMs);
+        addShapesToGame(game);
+        return game;
+    }
+
+    /**
+     * Lisää muodot peliin
+     *
+     * @param game peli
+     */
+    public static void addShapesToGame(Game game) {
+        game.addShapeToGame(new ShapeL());
+        game.addShapeToGame(new ShapeJ());
+        game.addShapeToGame(new ShapeO());
+        game.addShapeToGame(new ShapeI());
     }
 }
