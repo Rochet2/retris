@@ -35,7 +35,7 @@ public class TimeDifferenceCounterTest {
      */
     @Test
     public void testGetTimeSinceLastCall() {
-        int delta = 10;
+        double delta = 50.0;
         TimeDifferenceCounter instance = new TimeDifferenceCounter();
         long result = instance.getTimeSinceLastCall();
         assertEquals(0, result, delta);
@@ -45,8 +45,8 @@ public class TimeDifferenceCounterTest {
         } catch (InterruptedException ex) {
             Logger.getLogger(TimeDifferenceCounterTest.class.getName()).log(Level.SEVERE, null, ex);
         }
-        long result2 = instance.getTimeSinceLastCall();
-        assertEquals(100, result2, delta);
+        double result2 = instance.getTimeSinceLastCall();
+        assertEquals(100.0, result2, delta);
     }
 
 }

@@ -23,15 +23,17 @@ package retris.logic.shape;
  */
 public class ShapeO extends Shape {
 
+    public static final int[][][] form = {
+        {
+            {3, 3},
+            {3, 3}
+        }
+    };
+
     /**
      * Asettaa muodon eri käännösvaiheiden muodot
      */
     public ShapeO() {
-        setShapeFormRotations(new int[][][]{
-            {
-                {3,3},
-                {3,3},
-            },
-        });
+        setShapeFormRotations(form);
     }
 }

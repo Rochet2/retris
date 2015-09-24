@@ -23,31 +23,33 @@ package retris.logic.shape;
  */
 public class ShapeJ extends Shape {
 
+    public static final int[][][] form = {
+        {
+            {0, 0, 0},
+            {2, 2, 2},
+            {0, 0, 2}
+        },
+        {
+            {0, 2, 2},
+            {0, 2, 0},
+            {0, 2, 0}
+        },
+        {
+            {2, 0, 0},
+            {2, 2, 2},
+            {0, 0, 0}
+        },
+        {
+            {0, 2, 0},
+            {0, 2, 0},
+            {2, 2, 0}
+        }
+    };
+
     /**
      * Asettaa muodon eri käännösvaiheiden muodot
      */
     public ShapeJ() {
-        setShapeFormRotations(new int[][][]{
-            {
-                {0,0,0},
-                {2,2,2},
-                {0,0,2},
-            },
-            {
-                {0,2,2},
-                {0,2,0},
-                {0,2,0},
-            },
-            {
-                {2,0,0},
-                {2,2,2},
-                {0,0,0},
-            },
-            {
-                {0,2,0},
-                {0,2,0},
-                {2,2,0},
-            },
-        });
+        setShapeFormRotations(form);
     }
 }

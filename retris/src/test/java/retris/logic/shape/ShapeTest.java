@@ -45,16 +45,21 @@ public class ShapeTest {
             {
                 {1, 1, 1},
                 {1, 0, 1},
-                {1, 1, 1},},
+                {1, 1, 1}
+            },
             {
                 {0, 0},
                 {0, 1},
-                {0, 0},},
+                {0, 0}
+            },
             {
                 {0, 0, 0},
-                {0, 1, 0},},
+                {0, 1, 0}
+            },
             {
-                {1},},};
+                {1}
+            }
+        };
         shape.setShapeFormRotations(expResult);
         result = shape.getShapeFormRotations();
         assertArrayEquals(expResult, result);
@@ -78,11 +83,13 @@ public class ShapeTest {
             {
                 {1, 1, 1},
                 {1, 0, 1},
-                {1, 1, 1},},
+                {1, 1, 1}
+            },
             {
                 {0, 0, 0},
                 {0, 0, 0},
-                {0, 0, 0},}
+                {0, 0, 0}
+            }
         });
         result = shape.getShapeFormRotations();
         assertArrayEquals(expResult, result);
@@ -91,13 +98,17 @@ public class ShapeTest {
             {
                 {0, 0},
                 {0, 0},
-                {0, 0},},});
+                {0, 0}
+            }
+        });
         result = shape.getShapeFormRotations();
         assertArrayEquals(expResult, result);
 
         shape.setShapeFormRotations(new int[][][]{
             {
-                {0},},});
+                {0}
+            }
+        });
         result = shape.getShapeFormRotations();
         assertArrayEquals(expResult, result);
     }
@@ -118,7 +129,8 @@ public class ShapeTest {
         shape.setShapeFormRotations(new int[][][]{
             {
                 {0, 0, 0},
-                {0, 1, 0},}
+                {0, 1, 0}
+            }
         });
         expResult = 3;
         result = shape.getMaxWidth();
@@ -142,7 +154,8 @@ public class ShapeTest {
             {
                 {0, 0},
                 {0, 1},
-                {0, 0},}
+                {0, 0}
+            }
         });
         expResult = 3;
         result = shape.getMaxHeight();
@@ -158,16 +171,21 @@ public class ShapeTest {
             {
                 {1, 1, 1},
                 {1, 0, 1},
-                {1, 1, 1},},
+                {1, 1, 1}
+            },
             {
                 {0, 0},
                 {0, 1},
-                {0, 0},},
+                {0, 0}
+            },
             {
                 {0, 0, 0},
-                {0, 1, 0},},
+                {0, 1, 0}
+            },
             {
-                {1},},};
+                {1}
+            }
+        };
         Shape shape = new Shape();
         shape.setShapeFormRotations(expResult);
         int[][][] result = new Shape(shape).getShapeFormRotations();
@@ -183,16 +201,21 @@ public class ShapeTest {
             {
                 {1, 1, 1},
                 {1, 0, 1},
-                {1, 1, 1},},
+                {1, 1, 1}
+            },
             {
                 {0, 0},
                 {0, 1},
-                {0, 0},},
+                {0, 0}
+            },
             {
                 {0, 0, 0},
-                {0, 1, 0},},
+                {0, 1, 0}
+            },
             {
-                {1},},};
+                {1}
+            }
+        };
         Shape shape = new Shape();
         int[][][] result = shape.cloneArray3D(expResult);
         assertArrayEquals(expResult, result);
@@ -207,16 +230,21 @@ public class ShapeTest {
             {
                 {1, 1, 1},
                 {1, 0, 1},
-                {1, 1, 1},},
+                {1, 1, 1}
+            },
             {
                 {0, 0},
                 {0, 1},
-                {0, 0},},
+                {0, 0}
+            },
             {
                 {0, 0, 0},
-                {0, 1, 0},},
+                {0, 1, 0}
+            },
             {
-                {1},},};
+                {1}
+            }
+        };
         Shape shape = new Shape();
         boolean result = shape.arrayDimensionLenghtsAboveZero(expResult);
         assertEquals(true, result);

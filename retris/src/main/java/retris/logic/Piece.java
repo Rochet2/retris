@@ -29,49 +29,11 @@ public class Piece {
     private final Position position;
 
     /**
-     * Luo kopion annetusta palasta
-     *
-     * @param droppingPiece kopio
-     */
-    Piece(Piece droppingPiece) {
-        if (droppingPiece != null) {
-            this.shape = new Shape(droppingPiece.shape);
-            this.position = new Position(droppingPiece.position);
-        } else {
-            this.shape = new Shape();
-            this.position = new Position();
-        }
-    }
-
-    /**
      * Luo uuden palan oletusmuodolla ja koordinaateilla
      */
     public Piece() {
-        this(new Shape(), 0, 0);
-    }
-
-    /**
-     * Luo uuden palan annetulla muodolla ja oletus koordinaateilla
-     *
-     * @param shape muoto, perusmuoto jos null
-     */
-    public Piece(Shape shape) {
-        this(shape, 0, 0);
-    }
-
-    /**
-     * Luo uuden palan annetulla muodolla ja koordinaateilla
-     *
-     * @param shape muoto, perusmuoto jos null
-     * @param x X-koordinaatti
-     * @param y Y-koordinaatti
-     */
-    public Piece(Shape shape, int x, int y) {
-        if (shape == null) {
-            shape = new Shape();
-        }
         this.shape = new Shape(shape);
-        this.position = new Position(x, y);
+        this.position = new Position();
     }
 
     /**

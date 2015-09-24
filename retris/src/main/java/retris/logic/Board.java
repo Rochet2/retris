@@ -167,6 +167,48 @@ public class Board {
                 }
             }
         }
+
+        removeFilledRows();
+    }
+
+    /**
+     * Poistaa kaikki täytetyt rivit laudalta liikuttaen rivejä ylhäältä alas
+     * paikaten poistetut rivit.
+     */
+    public void removeFilledRows() {
+        for (int y = 0; y < getBoardHeight(); ++y) {
+            if (isFilledRow(y)) {
+                removeRow(y);
+            }
+        }
+    }
+
+    /**
+     * Poistaa rivin ja liikuttaa rivejä yläpuolella (pienempi y koordinaatti)
+     * alaspäin täyttäen rivin.
+     *
+     * @param y poistetun rivin Y-koordinaatti
+     */
+    public void removeRow(int y) {
+        for (int y2 = y; y2 >= 1; --y2) {
+            boardState[y2] = boardState[y2 - 1];
+        }
+        boardState[0] = new int[getBoardWidth()];
+    }
+
+    /**
+     * Tarkistaa onko rivi täynnä palasia
+     *
+     * @param y rivin Y-koordinaatti
+     * @return rivi on täynnä
+     */
+    public boolean isFilledRow(int y) {
+        for (int x = 0; x < getBoardWidth(); ++x) {
+            if (!isFilledSpaceOnBoard(x, y)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
