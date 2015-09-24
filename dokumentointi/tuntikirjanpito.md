@@ -9,4 +9,4 @@
 - 13.9. 1h, Ratkaistu GUI:n välkkyminen
 - 15.9. 1,5h, Tee väritys paloille ja lisää muutama muoto
 - 18.9. 3h, Testejä ja dokumentointia ja muuta puhdistusta. Uusi luokkakaavio
-
+- 24.9. 3h, Loppu toiminnallisuus, testejä kuntoon
