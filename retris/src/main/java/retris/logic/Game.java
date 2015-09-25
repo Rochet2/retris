@@ -81,6 +81,9 @@ public final class Game {
         if (pieceDropTimer.updateAndCheckPassed(diff)) {
             movePieceDown();
         }
+        if (ui != null) {
+            ui.updateUI(getCurrentBoardState());
+        }
     }
 
     /**
@@ -138,9 +141,6 @@ public final class Game {
             long diff = diffTime.getTimeSinceLastCall();
             if (diff > 0) {
                 update(diff);
-                if (ui != null) {
-                    ui.updateUI(getCurrentBoardState());
-                }
             }
         }
     }

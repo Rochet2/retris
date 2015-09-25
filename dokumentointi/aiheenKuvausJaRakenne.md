@@ -18,7 +18,7 @@ Vapaa-aikaa omaavat
 - [x] palikoiden ohjaus alas ja sivuille sekä pyöritys nuolinäppäimillä
 - [x] palikat tärmäävät seiniin eivätkä voi paeta alueelta
 - [x] palikat eivät mene sisäkkäin
-- [ ] palikkarivien tuhoutuminen kun vaakarivi on täysi
+- [x] palikkarivien tuhoutuminen kun vaakarivi on täysi
 - [ ] pisteenlasku rivien tuhoamisesta
 - [x] huijauskoodeja pelin kehittäjille: Paina välilyöntiä
 

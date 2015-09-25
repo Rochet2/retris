@@ -105,18 +105,31 @@ public class Board {
         if (piece == null || !isOnBoard(piece)) {
             return false;
         }
+        if (isInFreeSpace(piece)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Kertoo onko pala vapaassa paikassa
+     *
+     * @param piece pala
+     * @return on vapaassa paikassa
+     */
+    private boolean isInFreeSpace(Piece piece) {
         int[][] form = piece.GetShape().getCurrentForm();
         Position position = piece.getPosition();
         for (int y = 0; y < form.length; ++y) {
             for (int x = 0; x < form[y].length; ++x) {
                 if (form[y][x] != 0) {
                     if (isFilledSpaceOnBoard(position.getX() + x, position.getY() + y)) {
-                        return false;
+                        return true;
                     }
                 }
             }
         }
-        return true;
+        return false;
     }
 
     /**
@@ -158,6 +171,16 @@ public class Board {
         if (piece == null) {
             return;
         }
+        fillPiece(piece);
+
+        removeFilledRows();
+    }
+
+    /**
+     * Täyttää palan lautaan
+     * @param piece pala
+     */
+    private void fillPiece(Piece piece) {
         int[][] form = piece.GetShape().getCurrentForm();
         Position position = piece.getPosition();
         for (int y = 0; y < form.length; ++y) {
@@ -167,8 +190,6 @@ public class Board {
                 }
             }
         }
-
-        removeFilledRows();
     }
 
     /**

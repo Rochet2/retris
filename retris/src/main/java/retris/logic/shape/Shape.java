@@ -127,7 +127,7 @@ public class Shape {
      * @param array 3D array
      * @return kopio
      */
-    public int[][][] cloneArray3D(int[][][] array) {
+    public final int[][][] cloneArray3D(int[][][] array) {
         int[][][] forms = array.clone();
         for (int i = 0; i < array.length; ++i) {
             forms[i] = array[i].clone();
