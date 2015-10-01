@@ -14,7 +14,7 @@ Vapaa-aikaa omaavat
 - [x] perinteisen tetriksen mukaan palikoiden valuminen alas ruudulla
 - [x] eri muotoisia palikoita
 - [x] palikoiden ohjaus alas ja sivuille sekä pyöritys nuolinäppäimillä
-- [x] palikat tärmäävät seiniin eivätkä voi paeta alueelta
+- [x] palikat törmäävät seiniin eivätkä voi paeta alueelta
 - [x] palikat eivät mene sisäkkäin
 - [x] palikkarivien tuhoutuminen kun vaakarivi on täysi
 - [ ] pisteenlasku rivien tuhoamisesta
