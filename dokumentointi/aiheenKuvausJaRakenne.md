@@ -11,8 +11,6 @@ retris, eli siis tetris peli ihan vaan huvinpitoon ja ajanvietteeseen. Pelin aja
 Vapaa-aikaa omaavat
 
 # toiminnot
-- [x] pelin aloitus
-- [x] pelin lopetus - ei tilaa asettaa palaa kentälle
 - [x] perinteisen tetriksen mukaan palikoiden valuminen alas ruudulla
 - [x] eri muotoisia palikoita
 - [x] palikoiden ohjaus alas ja sivuille sekä pyöritys nuolinäppäimillä
