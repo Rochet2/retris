@@ -105,7 +105,7 @@ public class Board {
         if (piece == null || !isOnBoard(piece)) {
             return false;
         }
-        if (isInFreeSpace(piece)) {
+        if (!isInFreeSpace(piece)) {
             return false;
         }
         return true;
@@ -124,12 +124,12 @@ public class Board {
             for (int x = 0; x < form[y].length; ++x) {
                 if (form[y][x] != 0) {
                     if (isFilledSpaceOnBoard(position.getX() + x, position.getY() + y)) {
-                        return true;
+                        return false;
                     }
                 }
             }
         }
-        return false;
+        return true;
     }
 
     /**

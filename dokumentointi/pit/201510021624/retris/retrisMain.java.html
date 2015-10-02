@@ -55,7 +55,7 @@ padding-left: 5px;
 <body>
 
 
-<h1>Position.java</h1>
+<h1>retrisMain.java</h1>
 
 <table class="src">
 
@@ -296,7 +296,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>package retris.logic;</span></pre></td></tr>
+<td class=''><pre><span  class=''>package retris;</span></pre></td></tr>
 
 
 <tr>
@@ -324,7 +324,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+<td class=''><pre><span  class=''>import retris.gui.GameUI;</span></pre></td></tr>
 
 
 <tr>
@@ -338,7 +338,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''> * Luokka joka ilmaisee paikkaa</span></pre></td></tr>
+<td class=''><pre><span  class=''>import retris.gui.GameWindow;</span></pre></td></tr>
 
 
 <tr>
@@ -352,7 +352,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''> *</span></pre></td></tr>
+<td class=''><pre><span  class=''>import retris.logic.Game;</span></pre></td></tr>
 
 
 <tr>
@@ -366,7 +366,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''> * @author rochet2_2</span></pre></td></tr>
+<td class=''><pre><span  class=''>import retris.logic.shape.ShapeI;</span></pre></td></tr>
 
 
 <tr>
@@ -380,7 +380,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''> */</span></pre></td></tr>
+<td class=''><pre><span  class=''>import retris.logic.shape.ShapeJ;</span></pre></td></tr>
 
 
 <tr>
@@ -394,7 +394,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>public class Position {</span></pre></td></tr>
+<td class=''><pre><span  class=''>import retris.logic.shape.ShapeL;</span></pre></td></tr>
 
 
 <tr>
@@ -408,7 +408,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''></span></pre></td></tr>
+<td class=''><pre><span  class=''>import retris.logic.shape.ShapeO;</span></pre></td></tr>
 
 
 <tr>
@@ -422,7 +422,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>    private int x;</span></pre></td></tr>
+<td class=''><pre><span  class=''></span></pre></td></tr>
 
 
 <tr>
@@ -436,7 +436,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>    private int y;</span></pre></td></tr>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
 
 
 <tr>
@@ -450,7 +450,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''></span></pre></td></tr>
+<td class=''><pre><span  class=''> * Ohjelman alkupiste. Luo pelin ja suorittaa sen</span></pre></td></tr>
 
 
 <tr>
@@ -464,7 +464,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
 
 
 <tr>
@@ -478,7 +478,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>     * Luo uuden kopion paikasta</span></pre></td></tr>
+<td class=''><pre><span  class=''> * @author rochet2_2</span></pre></td></tr>
 
 
 <tr>
@@ -492,11 +492,11 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
 
 
 <tr>
-<td class='na'>
+<td class='uncovered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_32'/>
 32
 </td>
@@ -506,7 +506,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>     * @param position kopio paikasta</span></pre></td></tr>
+<td class='uncovered'><pre><span  class=''>public class retrisMain {</span></pre></td></tr>
 
 
 <tr>
@@ -520,11 +520,11 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+<td class=''><pre><span  class=''></span></pre></td></tr>
 
 
 <tr>
-<td class='covered'>
+<td class='na'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_34'/>
 34
 </td>
@@ -534,28 +534,25 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class='covered'><pre><span  class=''>    public Position(Position position) {</span></pre></td></tr>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
 
 
 <tr>
-<td class='covered'>
+<td class='na'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_35'/>
 35
 </td>
-<td class='killed'>
+<td class=''>
 <span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_35'>1</a>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_35'></a>
 <span>
-
-1. <init> : negated conditional &rarr; KILLED<br/>
-
 </span>
 </td>
-<td class='covered'><pre><span  class='killed'>        if (position != null) {</span></pre></td></tr>
+<td class=''><pre><span  class=''>     * Ohjelman alkupiste. Luo pelin ja suorittaa sen. Virheet johtavat ohjelman</span></pre></td></tr>
 
 
 <tr>
-<td class='covered'>
+<td class='na'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_36'/>
 36
 </td>
@@ -565,11 +562,11 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class='covered'><pre><span  class=''>            this.x = position.x;</span></pre></td></tr>
+<td class=''><pre><span  class=''>     * sulkemiseen.</span></pre></td></tr>
 
 
 <tr>
-<td class='covered'>
+<td class='na'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_37'/>
 37
 </td>
@@ -579,7 +576,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class='covered'><pre><span  class=''>            this.y = position.y;</span></pre></td></tr>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
 
 
 <tr>
@@ -593,11 +590,11 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+<td class=''><pre><span  class=''>     * @param args ohjelman lis&#195;&#164;argumentit</span></pre></td></tr>
 
 
 <tr>
-<td class='covered'>
+<td class='na'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_39'/>
 39
 </td>
@@ -607,7 +604,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
 
 
 <tr>
@@ -621,7 +618,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''></span></pre></td></tr>
+<td class=''><pre><span  class=''>    public static void main(String[] args) {</span></pre></td></tr>
 
 
 <tr>
@@ -635,11 +632,11 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
 
 
 <tr>
-<td class='na'>
+<td class='uncovered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_42'/>
 42
 </td>
@@ -649,25 +646,28 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>     * Luo uuden paikan nollakoordinaateilla</span></pre></td></tr>
+<td class='uncovered'><pre><span  class=''>            Game game = initializeGame();</span></pre></td></tr>
 
 
 <tr>
-<td class='na'>
+<td class='uncovered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_43'/>
 43
 </td>
-<td class=''>
+<td class='survived'>
 <span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_43'></a>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_43'>1</a>
 <span>
+
+1. main : removed call to retris/logic/Game::runGame &rarr; NO_COVERAGE<br/>
+
 </span>
 </td>
-<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+<td class='uncovered'><pre><span  class='survived'>            game.runGame();</span></pre></td></tr>
 
 
 <tr>
-<td class='na'>
+<td class='uncovered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_44'/>
 44
 </td>
@@ -677,11 +677,11 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>    public Position() {</span></pre></td></tr>
+<td class='uncovered'><pre><span  class=''>        } catch (Exception e) {</span></pre></td></tr>
 
 
 <tr>
-<td class='covered'>
+<td class='na'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_45'/>
 45
 </td>
@@ -691,25 +691,28 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class='covered'><pre><span  class=''>        this(0, 0);</span></pre></td></tr>
+<td class=''><pre><span  class=''>            try {</span></pre></td></tr>
 
 
 <tr>
-<td class='covered'>
+<td class='uncovered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_46'/>
 46
 </td>
-<td class=''>
+<td class='survived'>
 <span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_46'></a>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_46'>1</a>
 <span>
+
+1. main : removed call to java/lang/System::exit &rarr; NO_COVERAGE<br/>
+
 </span>
 </td>
-<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+<td class='uncovered'><pre><span  class='survived'>                System.exit(1);</span></pre></td></tr>
 
 
 <tr>
-<td class='na'>
+<td class='uncovered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_47'/>
 47
 </td>
@@ -719,7 +722,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''></span></pre></td></tr>
+<td class='uncovered'><pre><span  class=''>            } catch (Exception e2) {</span></pre></td></tr>
 
 
 <tr>
@@ -733,11 +736,11 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+<td class=''><pre><span  class=''></span></pre></td></tr>
 
 
 <tr>
-<td class='na'>
+<td class='uncovered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_49'/>
 49
 </td>
@@ -747,11 +750,11 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>     * Luo uuden paikan annetuilla koordinaateilla</span></pre></td></tr>
+<td class='uncovered'><pre><span  class=''>            }</span></pre></td></tr>
 
 
 <tr>
-<td class='na'>
+<td class='uncovered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_50'/>
 50
 </td>
@@ -761,11 +764,11 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
 
 
 <tr>
-<td class='na'>
+<td class='uncovered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_51'/>
 51
 </td>
@@ -775,7 +778,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>     * @param x</span></pre></td></tr>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
 
 
 <tr>
@@ -789,7 +792,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>     * @param y</span></pre></td></tr>
+<td class=''><pre><span  class=''></span></pre></td></tr>
 
 
 <tr>
@@ -803,11 +806,11 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
 
 
 <tr>
-<td class='covered'>
+<td class='na'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_54'/>
 54
 </td>
@@ -817,11 +820,11 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class='covered'><pre><span  class=''>    public Position(int x, int y) {</span></pre></td></tr>
+<td class=''><pre><span  class=''>     * Alustaa pelin</span></pre></td></tr>
 
 
 <tr>
-<td class='covered'>
+<td class='na'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_55'/>
 55
 </td>
@@ -831,11 +834,11 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class='covered'><pre><span  class=''>        this.x = x;</span></pre></td></tr>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
 
 
 <tr>
-<td class='covered'>
+<td class='na'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_56'/>
 56
 </td>
@@ -845,11 +848,11 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class='covered'><pre><span  class=''>        this.y = y;</span></pre></td></tr>
+<td class=''><pre><span  class=''>     * @return peli</span></pre></td></tr>
 
 
 <tr>
-<td class='covered'>
+<td class='na'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_57'/>
 57
 </td>
@@ -859,7 +862,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
 
 
 <tr>
@@ -873,11 +876,11 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''></span></pre></td></tr>
+<td class=''><pre><span  class=''>    public static Game initializeGame() {</span></pre></td></tr>
 
 
 <tr>
-<td class='na'>
+<td class='uncovered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_59'/>
 59
 </td>
@@ -887,11 +890,11 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+<td class='uncovered'><pre><span  class=''>        final int width = 10;</span></pre></td></tr>
 
 
 <tr>
-<td class='na'>
+<td class='uncovered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_60'/>
 60
 </td>
@@ -901,11 +904,11 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>     * Palauttaa paikan X-koordinaatin</span></pre></td></tr>
+<td class='uncovered'><pre><span  class=''>        final int height = 16;</span></pre></td></tr>
 
 
 <tr>
-<td class='na'>
+<td class='uncovered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_61'/>
 61
 </td>
@@ -915,11 +918,11 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+<td class='uncovered'><pre><span  class=''>        final int speedMs = 500;</span></pre></td></tr>
 
 
 <tr>
-<td class='na'>
+<td class='uncovered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_62'/>
 62
 </td>
@@ -929,11 +932,11 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>     * @return</span></pre></td></tr>
+<td class='uncovered'><pre><span  class=''>        GameUI ui = new GameWindow(width, height);</span></pre></td></tr>
 
 
 <tr>
-<td class='na'>
+<td class='uncovered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_63'/>
 63
 </td>
@@ -943,38 +946,41 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+<td class='uncovered'><pre><span  class=''>        Game game = new Game(ui, width, height, speedMs);</span></pre></td></tr>
 
 
 <tr>
-<td class='na'>
+<td class='uncovered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_64'/>
 64
 </td>
-<td class=''>
+<td class='survived'>
 <span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_64'></a>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_64'>1</a>
 <span>
+
+1. initializeGame : removed call to retris/retrisMain::addShapesToGame &rarr; NO_COVERAGE<br/>
+
 </span>
 </td>
-<td class=''><pre><span  class=''>    public int getX() {</span></pre></td></tr>
+<td class='uncovered'><pre><span  class='survived'>        addShapesToGame(game);</span></pre></td></tr>
 
 
 <tr>
-<td class='covered'>
+<td class='uncovered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_65'/>
 65
 </td>
-<td class='killed'>
+<td class='survived'>
 <span class='pop'>
 <a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_65'>1</a>
 <span>
 
-1. getX : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+1. initializeGame : mutated return of Object value for retris/retrisMain::initializeGame to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
 
 </span>
 </td>
-<td class='covered'><pre><span  class='killed'>        return x;</span></pre></td></tr>
+<td class='uncovered'><pre><span  class='survived'>        return game;</span></pre></td></tr>
 
 
 <tr>
@@ -1030,7 +1036,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>     * Palauttaa paikan Y-koordinaatin</span></pre></td></tr>
+<td class=''><pre><span  class=''>     * Lis&#195;&#164;&#195;&#164; muodot peliin</span></pre></td></tr>
 
 
 <tr>
@@ -1058,7 +1064,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>     * @return</span></pre></td></tr>
+<td class=''><pre><span  class=''>     * @param game peli</span></pre></td></tr>
 
 
 <tr>
@@ -1086,70 +1092,79 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>    public int getY() {</span></pre></td></tr>
+<td class=''><pre><span  class=''>    public static void addShapesToGame(Game game) {</span></pre></td></tr>
 
 
 <tr>
-<td class='covered'>
+<td class='uncovered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_74'/>
 74
 </td>
-<td class='killed'>
+<td class='survived'>
 <span class='pop'>
 <a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_74'>1</a>
 <span>
 
-1. getY : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+1. addShapesToGame : removed call to retris/logic/Game::addShapeToGame &rarr; NO_COVERAGE<br/>
 
 </span>
 </td>
-<td class='covered'><pre><span  class='killed'>        return y;</span></pre></td></tr>
+<td class='uncovered'><pre><span  class='survived'>        game.addShapeToGame(new ShapeL());</span></pre></td></tr>
 
 
 <tr>
-<td class='na'>
+<td class='uncovered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_75'/>
 75
 </td>
-<td class=''>
+<td class='survived'>
 <span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_75'></a>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_75'>1</a>
 <span>
+
+1. addShapesToGame : removed call to retris/logic/Game::addShapeToGame &rarr; NO_COVERAGE<br/>
+
 </span>
 </td>
-<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+<td class='uncovered'><pre><span  class='survived'>        game.addShapeToGame(new ShapeJ());</span></pre></td></tr>
 
 
 <tr>
-<td class='na'>
+<td class='uncovered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_76'/>
 76
 </td>
-<td class=''>
+<td class='survived'>
 <span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_76'></a>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_76'>1</a>
 <span>
+
+1. addShapesToGame : removed call to retris/logic/Game::addShapeToGame &rarr; NO_COVERAGE<br/>
+
 </span>
 </td>
-<td class=''><pre><span  class=''></span></pre></td></tr>
+<td class='uncovered'><pre><span  class='survived'>        game.addShapeToGame(new ShapeO());</span></pre></td></tr>
 
 
 <tr>
-<td class='na'>
+<td class='uncovered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_77'/>
 77
 </td>
-<td class=''>
+<td class='survived'>
 <span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_77'></a>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_77'>1</a>
 <span>
+
+1. addShapesToGame : removed call to retris/logic/Game::addShapeToGame &rarr; NO_COVERAGE<br/>
+
 </span>
 </td>
-<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+<td class='uncovered'><pre><span  class='survived'>        game.addShapeToGame(new ShapeI());</span></pre></td></tr>
 
 
 <tr>
-<td class='na'>
+<td class='uncovered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_78'/>
 78
 </td>
@@ -1159,7 +1174,7 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>     * Asettaa paikan X-koordinaatin</span></pre></td></tr>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
 
 
 <tr>
@@ -1173,370 +1188,6 @@ padding-left: 5px;
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>     *</span></pre></td></tr>
-
-
-<tr>
-<td class='na'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_80'/>
-80
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_80'></a>
-<span>
-</span>
-</td>
-<td class=''><pre><span  class=''>     * @param x</span></pre></td></tr>
-
-
-<tr>
-<td class='na'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_81'/>
-81
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_81'></a>
-<span>
-</span>
-</td>
-<td class=''><pre><span  class=''>     */</span></pre></td></tr>
-
-
-<tr>
-<td class='na'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_82'/>
-82
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_82'></a>
-<span>
-</span>
-</td>
-<td class=''><pre><span  class=''>    public void setX(int x) {</span></pre></td></tr>
-
-
-<tr>
-<td class='covered'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_83'/>
-83
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_83'></a>
-<span>
-</span>
-</td>
-<td class='covered'><pre><span  class=''>        this.x = x;</span></pre></td></tr>
-
-
-<tr>
-<td class='covered'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_84'/>
-84
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_84'></a>
-<span>
-</span>
-</td>
-<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
-
-
-<tr>
-<td class='na'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_85'/>
-85
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_85'></a>
-<span>
-</span>
-</td>
-<td class=''><pre><span  class=''></span></pre></td></tr>
-
-
-<tr>
-<td class='na'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_86'/>
-86
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_86'></a>
-<span>
-</span>
-</td>
-<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
-
-
-<tr>
-<td class='na'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_87'/>
-87
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_87'></a>
-<span>
-</span>
-</td>
-<td class=''><pre><span  class=''>     * Asettaa paikan Y-koordinaatin</span></pre></td></tr>
-
-
-<tr>
-<td class='na'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_88'/>
-88
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_88'></a>
-<span>
-</span>
-</td>
-<td class=''><pre><span  class=''>     *</span></pre></td></tr>
-
-
-<tr>
-<td class='na'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_89'/>
-89
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_89'></a>
-<span>
-</span>
-</td>
-<td class=''><pre><span  class=''>     * @param y</span></pre></td></tr>
-
-
-<tr>
-<td class='na'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_90'/>
-90
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_90'></a>
-<span>
-</span>
-</td>
-<td class=''><pre><span  class=''>     */</span></pre></td></tr>
-
-
-<tr>
-<td class='na'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_91'/>
-91
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_91'></a>
-<span>
-</span>
-</td>
-<td class=''><pre><span  class=''>    public void setY(int y) {</span></pre></td></tr>
-
-
-<tr>
-<td class='covered'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_92'/>
-92
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_92'></a>
-<span>
-</span>
-</td>
-<td class='covered'><pre><span  class=''>        this.y = y;</span></pre></td></tr>
-
-
-<tr>
-<td class='covered'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_93'/>
-93
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_93'></a>
-<span>
-</span>
-</td>
-<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
-
-
-<tr>
-<td class='na'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_94'/>
-94
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_94'></a>
-<span>
-</span>
-</td>
-<td class=''><pre><span  class=''></span></pre></td></tr>
-
-
-<tr>
-<td class='na'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_95'/>
-95
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_95'></a>
-<span>
-</span>
-</td>
-<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
-
-
-<tr>
-<td class='na'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_96'/>
-96
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_96'></a>
-<span>
-</span>
-</td>
-<td class=''><pre><span  class=''>     * Asettaa paikan koordinaatit</span></pre></td></tr>
-
-
-<tr>
-<td class='na'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_97'/>
-97
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_97'></a>
-<span>
-</span>
-</td>
-<td class=''><pre><span  class=''>     *</span></pre></td></tr>
-
-
-<tr>
-<td class='na'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_98'/>
-98
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_98'></a>
-<span>
-</span>
-</td>
-<td class=''><pre><span  class=''>     * @param x</span></pre></td></tr>
-
-
-<tr>
-<td class='na'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_99'/>
-99
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_99'></a>
-<span>
-</span>
-</td>
-<td class=''><pre><span  class=''>     * @param y</span></pre></td></tr>
-
-
-<tr>
-<td class='na'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_100'/>
-100
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_100'></a>
-<span>
-</span>
-</td>
-<td class=''><pre><span  class=''>     */</span></pre></td></tr>
-
-
-<tr>
-<td class='na'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_101'/>
-101
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_101'></a>
-<span>
-</span>
-</td>
-<td class=''><pre><span  class=''>    public void relocate(int x, int y) {</span></pre></td></tr>
-
-
-<tr>
-<td class='covered'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_102'/>
-102
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_102'></a>
-<span>
-</span>
-</td>
-<td class='covered'><pre><span  class=''>        this.x = x;</span></pre></td></tr>
-
-
-<tr>
-<td class='covered'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_103'/>
-103
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_103'></a>
-<span>
-</span>
-</td>
-<td class='covered'><pre><span  class=''>        this.y = y;</span></pre></td></tr>
-
-
-<tr>
-<td class='covered'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_104'/>
-104
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_104'></a>
-<span>
-</span>
-</td>
-<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
-
-
-<tr>
-<td class='na'>
-<a name='org.pitest.mutationtest.report.html.SourceFile@7ab63838_105'/>
-105
-</td>
-<td class=''>
-<span class='pop'>
-<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_105'></a>
-<span>
-</span>
-</td>
 <td class=''><pre><span  class=''>}</span></pre></td></tr>
 
 
@@ -1545,13 +1196,35 @@ padding-left: 5px;
 
 
 <tr>
-<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7ab63838_35'>35</a></td> 
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7ab63838_43'>43</a></td> 
 <td></td>
 <td>
 
-<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_35'/> 
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_43'/> 
 
-<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>retris.logic.PositionTest.testCloneConstructor(retris.logic.PositionTest)</span></span> negated conditional &rarr; KILLED</p> 
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> removed call to retris/logic/Game::runGame &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7ab63838_46'>46</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_46'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> removed call to java/lang/System::exit &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7ab63838_64'>64</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_64'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>initializeGame<br/><b>Killed by : </b>none</span></span> removed call to retris/retrisMain::addShapesToGame &rarr; NO_COVERAGE</p> 
 </td>
 </tr>
 
@@ -1562,7 +1235,7 @@ padding-left: 5px;
 
 <a name='grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_65'/> 
 
-<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getX<br/><b>Killed by : </b>retris.logic.PositionTest.testCloneConstructor(retris.logic.PositionTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>initializeGame<br/><b>Killed by : </b>none</span></span> mutated return of Object value for retris/retrisMain::initializeGame to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
 </td>
 </tr>
 
@@ -1573,7 +1246,40 @@ padding-left: 5px;
 
 <a name='grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_74'/> 
 
-<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getY<br/><b>Killed by : </b>retris.logic.PositionTest.testCloneConstructor(retris.logic.PositionTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addShapesToGame<br/><b>Killed by : </b>none</span></span> removed call to retris/logic/Game::addShapeToGame &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7ab63838_75'>75</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_75'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addShapesToGame<br/><b>Killed by : </b>none</span></span> removed call to retris/logic/Game::addShapeToGame &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7ab63838_76'>76</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_76'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addShapesToGame<br/><b>Killed by : </b>none</span></span> removed call to retris/logic/Game::addShapeToGame &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7ab63838_77'>77</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7ab63838_77'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addShapesToGame<br/><b>Killed by : </b>none</span></span> removed call to retris/logic/Game::addShapeToGame &rarr; NO_COVERAGE</p> 
 </td>
 </tr>
 
@@ -1601,7 +1307,6 @@ padding-left: 5px;
 
 <h2>Tests examined</h2>
 <ul>
-<li>retris.logic.PositionTest.testSetX(retris.logic.PositionTest) (0 ms)</li><li>retris.logic.BoardTest.testIsInFreeSpaceOnBoardNotOnBoard(retris.logic.BoardTest) (2 ms)</li><li>retris.logic.GameTest.testSimulateGame(retris.logic.GameTest) (2 ms)</li><li>retris.logic.BoardTest.testIsInFreeSpaceOnBoard2(retris.logic.BoardTest) (1 ms)</li><li>retris.logic.PositionTest.testCloneConstructor(retris.logic.PositionTest) (0 ms)</li><li>retris.logic.PositionTest.testRelocate(retris.logic.PositionTest) (1 ms)</li><li>retris.logic.BoardTest.testIsInFreeSpaceOnBoardPieceInvalid(retris.logic.BoardTest) (2 ms)</li><li>retris.logic.PositionTest.testSetY(retris.logic.PositionTest) (0 ms)</li><li>retris.logic.BoardTest.testIsInFreeSpaceOnBoardPieceInvalid2(retris.logic.BoardTest) (1 ms)</li><li>retris.logic.GameTest.testRunGame(retris.logic.GameTest) (62 ms)</li><li>retris.logic.BoardTest.testIsOnBoardPieceBoundaries(retris.logic.BoardTest) (1 ms)</li><li>retris.logic.PieceTest.testGetPosition(retris.logic.PieceTest) (0 ms)</li><li>retris.logic.BoardTest.testIsInFreeSpaceOnBoard(retris.logic.BoardTest) (6 ms)</li><li>retris.logic.BoardTest.testIsOnBoardPieceWithInvalidCoordinates(retris.logic.BoardTest) (1 ms)</li><li>retris.logic.PositionTest.testConstructor(retris.logic.PositionTest) (1 ms)</li><li>retris.logic.BoardTest.testIsInFreeSpaceOnBoard_OnFilledSpace(retris.logic.BoardTest) (1 ms)</li><li>retris.logic.PositionTest.testConstructor2(retris.logic.PositionTest) (2 ms)</li><li>retris.logic.PieceTest.testFillFormToArray(retris.logic.PieceTest) (1 ms)</li><li>retris.logic.PositionTest.testGetX(retris.logic.PositionTest) (1 ms)</li><li>retris.logic.PieceTest.testFillFormToArray2(retris.logic.PieceTest) (0 ms)</li><li>retris.logic.BoardTest.testIsOnBoardPieceBoundaries2(retris.logic.BoardTest) (5 ms)</li><li>retris.logic.PieceTest.testGetPosition2(retris.logic.PieceTest) (1 ms)</li><li>retris.logic.PieceTest.testRelocate(retris.logic.PieceTest) (0 ms)</li><li>retris.logic.PositionTest.testGetY(retris.logic.PositionTest) (3 ms)</li><li>retris.logic.BoardTest.testIsInFreeSpaceOnBoardPieceValid(retris.logic.BoardTest) (1 ms)</li><li>retris.logic.BoardTest.testIsOnBoardPieceWithValidCoordinates(retris.logic.BoardTest) (1 ms)</li>
 </ul>
 
 <br/>

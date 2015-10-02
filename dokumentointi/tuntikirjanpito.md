@@ -11,3 +11,4 @@
 - 18.9. 3h, Testejä ja dokumentointia ja muuta puhdistusta. Uusi luokkakaavio
 - 24.9. 3h, Loppu toiminnallisuus, testejä kuntoon
 - 25.9. 1h, Vähän refaktorointia
+- 2.10. 4h, Sekvenssikaaviot, muutama bugikorjaus

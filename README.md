@@ -7,4 +7,3 @@ retris, eli siis perinteinen tetris peli ihan vaan huvinpitoon ja ajanvietteesee
 
 ##Luokkakaavio
 ![dokumentointi/JAVALABRA luokkakaavio tarkentunut.png](dokumentointi/JAVALABRA luokkakaavio tarkentunut.png)
-
