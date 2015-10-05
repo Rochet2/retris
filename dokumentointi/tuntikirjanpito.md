@@ -7,8 +7,9 @@
 - 10.9. 1h, Luokkakaavio ja pit-raportti
 - 12.9. 6h, GUI ja bugikorjauksia jotka ilmeni GUI:ssa
 - 13.9. 1h, Ratkaistu GUI:n välkkyminen
-- 15.9. 1,5h, Tee väritys paloille ja lisää muutama muoto
+- 15.9. 1.5h, Tee väritys paloille ja lisää muutama muoto
 - 18.9. 3h, Testejä ja dokumentointia ja muuta puhdistusta. Uusi luokkakaavio
 - 24.9. 3h, Loppu toiminnallisuus, testejä kuntoon
 - 25.9. 1h, Vähän refaktorointia
 - 2.10. 4h, Sekvenssikaaviot, muutama bugikorjaus
+- 6.10. 2.5h, Testien parantelua
