@@ -18,6 +18,7 @@ package retris.logic.timer;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 
 /**
  *
@@ -25,61 +26,96 @@ import static org.junit.Assert.*;
  */
 public class TimerTest {
 
+    private final long delay;
+    private Timer timer;
+
     public TimerTest() {
+        this.delay = 100;
     }
 
-    /**
-     * testaa ajastimeen asetettua aikaa
-     */
-    @Test
-    public void testGetTimerDelay() {
-        long delay = 123L;
-        Timer instance = new Timer(delay);
-        assertEquals(delay, instance.getTimerDelay());
-        instance.updateAndCheckPassed(100);
-        assertEquals(delay, instance.getTimerDelay());
+    @Before
+    public void setUp() {
+        timer = new Timer(delay);
     }
 
-    /**
-     * testaa ajastimen raukeamista
-     */
     @Test
-    public void testUpdateAndCheckPassed() {
-        long delay = 100L;
-        Timer instance = new Timer(delay);
-        assertFalse(instance.updateAndCheckPassed(0));
-        assertFalse(instance.updateAndCheckPassed(10));
-        assertTrue(instance.updateAndCheckPassed(90));
-        assertTrue(instance.updateAndCheckPassed(100));
-        assertFalse(instance.updateAndCheckPassed(5));
+    public void testTimerConstructorSetsCorrectDelay() {
+        assertEquals(delay, timer.getTimerDelay());
+        timer = new Timer(123);
+        assertEquals(123, timer.getTimerDelay());
     }
 
-    /**
-     * testaa ajastimen käsitystä kuluneesta ajasta
-     */
     @Test
-    public void testGetTimeCounter() {
-        Timer instance = new Timer(100);
-        assertEquals(0, instance.getTimeCounter());
-        instance.updateAndCheckPassed(10);
-        assertEquals(10, instance.getTimeCounter());
-        instance.updateAndCheckPassed(934);
-        assertEquals(944, instance.getTimeCounter());
-        instance.updateAndCheckPassed(-44);
-        assertEquals(900, instance.getTimeCounter());
-        instance.updateAndCheckPassed(-1000);
-        assertEquals(-100, instance.getTimeCounter());
+    public void testTimerConstructorSetsCorrectTimeCounter() {
+        assertEquals(0, timer.getTimeCounter());
     }
 
-    /**
-     * testaa ajastimen ajastettua aikaa
-     */
     @Test
-    public void testGetTriggerTime() {
-        Timer instance = new Timer(100);
-        assertEquals(100, instance.getTriggerTime());
-        instance.updateAndCheckPassed(10);
-        assertEquals(100, instance.getTriggerTime());
+    public void testTimerConstructorSetsCorrectTriggerTime() {
+        assertEquals(delay, timer.getTriggerTime());
+    }
+
+    @Test
+    public void testTimerPassedStateAfterInitialization() {
+        assertFalse(timer.updateAndCheckPassed(0));
+    }
+
+    @Test
+    public void testTimerUpdateAndCheckPassedPositiveCornerCases() {
+        assertFalse(timer.updateAndCheckPassed(0));
+        assertFalse(timer.updateAndCheckPassed(99));
+        assertFalse(timer.updateAndCheckPassed(0));
+        assertTrue(timer.updateAndCheckPassed(1));
+        assertFalse(timer.updateAndCheckPassed(0));
+    }
+
+    @Test
+    public void testTimerUpdateAndCheckPassedNegative() {
+        assertFalse(timer.updateAndCheckPassed(-99));
+        assertFalse(timer.updateAndCheckPassed(0));
+        assertFalse(timer.updateAndCheckPassed(-1));
+        assertFalse(timer.updateAndCheckPassed(-10000));
+    }
+
+    @Test
+    public void testTimerUpdateAndCheckPassedNegativeAndBackToPositive() {
+        assertFalse(timer.updateAndCheckPassed(-10000));
+        assertFalse(timer.updateAndCheckPassed(10000));
+        assertFalse(timer.updateAndCheckPassed(99));
+        assertTrue(timer.updateAndCheckPassed(1));
+        assertFalse(timer.updateAndCheckPassed(0));
+    }
+
+    @Test
+    public void testTimeCounterTimePassingWithCorrectTimeCounterPositive() {
+        assertEquals(0, timer.getTimeCounter());
+        timer.updateAndCheckPassed(10);
+        assertEquals(10, timer.getTimeCounter());
+        timer.updateAndCheckPassed(1000);
+        assertEquals(1010, timer.getTimeCounter());
+    }
+
+    @Test
+    public void testTimeCounterTimePassingWithCorrectTimeCounterNegative() {
+        timer.updateAndCheckPassed(-50);
+        assertEquals(-50, timer.getTimeCounter());
+        timer.updateAndCheckPassed(-1000);
+        assertEquals(-1050, timer.getTimeCounter());
+    }
+
+    @Test
+    public void testTimeCounterTimePassingWithCorrectTimeCounterNegativeToPositive() {
+        timer.updateAndCheckPassed(-50);
+        assertEquals(-50, timer.getTimeCounter());
+        timer.updateAndCheckPassed(100);
+        assertEquals(50, timer.getTimeCounter());
+    }
+
+    @Test
+    public void testTriggerTimeNotChanging() {
+        assertEquals(100, timer.getTriggerTime());
+        timer.updateAndCheckPassed(10);
+        assertEquals(100, timer.getTriggerTime());
     }
 
 }

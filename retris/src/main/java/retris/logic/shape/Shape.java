@@ -145,7 +145,7 @@ public class Shape {
      * @param formArray array jossa on muodot
      * @return kaikilla käännösvaiheet ovat näkyviä
      */
-    private boolean formsAreVisible(int[][][] formArray) {
+    public boolean formsAreVisible(int[][][] formArray) {
         for (int[][] formRotation : formArray) {
             if (!hasOneNotZero(formRotation)) {
                 return false;
@@ -162,8 +162,20 @@ public class Shape {
      * @return tasojen pituudet nollaa isompia
      */
     public boolean arrayDimensionLenghtsAboveZero(int[][][] array) {
-        return array != null && array.length >= 1
-                && array[0].length >= 1 && array[0][0].length >= 1;
+        if (array.length < 1) {
+            return false;
+        }
+        for (int i = 0; i < array.length; ++i) {
+            if (array[i].length < 1) {
+                return false;
+            }
+            for (int j = 0; j < array[i].length; ++j) {
+                if (array[i][j].length < 1) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
@@ -172,7 +184,7 @@ public class Shape {
      * @param array
      * @return sisältää ainakin yhden nollasta poikkeavan arvon
      */
-    private boolean hasOneNotZero(int[][] array) {
+    public boolean hasOneNotZero(int[][] array) {
         for (int[] dimension1 : array) {
             for (int value : dimension1) {
                 if (value != 0) {

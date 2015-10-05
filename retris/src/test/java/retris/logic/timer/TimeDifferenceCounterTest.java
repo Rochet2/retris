@@ -16,8 +16,6 @@
  */
 package retris.logic.timer;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -27,26 +25,44 @@ import static org.junit.Assert.*;
  */
 public class TimeDifferenceCounterTest {
 
+    private TimeDifferenceCounter timeDifferenceCounter;
+
     public TimeDifferenceCounterTest() {
+        this.timeDifferenceCounter = new TimeDifferenceCounter();
     }
 
-    /**
-     * Testaa aikaerolaskurin aikaeroja
-     */
     @Test
-    public void testGetTimeSinceLastCall() {
-        double delta = 50.0;
-        TimeDifferenceCounter instance = new TimeDifferenceCounter();
-        long result = instance.getTimeSinceLastCall();
-        assertEquals(0, result, delta);
-        instance.getTimeSinceLastCall();
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(TimeDifferenceCounterTest.class.getName()).log(Level.SEVERE, null, ex);
+    public void testGetTimeSinceLastCallAfterConstruction() {
+        assertEquals(0, timeDifferenceCounter.getTimeSinceLastCall());
+    }
+
+    @Test
+    public void testGetTimeSinceLastCallWithInstantSecondCall() {
+        timeDifferenceCounter.getTimeSinceLastCall();
+        assertEquals(0, timeDifferenceCounter.getTimeSinceLastCall());
+    }
+
+    @Test
+    public void testGetTimeSinceLastCallWithDelayBetweenCalls() {
+        long testedTime = 100;
+        long delta = 5;
+        // reset timer
+        timeDifferenceCounter.getTimeSinceLastCall();
+        long startTime = System.currentTimeMillis();
+        // wait
+        while (System.currentTimeMillis() < startTime + testedTime) {
         }
-        double result2 = instance.getTimeSinceLastCall();
-        assertEquals(100.0, result2, delta);
+
+        long actualPassedTime = System.currentTimeMillis() - startTime;
+        long passedTimeSinceLastCall = timeDifferenceCounter.getTimeSinceLastCall();
+
+        // see if timer has increased according to supposed tested time
+        assertTrue(passedTimeSinceLastCall >= testedTime);
+        assertTrue(passedTimeSinceLastCall <= testedTime + delta);
+
+        // see if timer has increased according to actual passed time
+        assertTrue(passedTimeSinceLastCall >= actualPassedTime);
+        assertTrue(passedTimeSinceLastCall <= actualPassedTime + delta);
     }
 
 }
