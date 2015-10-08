@@ -27,18 +27,6 @@ public class Position {
     private int y;
 
     /**
-     * Luo uuden kopion paikasta
-     *
-     * @param position kopio paikasta
-     */
-    public Position(Position position) {
-        if (position != null) {
-            this.x = position.x;
-            this.y = position.y;
-        }
-    }
-
-    /**
      * Luo uuden paikan nollakoordinaateilla
      */
     public Position() {

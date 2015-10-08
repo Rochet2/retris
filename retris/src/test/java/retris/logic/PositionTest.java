@@ -18,6 +18,7 @@ package retris.logic;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 
 /**
  *
@@ -25,102 +26,78 @@ import static org.junit.Assert.*;
  */
 public class PositionTest {
 
-    public PositionTest() {
+    private Position position;
+
+    @Before
+    public void setUp() {
+        this.position = new Position();
     }
 
-    /**
-     * testaa paikan luontia
-     */
     @Test
-    public void testConstructor() {
-        int x = 0;
-        int y = 0;
-        Position instance = new Position();
-        assertEquals(x, instance.getX());
-        assertEquals(y, instance.getY());
+    public void testDefaultConstructor() {
+        position = new Position();
+        assertEquals(0, position.getX());
+        assertEquals(0, position.getY());
     }
 
-    /**
-     * testaa paikan luotia koordinaateilla
-     */
     @Test
-    public void testConstructor2() {
+    public void testConstructorWithCoordinates() {
         int x = 123;
         int y = 543;
-        Position instance = new Position(x, y);
-        assertEquals(x, instance.getX());
-        assertEquals(y, instance.getY());
+        position = new Position(x, y);
+        assertEquals(x, position.getX());
+        assertEquals(y, position.getY());
     }
 
-    /**
-     * testaa paikan kopiointia
-     */
-    @Test
-    public void testCloneConstructor() {
-        int x = 123;
-        int y = 543;
-        Position instance = new Position(new Position(x, y));
-        assertEquals(x, instance.getX());
-        assertEquals(y, instance.getY());
-    }
-
-    /**
-     * testaa paikan koordinaattien hakua
-     */
     @Test
     public void testGetX() {
-        Position instance = new Position();
-        int expResult = 0;
-        int result = instance.getX();
-        assertEquals(expResult, result);
+        assertEquals(0, position.getX());
+        position.setX(20);
+        assertEquals(20, position.getX());
+        position.setX(-20);
+        assertEquals(-20, position.getX());
     }
 
-    /**
-     * testaa paikan koordinaattien hakua
-     */
     @Test
     public void testGetY() {
-        Position instance = new Position();
-        int expResult = 0;
-        int result = instance.getY();
-        assertEquals(expResult, result);
+        assertEquals(0, position.getY());
+        position.setY(20);
+        assertEquals(20, position.getY());
+        position.setY(-20);
+        assertEquals(-20, position.getY());
     }
 
-    /**
-     * testaa paikan koordinaattien asetusta
-     */
     @Test
     public void testSetX() {
-        int expected = 324;
-        Position instance = new Position();
-        instance.setX(expected);
-        int result = instance.getX();
-        assertEquals(expected, result);
+        position.setX(0);
+        assertEquals(0, position.getX());
+        position.setX(123);
+        assertEquals(123, position.getX());
+        position.setX(-123);
+        assertEquals(-123, position.getX());
     }
 
-    /**
-     * testaa paikan koordinaattien asetusta
-     */
     @Test
     public void testSetY() {
-        int expected = 324;
-        Position instance = new Position();
-        instance.setY(expected);
-        int result = instance.getY();
-        assertEquals(expected, result);
+        position.setY(0);
+        assertEquals(0, position.getY());
+        position.setY(123);
+        assertEquals(123, position.getY());
+        position.setY(-123);
+        assertEquals(-123, position.getY());
     }
 
-    /**
-     * testaa paikan koordinaattien asetusta
-     */
     @Test
     public void testRelocate() {
-        int x = 123;
-        int y = 453;
-        Position instance = new Position();
-        instance.relocate(x, y);
-        assertEquals(x, instance.getX());
-        assertEquals(y, instance.getY());
+        position.relocate(123, 432);
+        assertEquals(123, position.getX());
+        assertEquals(432, position.getY());
+        position.relocate(-123, -432);
+        assertEquals(-123, position.getX());
+        assertEquals(-432, position.getY());
+        position.relocate(0, 0);
+        assertEquals(0, position.getX());
+        assertEquals(0, position.getY());
     }
 
 }

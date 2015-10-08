@@ -210,10 +210,10 @@ public class BoardTest {
         int height = 5;
         Board board = new Board(width, height);
         for (int y = 0; y < height; ++y) {
-            board.setSpaceStateOnBoard(0, y, y+1);
+            board.setSpaceStateOnBoard(0, y, y + 1);
         }
         board.removeRow(3);
-        
+
         int[][] expected = {
             {0},
             {1},
@@ -253,10 +253,10 @@ public class BoardTest {
         int height = 5;
         Board board = new Board(width, height);
         for (int y = 0; y < height; ++y) {
-            board.setSpaceStateOnBoard(0, y, y+1);
+            board.setSpaceStateOnBoard(0, y, y + 1);
         }
         board.removeFilledRows();
-        
+
         int[][] expected = {
             {0},
             {0},
@@ -285,7 +285,7 @@ public class BoardTest {
             {0, 0},
             {1, 0},
             {3, 0},
-            {5, 0},
+            {5, 0}
         };
         assertArrayEquals(expected, board.getBoardStateCopy());
     }
@@ -308,11 +308,11 @@ public class BoardTest {
             {0, 0},
             {0, 0},
             {2, 0},
-            {4, 0},
+            {4, 0}
         };
         assertArrayEquals(expected, board.getBoardStateCopy());
     }
-    
+
     @Test
     public void testIsInFreeSpaceOnBoardNull() {
         int width = 2;
@@ -320,7 +320,7 @@ public class BoardTest {
         Board board = new Board(width, height);
         assertFalse(board.isInFreeSpaceOnBoard(null));
     }
-    
+
     @Test
     public void testIsInFreeSpaceOnBoardPieceValid() {
         int width = 2;
@@ -329,7 +329,7 @@ public class BoardTest {
         Piece piece = new Piece();
         assertTrue(board.isInFreeSpaceOnBoard(piece));
     }
-    
+
     @Test
     public void testIsInFreeSpaceOnBoardPieceInvalid() {
         int width = 2;
@@ -339,7 +339,7 @@ public class BoardTest {
         piece.relocate(-1, 0);
         assertFalse(board.isInFreeSpaceOnBoard(piece));
     }
-    
+
     @Test
     public void testIsInFreeSpaceOnBoardPieceInvalid2() {
         int width = 1;
@@ -360,7 +360,7 @@ public class BoardTest {
         });
         assertFalse(board.isInFreeSpaceOnBoard(piece));
     }
-    
+
     @Test
     public void testIsInFreeSpaceOnBoardNotOnBoard() {
         int width = 2;
@@ -372,7 +372,7 @@ public class BoardTest {
         piece.relocate(width, 0);
         assertFalse(board.isInFreeSpaceOnBoard(piece));
     }
-    
+
     @Test
     public void testIsInFreeSpaceOnBoard_OnFilledSpace() {
         int width = 2;
@@ -383,7 +383,7 @@ public class BoardTest {
         board.fillPieceToBoard(piece);
         assertFalse(board.isInFreeSpaceOnBoard(piece));
     }
-    
+
     @Test
     public void testIsInFreeSpaceOnBoard() {
         int width = 3;
@@ -401,7 +401,7 @@ public class BoardTest {
         board.fillPieceToBoard(piece);
         assertTrue(board.isInFreeSpaceOnBoard(piece));
     }
-    
+
     @Test
     public void testIsInFreeSpaceOnBoard2() {
         int width = 3;
@@ -418,7 +418,7 @@ public class BoardTest {
         board.fillPieceToBoard(piece);
         assertFalse(board.isInFreeSpaceOnBoard(piece));
     }
-    
+
     @Test
     public void testFillPieceToBoardNull() {
         int width = 1;

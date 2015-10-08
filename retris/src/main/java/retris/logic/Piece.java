@@ -32,8 +32,8 @@ public class Piece {
      * Luo uuden palan oletusmuodolla ja koordinaateilla
      */
     public Piece() {
-        this.shape = new Shape(shape);
-        this.position = new Position();
+        this.shape = new Shape();
+        this.position = new Position(0, 0);
     }
 
     /**

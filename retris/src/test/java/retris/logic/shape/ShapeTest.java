@@ -77,7 +77,7 @@ public class ShapeTest {
             {0, 0, 0},
             {0, 0, 0},
             {0, 0, 0}
-        },
+        }
     };
     private final int[][][] invalidShapeFormRotationsEmpty = {
         {
@@ -88,33 +88,40 @@ public class ShapeTest {
         {
             {0},
             {}
-        },
+        }
     };
 
     @Before
     public void setUp() {
-        shape = new Shape();
+        this.shape = new Shape();
     }
-    
+
     @Test
     public void testShapeConstructorDefaultForm() {
+        shape = new Shape();
         assertArrayEquals(defaultShapeFormRotations, shape.getShapeFormRotations());
     }
-    
+
     @Test
     public void testShapeCopyConstructorForm() {
         shape.setShapeFormRotations(validShapeFormRotations);
         Shape copy = new Shape(shape);
         assertArrayEquals(validShapeFormRotations, copy.getShapeFormRotations());
     }
-    
+
+    @Test
+    public void testShapeNullConstructorForm() {
+        shape = new Shape(null);
+        assertArrayEquals(defaultShapeFormRotations, shape.getShapeFormRotations());
+    }
+
     @Test
     public void testgetShapeFormRotations() {
         assertArrayEquals(defaultShapeFormRotations, shape.getShapeFormRotations());
         shape.setShapeFormRotations(validShapeFormRotations);
         assertArrayEquals(validShapeFormRotations, shape.getShapeFormRotations());
     }
-    
+
     @Test
     public void testGetMaxWidthSingle() {
         int[][][] testForm = {
@@ -123,7 +130,7 @@ public class ShapeTest {
         shape.setShapeFormRotations(testForm);
         assertEquals(1, shape.getMaxWidth());
     }
-    
+
     @Test
     public void testGetMaxWidthSingleRow() {
         int[][][] testForm = {
@@ -132,7 +139,7 @@ public class ShapeTest {
         shape.setShapeFormRotations(testForm);
         assertEquals(4, shape.getMaxWidth());
     }
-    
+
     @Test
     public void testGetMaxWidthMultipleRows() {
         int[][][] testForm = {
@@ -147,13 +154,13 @@ public class ShapeTest {
         shape.setShapeFormRotations(testForm);
         assertEquals(4, shape.getMaxWidth());
     }
-    
+
     @Test
     public void testGetMaxWidthMultipleForms() {
         int[][][] testForm = {
             {
                 {0, 1, 0},
-                {0, 1, 0},
+                {0, 1, 0}
             },
             {
                 {0, 1, 0, 0},
@@ -166,7 +173,7 @@ public class ShapeTest {
         shape.setShapeFormRotations(testForm);
         assertEquals(4, shape.getMaxWidth());
     }
-    
+
     @Test
     public void testGetMaxHeightSingle() {
         int[][][] testForm = {
@@ -175,7 +182,7 @@ public class ShapeTest {
         shape.setShapeFormRotations(testForm);
         assertEquals(1, shape.getMaxHeight());
     }
-    
+
     @Test
     public void testGetMaxHeightSingleRow() {
         int[][][] testForm = {
@@ -184,7 +191,7 @@ public class ShapeTest {
         shape.setShapeFormRotations(testForm);
         assertEquals(1, shape.getMaxHeight());
     }
-    
+
     @Test
     public void testGetMaxHeightMultipleRows() {
         int[][][] testForm = {
@@ -199,14 +206,13 @@ public class ShapeTest {
         shape.setShapeFormRotations(testForm);
         assertEquals(5, shape.getMaxHeight());
     }
-    
+
     @Test
     public void testGetMaxHeightMultipleForms() {
         int[][][] testForm = {
             {
                 {0, 1, 0},
-                {0, 1, 0},
-            },
+                {0, 1, 0}},
             {
                 {0, 1, 0, 0},
                 {0, 1, 0, 0},
@@ -218,25 +224,25 @@ public class ShapeTest {
         shape.setShapeFormRotations(testForm);
         assertEquals(5, shape.getMaxHeight());
     }
-    
+
     @Test
     public void testSetShapeFormRotationsValid() {
         shape.setShapeFormRotations(validShapeFormRotations);
         assertArrayEquals(validShapeFormRotations, shape.getShapeFormRotations());
     }
-    
+
     @Test
     public void testSetShapeFormRotationsInvalidEmpty() {
         shape.setShapeFormRotations(invalidShapeFormRotationsEmpty);
         assertArrayEquals(defaultShapeFormRotations, shape.getShapeFormRotations());
     }
-    
+
     @Test
     public void testSetShapeFormRotationsInvalidSingleZero() {
         shape.setShapeFormRotations(invalidShapeFormRotationsSingleZero);
         assertArrayEquals(defaultShapeFormRotations, shape.getShapeFormRotations());
     }
-    
+
     @Test
     public void testSetShapeFormRotationsInvalidZeros() {
         shape.setShapeFormRotations(invalidShapeFormRotationsZeros);
@@ -251,18 +257,16 @@ public class ShapeTest {
 
     @Test
     public void testCloneArray3DDoesRealClone() {
-        int [][][] test3dArr = {
+        int[][][] test3dArr = {
             {
                 {1, 0},
                 {1, 0, 1}
-            },
-        };
-        int [][][] test3dArrcopy = {
+            }};
+        int[][][] test3dArrcopy = {
             {
                 {1, 0},
                 {1, 0, 1}
-            },
-        };
+            }};
         int[][][] result = shape.cloneArray3D(test3dArr);
         test3dArr[0][1][0] = 0;
         assertArrayEquals(test3dArrcopy, result);
@@ -299,8 +303,9 @@ public class ShapeTest {
 
     @Test
     public void testHasOneNotZeroValid() {
-        for (int[][]form : validShapeFormRotations)
+        for (int[][] form : validShapeFormRotations) {
             assertTrue(shape.hasOneNotZero(form));
+        }
         assertTrue(shape.hasOneNotZero(new int[][]{{0, 0}, {1}}));
     }
 

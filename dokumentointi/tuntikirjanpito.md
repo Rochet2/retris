@@ -13,3 +13,4 @@
 - 25.9. 1h, Vähän refaktorointia
 - 2.10. 4h, Sekvenssikaaviot, muutama bugikorjaus
 - 6.10. 2.5h, Testien parantelua
+- 9.10. 2.5h, Testien parantelua - lopulliset testit. Kattavuus >= 95% koodista ja mutanteista

@@ -18,6 +18,7 @@ package retris.logic.timer;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 
 /**
  *
@@ -27,12 +28,14 @@ public class TimeDifferenceCounterTest {
 
     private TimeDifferenceCounter timeDifferenceCounter;
 
-    public TimeDifferenceCounterTest() {
+    @Before
+    public void setUp() {
         this.timeDifferenceCounter = new TimeDifferenceCounter();
     }
 
     @Test
     public void testGetTimeSinceLastCallAfterConstruction() {
+        timeDifferenceCounter = new TimeDifferenceCounter();
         assertEquals(0, timeDifferenceCounter.getTimeSinceLastCall());
     }
 

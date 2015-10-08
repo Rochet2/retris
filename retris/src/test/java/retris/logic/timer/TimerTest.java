@@ -35,7 +35,7 @@ public class TimerTest {
 
     @Before
     public void setUp() {
-        timer = new Timer(delay);
+        this.timer = new Timer(delay);
     }
 
     @Test

@@ -61,14 +61,14 @@ public final class Game {
      *
      * @return jatka
      */
-    private boolean isRunning() {
+    public synchronized boolean isRunning() {
         return running;
     }
 
     /**
      * Kertoo pelille että sen tulisi pysäyttää peli
      */
-    private void stopRunning() {
+    public synchronized void stopRunning() {
         this.running = false;
     }
 
@@ -77,7 +77,7 @@ public final class Game {
      *
      * @param diff aika viime päivityksestä millisekunteina
      */
-    private synchronized void update(long diff) {
+    public synchronized void update(long diff) {
         if (pieceDropTimer.updateAndCheckPassed(diff)) {
             movePieceDown();
         }
@@ -99,7 +99,7 @@ public final class Game {
     /**
      * Tarkistaa loppuiko peli ja lopettaa jos loppui
      */
-    private void endGameIfShould() {
+    public synchronized void endGameIfShould() {
         if (!gameBoard.isInFreeSpaceOnBoard(droppingPiece)) {
             droppingPiece.setShape(new Shape());
             droppingPiece.getPosition().setY(-1);
@@ -124,7 +124,7 @@ public final class Game {
      *
      * @return muoto
      */
-    public Shape selectRandomGameShape() {
+    public synchronized Shape selectRandomGameShape() {
         if (gameShapes.isEmpty()) {
             return new Shape();
         }
@@ -151,7 +151,7 @@ public final class Game {
      *
      * @return pelilaudan tila arraynä
      */
-    private int[][] getCurrentBoardState() {
+    private synchronized int[][] getCurrentBoardState() {
         int[][] array = gameBoard.getBoardStateCopy();
         droppingPiece.fillFormToArray(array);
         return array;
@@ -241,6 +241,13 @@ public final class Game {
      */
     public synchronized int[][] getGameStateCopy() {
         return getCurrentBoardState();
+    }
+
+    /**
+     * @return the pieceDropTimer
+     */
+    public synchronized Timer getPieceDropTimer() {
+        return pieceDropTimer;
     }
 
 }
