@@ -17,6 +17,4 @@ Vapaa-aikaa omaavat
 - [x] palikat törmäävät seiniin eivätkä voi paeta alueelta
 - [x] palikat eivät mene sisäkkäin
 - [x] palikkarivien tuhoutuminen kun vaakarivi on täysi
-- [ ] pisteenlasku rivien tuhoamisesta
 - [x] huijauskoodeja pelin kehittäjille: Paina välilyöntiä
-
