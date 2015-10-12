@@ -18,3 +18,5 @@ Vapaa-aikaa omaavat
 - [x] palikat eivät mene sisäkkäin
 - [x] palikkarivien tuhoutuminen kun vaakarivi on täysi
 - [x] huijauskoodeja pelin kehittäjille: Paina välilyöntiä
+- [x] game over teksti pelin loputtua
+- [x] pisteenlaskua rikotuista riveistä

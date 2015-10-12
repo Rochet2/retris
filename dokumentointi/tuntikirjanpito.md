@@ -15,3 +15,5 @@
 - 6.10. 2.5h, Testien parantelua
 - 9.10. 2.5h, Testien parantelua - lopulliset testit. Kattavuus >= 95% koodista ja mutanteista
 - 9.10. 1h, Sekvenssikaaviot ja javadoc
+- 11.10. 2h, GUI uudelleenkoodausta joka ei päätynyt repositoryyn kuitenkaan
+- 12.10. 2h, Joitakin lisäominaisuuksia (pisteytys, game over teksti) ja hieman refaktorointia jotta lisäominaisuudet on helpompi lisätä.

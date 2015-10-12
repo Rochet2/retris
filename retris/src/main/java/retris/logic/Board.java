@@ -181,8 +181,6 @@ public class Board {
             return;
         }
         fillPiece(piece);
-
-        removeFilledRows();
     }
 
     /**
@@ -205,13 +203,18 @@ public class Board {
     /**
      * Poistaa kaikki täytetyt rivit laudalta liikuttaen rivejä ylhäältä alas
      * paikaten poistetut rivit.
+     *
+     * @return poistettujen rivien määrä
      */
-    public void removeFilledRows() {
+    public int removeFilledRows() {
+        int removedRows = 0;
         for (int y = 0; y < getBoardHeight(); ++y) {
             if (isFilledRow(y)) {
                 removeRow(y);
+                ++removedRows;
             }
         }
+        return removedRows;
     }
 
     /**

@@ -238,7 +238,8 @@ public class BoardTest {
         for (int x = 0; x < width; ++x) {
             board.setSpaceStateOnBoard(x, 7, 1);
         }
-        board.removeFilledRows();
+        int removedRows = board.removeFilledRows();
+        assertEquals(2, removedRows);
         assertFalse(board.isFilledRow(5));
         assertFalse(board.isFilledRow(6));
         assertFalse(board.isFilledRow(7));
@@ -255,7 +256,7 @@ public class BoardTest {
         for (int y = 0; y < height; ++y) {
             board.setSpaceStateOnBoard(0, y, y + 1);
         }
-        board.removeFilledRows();
+        assertEquals(5, board.removeFilledRows());
 
         int[][] expected = {
             {0},
@@ -278,7 +279,7 @@ public class BoardTest {
                 board.setSpaceStateOnBoard(1, y, y + 1);
             }
         }
-        board.removeFilledRows();
+        assertEquals(2, board.removeFilledRows());
 
         int[][] expected = {
             {0, 0},
@@ -301,7 +302,7 @@ public class BoardTest {
                 board.setSpaceStateOnBoard(1, y, y + 1);
             }
         }
-        board.removeFilledRows();
+        assertEquals(3, board.removeFilledRows());
 
         int[][] expected = {
             {0, 0},
@@ -399,6 +400,7 @@ public class BoardTest {
         assertFalse(board.isInFreeSpaceOnBoard(piece));
         board.setSpaceStateOnBoard(1, 1, 0);
         board.fillPieceToBoard(piece);
+        assertEquals(3, board.removeFilledRows());
         assertTrue(board.isInFreeSpaceOnBoard(piece));
     }
 

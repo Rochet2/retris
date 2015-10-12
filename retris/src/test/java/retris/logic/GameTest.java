@@ -40,13 +40,13 @@ public class GameTest {
 
     @Before
     public void setUp() {
-        this.game = new Game(null, 5, 5, 10);
+        this.game = new Game(5, 5, 10);
         this.game.addShapeToGame(new ShapeL());
     }
 
     @Test
     public void testConstructor() {
-        game = new Game(null, 5, 6, 10);
+        game = new Game(5, 6, 10);
         assertEquals(10, game.getPieceDropTimer().getTimerDelay());
         assertEquals(5, game.getGameStateCopy()[0].length);
         assertEquals(6, game.getGameStateCopy().length);
@@ -201,19 +201,13 @@ public class GameTest {
 
     @Test
     public void testAddShapeToGame() {
-        game = new Game(null, 10, 10, 10);
+        game = new Game(10, 10, 10);
         assertArrayEquals((new Shape()).getShapeFormRotations(), game.selectRandomGameShape().getShapeFormRotations());
         int[][][] formRotations = {{{1, 1}}};
         Shape shape = new Shape();
         shape.setShapeFormRotations(formRotations);
         game.addShapeToGame(shape);
         assertArrayEquals(formRotations, game.selectRandomGameShape().getShapeFormRotations());
-    }
-
-    @Test
-    public void testRunGame() {
-        game.runGame();
-        assertFalse(game.isRunning());
     }
 
     @Test
@@ -315,7 +309,7 @@ public class GameTest {
 
     @Test
     public void testRotatePiece() {
-        game = new Game(null, 5, 5, 10);
+        game = new Game(5, 5, 10);
         game.addShapeToGame(new ShapeI());
         game.resetPiece();
 
@@ -438,5 +432,14 @@ public class GameTest {
             {0, 0, 0, 1, 0}
         };
         assertArrayEquals(expected, game.getGameStateCopy());
+    }
+    
+    @Test
+    public void testScoreMethods() {
+        assertEquals(0, game.getScore());
+        game.modifyScore(-100);
+        assertEquals(-100, game.getScore());
+        game.modifyScore(300);
+        assertEquals(200, game.getScore());
     }
 }

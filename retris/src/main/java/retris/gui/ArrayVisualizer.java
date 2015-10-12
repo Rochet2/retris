@@ -31,17 +31,9 @@ import javax.swing.JPanel;
 public class ArrayVisualizer extends JPanel {
 
     /**
-     * yhden arrayn elementin leveys
-     */
-    private final int elementWidth = 20;
-    /**
-     * yhden arrayn elementin korkeus
-     */
-    private final int elementHeight = 20;
-    /**
      * arrayn elementtien välissä oleva tila
      */
-    private final int elementSpacing = 1;
+    private final int elementSpacing;
     /**
      * eri numeroille arvotut värit
      */
@@ -61,10 +53,10 @@ public class ArrayVisualizer extends JPanel {
      *
      * @param panelWidth paneelin leveys
      * @param panelHeight paneelin korkeus
+     * @param elementSpacing array elementtien välinen tila kuvassa
      */
-    public ArrayVisualizer(int panelWidth, int panelHeight) {
-        panelWidth = elementSpacing + (panelWidth) * (elementWidth + elementSpacing);
-        panelHeight = elementSpacing + (panelHeight) * (elementHeight + elementSpacing);
+    public ArrayVisualizer(int panelWidth, int panelHeight, int elementSpacing) {
+        this.elementSpacing = elementSpacing;
         Dimension dimension = new Dimension(panelWidth, panelHeight);
         setPreferredSize(dimension);
     }
@@ -78,6 +70,13 @@ public class ArrayVisualizer extends JPanel {
     protected synchronized void paintComponent(Graphics g) {
         super.paintComponent(g);
         setBackground(Color.BLACK);
+
+        if (drawnArray == null || drawnArray.length < 1 || drawnArray[0].length < 1) {
+            return;
+        }
+
+        int elementWidth = (getWidth() - (drawnArray[0].length + 1) * elementSpacing) / drawnArray[0].length;
+        int elementHeight = (getHeight() - (drawnArray.length + 1) * elementSpacing) / drawnArray.length;
 
         Graphics g2 = g.create();
         for (int y = 0; y < drawnArray.length; ++y) {

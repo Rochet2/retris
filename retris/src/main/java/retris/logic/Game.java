@@ -19,12 +19,10 @@ package retris.logic;
 import retris.logic.timer.Timer;
 import java.util.ArrayList;
 import java.util.Random;
-import retris.gui.GameUI;
 import retris.logic.shape.Shape;
-import retris.logic.timer.TimeDifferenceCounter;
 
 /**
- * Suorittaa peliä.
+ * Pitää kirjaa pelin tilasta eri olioiden avulla
  *
  * @author rochet2_2
  */
@@ -55,26 +53,22 @@ public final class Game {
      */
     private boolean running = true;
     /**
-     * pelin käyttöliittymä jolle annetaan pelin tila sen päivittyessä
+     * pelaajan pisteet
      */
-    private final GameUI ui;
+    private long score;
 
     /**
      * Luo uuden pelin.
      *
-     * @param ui käyttöliittymä tai null
      * @param width pelilaudan leveys
      * @param height pelilaudan korkeus
      * @param dropSpeedMs palan putoamisvauhti millisekunneissa
      */
-    public Game(GameUI ui, int width, int height, long dropSpeedMs) {
+    public Game(int width, int height, long dropSpeedMs) {
         this.gameBoard = new Board(width, height);
         this.droppingPiece = new Piece();
         this.pieceDropTimer = new Timer(Math.max(0, dropSpeedMs));
-        this.ui = ui;
-        if (ui != null) {
-            ui.setGame(this);
-        }
+        this.score = 0;
     }
 
     /**
@@ -101,9 +95,6 @@ public final class Game {
     public synchronized void update(long diff) {
         if (pieceDropTimer.updateAndCheckPassed(diff)) {
             movePieceDown();
-        }
-        if (ui != null) {
-            ui.updateUI(getCurrentBoardState());
         }
     }
 
@@ -153,26 +144,12 @@ public final class Game {
     }
 
     /**
-     * Suorittaa peliä käyttöliittymineen.
-     */
-    public void runGame() {
-        resetPiece();
-        TimeDifferenceCounter diffTime = new TimeDifferenceCounter();
-        while (isRunning()) {
-            long diff = diffTime.getTimeSinceLastCall();
-            if (diff > 0) {
-                update(diff);
-            }
-        }
-    }
-
-    /**
      * Palauttaa koko pelin tämänhetkisen tilan arraynä laudasta kaikkine
      * paloineen
      *
      * @return pelilaudan tila arraynä
      */
-    private synchronized int[][] getCurrentBoardState() {
+    private synchronized int[][] getCurrentBoardStateCopy() {
         int[][] array = gameBoard.getBoardStateCopy();
         droppingPiece.fillFormToArray(array);
         return array;
@@ -204,6 +181,10 @@ public final class Game {
         if (!gameBoard.isInFreeSpaceOnBoard(droppingPiece)) {
             pos.setY(pos.getY() - 1);
             gameBoard.fillPieceToBoard(droppingPiece);
+            int removedRows = gameBoard.removeFilledRows();
+            if (removedRows > 0) {
+                modifyScore((long) (Math.pow(2, removedRows) * 50));
+            }
             resetPiece();
             return false;
         }
@@ -261,7 +242,7 @@ public final class Game {
      * @return pelilaudan tila
      */
     public synchronized int[][] getGameStateCopy() {
-        return getCurrentBoardState();
+        return getCurrentBoardStateCopy();
     }
 
     /**
@@ -271,6 +252,24 @@ public final class Game {
      */
     public synchronized Timer getPieceDropTimer() {
         return pieceDropTimer;
+    }
+
+    /**
+     * Palauttaa pelaajan pisteet
+     *
+     * @return pisteet
+     */
+    public synchronized long getScore() {
+        return score;
+    }
+
+    /**
+     * Muuttaa pistemäärää annetun määrän verran
+     *
+     * @param amount
+     */
+    public synchronized void modifyScore(long amount) {
+        score += amount;
     }
 
 }

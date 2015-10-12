@@ -16,17 +16,24 @@
  */
 package retris.gui;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.Color;
+import java.awt.Dimension;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import retris.logic.Game;
+import retris.logic.shape.ShapeI;
+import retris.logic.shape.ShapeJ;
+import retris.logic.shape.ShapeL;
+import retris.logic.shape.ShapeO;
+import retris.logic.timer.TimeDifferenceCounter;
 
 /**
  * Pelin UI
  *
  * @author rochet2_2
  */
-public class GameWindow extends GameUI {
+public final class GameWindow {
 
     /**
      * Pelin UI-ikkuna
@@ -36,64 +43,66 @@ public class GameWindow extends GameUI {
      * pelilaudan visualisoija
      */
     private final ArrayVisualizer boardVisualizer;
+    /**
+     * peli loppui teksti
+     */
+    private final JLabel gameOverText;
+    /**
+     * paneeli jossa peli-ikkunan sisältö on
+     */
+    private final JPanel windowPanel;
+    /**
+     * pelin pisteet
+     */
+    private final JLabel scoreText;
+    /**
+     * peliolio
+     */
+    private final Game game;
 
     /**
      * Luo uuden peli-ikkunan joka näyttää pelin visuaalisen tilan.
-     *
-     * @param width ikkunan leveys
-     * @param height ikkunan korkeus
      */
-    public GameWindow(int width, int height) {
+    public GameWindow() {
         this.gameWindow = new JFrame("Retris");
-        this.boardVisualizer = new ArrayVisualizer(width, height);
-        gameWindow.add(boardVisualizer);
+        this.windowPanel = new JPanel();
+        this.gameOverText = new JLabel("Game Over");
+        this.scoreText = new JLabel("Score: 0");
+        this.boardVisualizer = new ArrayVisualizer(211, 337, 1);
+        this.game = new Game(10, 16, 500);
+        setGameShapes();
 
-        addKeyListener();
-
+        setContent();
         showGameWindow();
+
+        runGame();
     }
 
     /**
-     * Lisää näppäinkuutenlijan
+     * Lisää ikkunan sisällön
      */
-    public final void addKeyListener() {
-        final GameUI ui = this;
-        gameWindow.addKeyListener(new KeyListener() {
+    private void setContent() {
+        windowPanel.setLayout(null);
+        Dimension dim = new Dimension(boardVisualizer.getPreferredSize());
+        dim.height += gameOverText.getPreferredSize().height + scoreText.getPreferredSize().height;
+        windowPanel.setPreferredSize(dim);
+        gameWindow.add(windowPanel);
 
-            @Override
-            public void keyTyped(KeyEvent e) {
-            }
+        boardVisualizer.setBounds(0, gameOverText.getPreferredSize().height + scoreText.getPreferredSize().height,
+                boardVisualizer.getPreferredSize().width, boardVisualizer.getPreferredSize().height);
 
-            @Override
-            public void keyPressed(KeyEvent e) {
-                Game game = ui.getGame();
-                if (game == null) {
-                    return;
-                }
-                int keyCode = e.getKeyCode();
-                switch (keyCode) {
-                    case KeyEvent.VK_UP:
-                        game.rotatePiece();
-                        break;
-                    case KeyEvent.VK_DOWN:
-                        game.movePieceDown();
-                        break;
-                    case KeyEvent.VK_LEFT:
-                        game.movePieceLeft();
-                        break;
-                    case KeyEvent.VK_RIGHT:
-                        game.movePieceRight();
-                        break;
-                    case KeyEvent.VK_SPACE:
-                        game.movePieceUp();
-                        break;
-                }
-            }
+        scoreText.setBounds(0, 0, boardVisualizer.getPreferredSize().width, scoreText.getPreferredSize().height);
 
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-        });
+        gameOverText.setVisible(false);
+        gameOverText.setForeground(Color.red);
+        gameOverText.setBounds(0, scoreText.getPreferredSize().height,
+                boardVisualizer.getPreferredSize().width, gameOverText.getPreferredSize().height);
+
+        windowPanel.add(boardVisualizer);
+        windowPanel.add(scoreText);
+        windowPanel.add(gameOverText);
+
+        gameWindow.addKeyListener(new KeyboardListener(this));
     }
 
     /**
@@ -108,13 +117,40 @@ public class GameWindow extends GameUI {
     }
 
     /**
-     * Välittää piirrettävän pelilaudan muodon piirtokomponentille
-     *
-     * @param boardState laudan tila
+     * Asettaa peliin tetromino muodot
      */
-    @Override
-    public void updateUI(int[][] boardState) {
-        boardVisualizer.setDrawnArray(boardState);
+    private void setGameShapes() {
+        game.addShapeToGame(new ShapeL());
+        game.addShapeToGame(new ShapeJ());
+        game.addShapeToGame(new ShapeO());
+        game.addShapeToGame(new ShapeI());
+    }
+
+    /**
+     * Suorittaa pelin
+     */
+    private void runGame() {
+        gameOverText.setVisible(false);
+        game.resetPiece();
+        TimeDifferenceCounter diffTime = new TimeDifferenceCounter();
+        while (game.isRunning()) {
+            long diff = diffTime.getTimeSinceLastCall();
+            if (diff > 0) {
+                game.update(diff);
+                boardVisualizer.setDrawnArray(game.getGameStateCopy());
+                scoreText.setText("Score: " + game.getScore());
+            }
+        }
+        gameOverText.setVisible(true);
+    }
+
+    /**
+     * Palauttaa pelin
+     *
+     * @return peliolio
+     */
+    public Game getGame() {
+        return game;
     }
 
 }
