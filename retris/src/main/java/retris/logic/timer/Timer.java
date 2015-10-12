@@ -23,12 +23,21 @@ package retris.logic.timer;
  */
 public class Timer {
 
+    /**
+     * Jo kulunut aika.
+     */
     private long timeCounter;
+    /**
+     * Aika jolloin ajastin raukeaa.
+     */
     private long triggerTime;
+    /**
+     * Aika kahden raukeamisen välissä.
+     */
     private final long timerDelay;
 
     /**
-     * Luo uuden ajastimen
+     * Luo uuden ajastimen.
      *
      * @param delayMs ajastimen aikaväli millisekunneissa
      */

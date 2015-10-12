@@ -28,8 +28,14 @@ import retris.logic.Game;
  */
 public class GameWindow extends GameUI {
 
+    /**
+     * Pelin UI-ikkuna
+     */
     private final JFrame gameWindow;
-    private final ArrayVisualizer boardPanel;
+    /**
+     * pelilaudan visualisoija
+     */
+    private final ArrayVisualizer boardVisualizer;
 
     /**
      * Luo uuden peli-ikkunan joka näyttää pelin visuaalisen tilan.
@@ -39,8 +45,8 @@ public class GameWindow extends GameUI {
      */
     public GameWindow(int width, int height) {
         this.gameWindow = new JFrame("Retris");
-        this.boardPanel = new ArrayVisualizer(width, height);
-        gameWindow.add(boardPanel);
+        this.boardVisualizer = new ArrayVisualizer(width, height);
+        gameWindow.add(boardVisualizer);
 
         addKeyListener();
 
@@ -108,7 +114,7 @@ public class GameWindow extends GameUI {
      */
     @Override
     public void updateUI(int[][] boardState) {
-        boardPanel.setDrawnArray(boardState);
+        boardVisualizer.setDrawnArray(boardState);
     }
 
 }

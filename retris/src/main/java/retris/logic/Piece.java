@@ -25,7 +25,13 @@ import retris.logic.shape.Shape;
  */
 public class Piece {
 
+    /**
+     * Palan muodon kuvaus
+     */
     private Shape shape;
+    /**
+     * Palan koordinaatit
+     */
     private final Position position;
 
     /**

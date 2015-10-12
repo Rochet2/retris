@@ -30,12 +30,33 @@ import retris.logic.timer.TimeDifferenceCounter;
  */
 public final class Game {
 
+    /**
+     * pelissä esiintyvät muodot
+     */
     private final ArrayList<Shape> gameShapes = new ArrayList<Shape>();
+    /**
+     * pelilauta
+     */
     private final Board gameBoard;
+    /**
+     * pelin pala joka tippuu
+     */
     private final Piece droppingPiece;
+    /**
+     * satunnaislukugeneraattori
+     */
     private final Random random = new Random();
+    /**
+     * tippuvan palan tippumisajastin
+     */
     private final Timer pieceDropTimer;
+    /**
+     * pelin tila: käynnissä tai lopeta
+     */
     private boolean running = true;
+    /**
+     * pelin käyttöliittymä jolle annetaan pelin tila sen päivittyessä
+     */
     private final GameUI ui;
 
     /**
@@ -244,6 +265,8 @@ public final class Game {
     }
 
     /**
+     * Palauttaa palan tippumisajastimen
+     *
      * @return the pieceDropTimer
      */
     public synchronized Timer getPieceDropTimer() {

@@ -25,7 +25,13 @@ package retris.logic.shape;
  */
 public class Shape {
 
+    /**
+     * Nykyisen muodon indeksi shapeFormRotationissa
+     */
     private int shapeFormIndex;
+    /**
+     * Kaikki muodon eri vaiheet kun sitä pyöritetään
+     */
     private int[][][] shapeFormRotations = {
         {{1}}
     };

@@ -23,7 +23,13 @@ package retris.logic;
  */
 public class Position {
 
+    /**
+     * Paikan x-koordinaatti
+     */
     private int x;
+    /**
+     * Paikan y-koordinaatti
+     */
     private int y;
 
     /**

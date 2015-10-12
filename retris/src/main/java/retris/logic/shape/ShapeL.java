@@ -23,6 +23,9 @@ package retris.logic.shape;
  */
 public class ShapeL extends Shape {
 
+    /**
+     * Muodon eri käännösten määrittely
+     */
     public static final int[][][] form = {
         {
             {0, 0, 1},

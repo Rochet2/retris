@@ -25,6 +25,9 @@ import retris.logic.Game;
  */
 public abstract class GameUI {
 
+    /**
+     * luokkaan liittyvä peliolio jolle esimerkiksi käyttäjän syötteet ohjataan
+     */
     private Game game;
 
     /**

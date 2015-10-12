@@ -23,8 +23,17 @@ package retris.logic;
  */
 public class Board {
 
+    /**
+     * pelilaudan sisällöstä kirjaa pitävä array
+     */
     private final int[][] boardState;
+    /**
+     * pelilaudan leveys
+     */
     private final int boardWidth;
+    /**
+     * pelilaudan korkeus
+     */
     private final int boardHeight;
 
     /**
@@ -178,6 +187,7 @@ public class Board {
 
     /**
      * Täyttää palan lautaan
+     *
      * @param piece pala
      */
     private void fillPiece(Piece piece) {

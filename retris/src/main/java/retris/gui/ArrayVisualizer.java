@@ -25,29 +25,47 @@ import javax.swing.JPanel;
 
 /**
  * Piirtää arraytä ruudulle
- * 
+ *
  * @author rochet2_2
  */
 public class ArrayVisualizer extends JPanel {
 
-    private final int width = 20;
-    private final int height = 20;
-    private final int spacing = 1;
-    private final HashMap<Integer, Color> colors = new HashMap<>();
+    /**
+     * yhden arrayn elementin leveys
+     */
+    private final int elementWidth = 20;
+    /**
+     * yhden arrayn elementin korkeus
+     */
+    private final int elementHeight = 20;
+    /**
+     * arrayn elementtien välissä oleva tila
+     */
+    private final int elementSpacing = 1;
+    /**
+     * eri numeroille arvotut värit
+     */
+    private final HashMap<Integer, Color> numberColors = new HashMap<>();
+    /**
+     * satunnaislukugeneraattori
+     */
     private final Random random = new Random();
 
-    private int[][] boardState = {{}};
+    /**
+     * array joka piirretään
+     */
+    private int[][] drawnArray = {{}};
 
     /**
      * Luo uuden paneelin joka piirtää arraytä
      *
-     * @param boardWidth paneelin leveys
-     * @param boardHeight paneelin korkeus
+     * @param panelWidth paneelin leveys
+     * @param panelHeight paneelin korkeus
      */
-    public ArrayVisualizer(int boardWidth, int boardHeight) {
-        boardWidth = spacing + (boardWidth) * (width + spacing);
-        boardHeight = spacing + (boardHeight) * (height + spacing);
-        Dimension dimension = new Dimension(boardWidth, boardHeight);
+    public ArrayVisualizer(int panelWidth, int panelHeight) {
+        panelWidth = elementSpacing + (panelWidth) * (elementWidth + elementSpacing);
+        panelHeight = elementSpacing + (panelHeight) * (elementHeight + elementSpacing);
+        Dimension dimension = new Dimension(panelWidth, panelHeight);
         setPreferredSize(dimension);
     }
 
@@ -62,13 +80,13 @@ public class ArrayVisualizer extends JPanel {
         setBackground(Color.BLACK);
 
         Graphics g2 = g.create();
-        for (int y = 0; y < boardState.length; ++y) {
-            for (int x = 0; x < boardState[y].length; ++x) {
-                if (boardState[y][x] == 0) {
+        for (int y = 0; y < drawnArray.length; ++y) {
+            for (int x = 0; x < drawnArray[y].length; ++x) {
+                if (drawnArray[y][x] == 0) {
                     continue;
                 }
-                g2.setColor(getColor(boardState[y][x]));
-                g2.fillRect(spacing + x * (spacing + width), spacing + y * (spacing + height), width, height);
+                g2.setColor(getColor(drawnArray[y][x]));
+                g2.fillRect(elementSpacing + x * (elementSpacing + elementWidth), elementSpacing + y * (elementSpacing + elementHeight), elementWidth, elementHeight);
             }
         }
         g2.dispose();
@@ -82,17 +100,17 @@ public class ArrayVisualizer extends JPanel {
      * @return annetun arvon väri
      */
     private Color getColor(int seed) {
-        Color rgb = colors.get(seed);
-        if (rgb != null) {
-            return rgb;
+        Color color = numberColors.get(seed);
+        if (color != null) {
+            return color;
         }
         int col = seed % 3;
         int r = getNumberFromUint8Range(col == 0);
         int g = getNumberFromUint8Range(col == 1);
         int b = getNumberFromUint8Range(col == 2);
-        rgb = new Color(r, g, b);
-        colors.put(seed, rgb);
-        return rgb;
+        color = new Color(r, g, b);
+        numberColors.put(seed, color);
+        return color;
     }
 
     /**
@@ -119,7 +137,7 @@ public class ArrayVisualizer extends JPanel {
         if (array == null) {
             return;
         }
-        boardState = array;
+        drawnArray = array;
         repaint();
     }
 }

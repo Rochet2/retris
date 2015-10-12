@@ -23,6 +23,9 @@ package retris.logic.timer;
  */
 public class TimeDifferenceCounter {
 
+    /**
+     * Ajanhetki josta kulunut aika lasketaan.
+     */
     private long lastTime;
 
     /**
