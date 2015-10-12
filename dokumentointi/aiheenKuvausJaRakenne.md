@@ -19,4 +19,4 @@ Vapaa-aikaa omaavat
 - [x] palikkarivien tuhoutuminen kun vaakarivi on täysi
 - [x] huijauskoodeja pelin kehittäjille: Paina välilyöntiä
 - [x] game over teksti pelin loputtua
-- [x] pisteenlaskua rikotuista riveistä
+- [x] pisteenlaskua rikotuista riveistä: `2^rivit * 50`
