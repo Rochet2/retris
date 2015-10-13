@@ -16,24 +16,19 @@
  */
 package retris.gui;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import retris.logic.Game;
-import retris.logic.shape.ShapeI;
-import retris.logic.shape.ShapeJ;
-import retris.logic.shape.ShapeL;
-import retris.logic.shape.ShapeO;
-import retris.logic.timer.TimeDifferenceCounter;
+import retris.logic.gamestate.GameState;
+import retris.logic.timer.Updateable;
 
 /**
  * Pelin UI
  *
  * @author rochet2_2
  */
-public final class GameWindow {
+public final class GameWindow implements Updateable {
 
     /**
      * Pelin UI-ikkuna
@@ -44,10 +39,6 @@ public final class GameWindow {
      */
     private final ArrayVisualizer boardVisualizer;
     /**
-     * peli loppui teksti
-     */
-    private final JLabel gameOverText;
-    /**
      * paneeli jossa peli-ikkunan sisältö on
      */
     private final JPanel windowPanel;
@@ -56,26 +47,24 @@ public final class GameWindow {
      */
     private final JLabel scoreText;
     /**
-     * peliolio
+     * pelin tila
      */
-    private final Game game;
+    private final GameState gameState;
 
     /**
      * Luo uuden peli-ikkunan joka näyttää pelin visuaalisen tilan.
+     *
+     * @param gameState pelin tilaa kuvaava olio
      */
-    public GameWindow() {
+    public GameWindow(GameState gameState) {
+        this.gameState = gameState;
         this.gameWindow = new JFrame("Retris");
         this.windowPanel = new JPanel();
-        this.gameOverText = new JLabel("Game Over");
         this.scoreText = new JLabel("Score: 0");
-        this.boardVisualizer = new ArrayVisualizer(211, 337, 1);
-        this.game = new Game(10, 16, 500);
-        setGameShapes();
+        this.boardVisualizer = new ArrayVisualizer(gameState, 211, 337, 1);
 
         setContent();
         showGameWindow();
-
-        runGame();
     }
 
     /**
@@ -84,25 +73,19 @@ public final class GameWindow {
     private void setContent() {
         windowPanel.setLayout(null);
         Dimension dim = new Dimension(boardVisualizer.getPreferredSize());
-        dim.height += gameOverText.getPreferredSize().height + scoreText.getPreferredSize().height;
+        dim.height += scoreText.getPreferredSize().height;
         windowPanel.setPreferredSize(dim);
         gameWindow.add(windowPanel);
 
-        boardVisualizer.setBounds(0, gameOverText.getPreferredSize().height + scoreText.getPreferredSize().height,
+        boardVisualizer.setBounds(0, scoreText.getPreferredSize().height,
                 boardVisualizer.getPreferredSize().width, boardVisualizer.getPreferredSize().height);
 
         scoreText.setBounds(0, 0, boardVisualizer.getPreferredSize().width, scoreText.getPreferredSize().height);
 
-        gameOverText.setVisible(false);
-        gameOverText.setForeground(Color.red);
-        gameOverText.setBounds(0, scoreText.getPreferredSize().height,
-                boardVisualizer.getPreferredSize().width, gameOverText.getPreferredSize().height);
-
         windowPanel.add(boardVisualizer);
         windowPanel.add(scoreText);
-        windowPanel.add(gameOverText);
 
-        gameWindow.addKeyListener(new KeyboardListener(this));
+        gameWindow.addKeyListener(new KeyboardListener(gameState));
     }
 
     /**
@@ -117,40 +100,17 @@ public final class GameWindow {
     }
 
     /**
-     * Asettaa peliin tetromino muodot
-     */
-    private void setGameShapes() {
-        game.addShapeToGame(new ShapeL());
-        game.addShapeToGame(new ShapeJ());
-        game.addShapeToGame(new ShapeO());
-        game.addShapeToGame(new ShapeI());
-    }
-
-    /**
-     * Suorittaa pelin
-     */
-    private void runGame() {
-        gameOverText.setVisible(false);
-        game.resetPiece();
-        TimeDifferenceCounter diffTime = new TimeDifferenceCounter();
-        while (game.isRunning()) {
-            long diff = diffTime.getTimeSinceLastCall();
-            if (diff > 0) {
-                game.update(diff);
-                boardVisualizer.setDrawnArray(game.getGameStateCopy());
-                scoreText.setText("Score: " + game.getScore());
-            }
-        }
-        gameOverText.setVisible(true);
-    }
-
-    /**
-     * Palauttaa pelin
+     * Päivittää olion
      *
-     * @return peliolio
+     * @param diff aika viime päivitysyrityksestä
      */
-    public Game getGame() {
-        return game;
+    @Override
+    public void update(long diff) {
+        if (!gameState.getHasChanged().getAndSet(false)) {
+            return;
+        }
+        scoreText.setText("Score: " + gameState.getScore());
+        boardVisualizer.update();
     }
 
 }

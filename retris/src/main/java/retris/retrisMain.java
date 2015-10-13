@@ -16,7 +16,15 @@
  */
 package retris;
 
+import javax.swing.SwingUtilities;
 import retris.gui.GameWindow;
+import retris.logic.Game;
+import retris.logic.gamestate.GameState;
+import retris.gui.Updater;
+import retris.logic.shape.ShapeI;
+import retris.logic.shape.ShapeJ;
+import retris.logic.shape.ShapeL;
+import retris.logic.shape.ShapeO;
 
 /**
  * Ohjelman alkupiste. Luo pelin ja suorittaa sen
@@ -33,9 +41,51 @@ public class retrisMain {
      */
     public static void main(String[] args) {
         try {
-            new GameWindow();
+            GameState gameState = new GameState();
+            Updater updater = new Updater(gameState);
+            Game game = createGame(gameState);
+            updater.addUpdateable(game);
+            createGUI(gameState, updater);
+            Thread thread = new Thread(updater);
+            thread.start();
         } catch (Exception e) {
             System.exit(1);
         }
+    }
+
+    /**
+     * Luo käyttöliittymän ja lisää sen päivittäjään
+     *
+     * @param gameState pelin tilaolio
+     * @param updater käyttöliittymän päivittäjä
+     */
+    private static void createGUI(final GameState gameState, final Updater updater) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    GameWindow gui = new GameWindow(gameState);
+                    updater.addUpdateable(gui);
+                } catch (Exception e) {
+                    System.exit(1);
+                }
+            }
+        });
+    }
+
+    /**
+     * Luo pelin tetromino muotoineen
+     *
+     * @param gameState pelin tilaolio
+     * @return peliolio
+     */
+    private static Game createGame(GameState gameState) {
+        Game game = new Game(gameState, 10, 16, 500);
+        game.addShapeToGame(new ShapeL());
+        game.addShapeToGame(new ShapeJ());
+        game.addShapeToGame(new ShapeO());
+        game.addShapeToGame(new ShapeI());
+        game.initializeGameState();
+        return game;
     }
 }

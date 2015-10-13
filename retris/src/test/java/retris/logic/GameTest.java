@@ -19,9 +19,12 @@ package retris.logic;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import retris.logic.gamestate.GameActions;
+import retris.logic.gamestate.GameState;
 import retris.logic.shape.Shape;
 import retris.logic.shape.ShapeI;
 import retris.logic.shape.ShapeL;
+import retris.logic.timer.Timer;
 
 /**
  *
@@ -29,6 +32,7 @@ import retris.logic.shape.ShapeL;
  */
 public class GameTest {
 
+    private GameState gameState;
     private Game game;
     int[][] expected = {
         {1, 0, 0, 0, 0},
@@ -40,26 +44,17 @@ public class GameTest {
 
     @Before
     public void setUp() {
-        this.game = new Game(5, 5, 10);
+        this.gameState = new GameState();
+        this.game = new Game(this.gameState, 5, 5, 10);
         this.game.addShapeToGame(new ShapeL());
     }
 
     @Test
     public void testConstructor() {
-        game = new Game(5, 6, 10);
+        game = new Game(gameState, 5, 6, 10);
         assertEquals(10, game.getPieceDropTimer().getTimerDelay());
-        assertEquals(5, game.getGameStateCopy()[0].length);
-        assertEquals(6, game.getGameStateCopy().length);
-        assertEquals(true, game.isRunning());
-    }
-
-    @Test
-    public void testStopRunning() {
-        assertEquals(true, game.isRunning());
-        game.stopRunning();
-        assertEquals(false, game.isRunning());
-        game.stopRunning();
-        assertEquals(false, game.isRunning());
+        assertEquals(5, game.getCurrentBoardStateCopy()[0].length);
+        assertEquals(6, game.getCurrentBoardStateCopy().length);
     }
 
     @Test
@@ -72,11 +67,11 @@ public class GameTest {
             {0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0}
         };
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
         game.update(0);
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
         game.update(9);
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         expected = new int[][]{
             {0, 0, 0, 0, 0},
@@ -86,7 +81,7 @@ public class GameTest {
             {0, 0, 0, 0, 0}
         };
         game.update(1);
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         expected = new int[][]{
             {0, 0, 0, 0, 0},
@@ -96,7 +91,7 @@ public class GameTest {
             {0, 0, 0, 0, 0}
         };
         game.update(10);
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         expected = new int[][]{
             {0, 0, 0, 0, 0},
@@ -106,7 +101,7 @@ public class GameTest {
             {0, 0, 0, 0, 0}
         };
         game.update(-100);
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         expected = new int[][]{
             {0, 0, 0, 0, 0},
@@ -116,7 +111,7 @@ public class GameTest {
             {0, 0, 0, 0, 0}
         };
         game.update(109);
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         expected = new int[][]{
             {0, 0, 0, 0, 0},
@@ -126,7 +121,7 @@ public class GameTest {
             {0, 1, 1, 1, 0}
         };
         game.update(1);
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
     }
 
     @Test
@@ -138,7 +133,7 @@ public class GameTest {
             {0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0}
         };
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         game.resetPiece();
         expected = new int[][]{
@@ -148,9 +143,9 @@ public class GameTest {
             {0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0}
         };
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
         game.resetPiece();
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         expected = new int[][]{
             {0, 0, 0, 0, 0},
@@ -162,7 +157,7 @@ public class GameTest {
         game.movePieceDown();
         game.movePieceLeft();
         game.rotatePiece();
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         expected = new int[][]{
             {0, 0, 0, 1, 0},
@@ -172,7 +167,7 @@ public class GameTest {
             {0, 0, 0, 0, 0}
         };
         game.resetPiece();
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
     }
 
     @Test
@@ -181,7 +176,7 @@ public class GameTest {
         game.movePieceDown();
         game.movePieceDown();
         game.endGameIfShould();
-        assertTrue(game.isRunning());
+        assertFalse(gameState.hasEnded());
 
         expected = new int[][]{
             {0, 0, 0, 0, 0},
@@ -195,13 +190,13 @@ public class GameTest {
         game.movePieceDown();
         game.movePieceDown();
         game.endGameIfShould();
-        assertFalse(game.isRunning());
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertTrue(gameState.hasEnded());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
     }
 
     @Test
     public void testAddShapeToGame() {
-        game = new Game(10, 10, 10);
+        game = new Game(gameState, 10, 10, 10);
         assertArrayEquals((new Shape()).getShapeFormRotations(), game.selectRandomGameShape().getShapeFormRotations());
         int[][][] formRotations = {{{1, 1}}};
         Shape shape = new Shape();
@@ -222,7 +217,7 @@ public class GameTest {
             {0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0}
         };
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         assertTrue(game.movePieceDown());
         assertTrue(game.movePieceDown());
@@ -234,7 +229,7 @@ public class GameTest {
             {0, 1, 1, 1, 0},
             {0, 0, 0, 0, 0}
         };
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         assertTrue(game.movePieceUp());
         assertTrue(game.movePieceUp());
@@ -247,7 +242,7 @@ public class GameTest {
             {0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0}
         };
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
     }
 
     @Test
@@ -263,7 +258,7 @@ public class GameTest {
             {0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0}
         };
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         assertTrue(game.movePieceRight());
         assertTrue(game.movePieceRight());
@@ -276,7 +271,7 @@ public class GameTest {
             {0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0}
         };
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
     }
 
     @Test
@@ -293,7 +288,7 @@ public class GameTest {
             {0, 0, 0, 1, 0},
             {0, 1, 1, 1, 0}
         };
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         assertFalse(game.movePieceDown());
 
@@ -304,12 +299,12 @@ public class GameTest {
             {0, 0, 0, 1, 0},
             {0, 1, 1, 1, 0}
         };
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
     }
 
     @Test
     public void testRotatePiece() {
-        game = new Game(5, 5, 10);
+        game = new Game(gameState, 5, 5, 10);
         game.addShapeToGame(new ShapeI());
         game.resetPiece();
 
@@ -322,10 +317,10 @@ public class GameTest {
             {0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0}
         };
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         assertFalse(game.rotatePiece());
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         game.movePieceDown();
         assertTrue(game.rotatePiece());
@@ -337,7 +332,7 @@ public class GameTest {
             {0, 4, 0, 0, 0},
             {0, 0, 0, 0, 0}
         };
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
     }
 
     @Test
@@ -349,7 +344,7 @@ public class GameTest {
             {0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0}
         };
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         game.resetPiece();
         expected = new int[][]{
@@ -359,7 +354,7 @@ public class GameTest {
             {0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0}
         };
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         game.movePieceDown();
         expected = new int[][]{
@@ -369,7 +364,7 @@ public class GameTest {
             {0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0}
         };
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         game.movePieceLeft();
         expected = new int[][]{
@@ -379,7 +374,7 @@ public class GameTest {
             {0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0}
         };
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         game.movePieceLeft();
         expected = new int[][]{
@@ -389,7 +384,7 @@ public class GameTest {
             {0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0}
         };
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         game.movePieceDown();
         expected = new int[][]{
@@ -399,7 +394,7 @@ public class GameTest {
             {1, 1, 1, 0, 0},
             {0, 0, 0, 0, 0}
         };
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         game.movePieceRight();
         game.movePieceRight();
@@ -411,7 +406,7 @@ public class GameTest {
             {0, 0, 1, 1, 1},
             {0, 0, 0, 0, 0}
         };
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         game.rotatePiece();
         expected = new int[][]{
@@ -421,7 +416,7 @@ public class GameTest {
             {0, 0, 0, 1, 0},
             {0, 0, 0, 1, 0}
         };
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
 
         game.movePieceDown();
         expected = new int[][]{
@@ -431,15 +426,71 @@ public class GameTest {
             {0, 0, 0, 1, 0},
             {0, 0, 0, 1, 0}
         };
-        assertArrayEquals(expected, game.getGameStateCopy());
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
     }
-    
+
     @Test
-    public void testScoreMethods() {
-        assertEquals(0, game.getScore());
-        game.modifyScore(-100);
-        assertEquals(-100, game.getScore());
-        game.modifyScore(300);
-        assertEquals(200, game.getScore());
+    public void testRewardScore() {
+        assertEquals(0, gameState.getScore());
+        game.rewardScore(1);
+        assertEquals((long)Math.pow(2, 1)*50, gameState.getScore());
+        game.rewardScore(2);
+        assertEquals((long)Math.pow(2, 1)*50 + (long)Math.pow(2, 2)*50, gameState.getScore());
+    }
+
+    @Test
+    public void testInitializeGameState() {
+        expected = new int[][]{
+            {1, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}
+        };
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
+        assertArrayEquals(new int[][]{{}}, gameState.getBoardState());
+        
+        game.initializeGameState();
+        
+        expected = new int[][]{
+            {0, 0, 0, 1, 0},
+            {0, 1, 1, 1, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}
+        };
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
+        assertArrayEquals(expected, gameState.getBoardState());
+    }
+
+    @Test
+    public void testProcessActions() {
+        game.resetPiece();
+        gameState.addAction(GameActions.MOVE_DOWN);
+        gameState.addAction(GameActions.MOVE_LEFT);
+        gameState.addAction(GameActions.MOVE_ROTATE_LEFT);
+        game.processActions();
+        
+        expected = new int[][]{
+            {0, 0, 0, 0, 0},
+            {1, 1, 0, 0, 0},
+            {0, 1, 0, 0, 0},
+            {0, 1, 0, 0, 0},
+            {0, 0, 0, 0, 0}
+        };
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
+        
+        gameState.addAction(GameActions.MOVE_RIGHT);
+        gameState.addAction(GameActions.MOVE_UP);
+        game.processActions();
+        
+        expected = new int[][]{
+            {0, 1, 1, 0, 0},
+            {0, 0, 1, 0, 0},
+            {0, 0, 1, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}
+        };
+        assertArrayEquals(expected, game.getCurrentBoardStateCopy());
     }
 }

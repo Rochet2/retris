@@ -18,22 +18,23 @@ package retris.gui;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import retris.logic.Game;
+import retris.logic.gamestate.GameActions;
+import retris.logic.gamestate.GameState;
 
 /**
  * Näppäinkuuntelija
- * 
+ *
  * @author rochet2_2
  */
 public class KeyboardListener implements KeyListener {
 
     /**
-     * Peli-ikkuna jolle näppäimistä viestitään
+     * Pelin tilaolio
      */
-    private final GameWindow gameWindow;
+    private final GameState gameState;
 
-    public KeyboardListener(GameWindow gameWindow) {
-        this.gameWindow = gameWindow;
+    public KeyboardListener(GameState gameState) {
+        this.gameState = gameState;
     }
 
     @Override
@@ -43,26 +44,22 @@ public class KeyboardListener implements KeyListener {
     @Override
     public void keyPressed(KeyEvent ev) {
         try {
-            Game game = gameWindow.getGame();
-            if (game == null) {
-                return;
-            }
             int keyCode = ev.getKeyCode();
             switch (keyCode) {
                 case KeyEvent.VK_UP:
-                    game.rotatePiece();
+                    gameState.addAction(GameActions.MOVE_ROTATE_LEFT);
                     break;
                 case KeyEvent.VK_DOWN:
-                    game.movePieceDown();
+                    gameState.addAction(GameActions.MOVE_DOWN);
                     break;
                 case KeyEvent.VK_LEFT:
-                    game.movePieceLeft();
+                    gameState.addAction(GameActions.MOVE_LEFT);
                     break;
                 case KeyEvent.VK_RIGHT:
-                    game.movePieceRight();
+                    gameState.addAction(GameActions.MOVE_RIGHT);
                     break;
                 case KeyEvent.VK_SPACE:
-                    game.movePieceUp();
+                    gameState.addAction(GameActions.MOVE_UP);
                     break;
             }
         } catch (Exception e) {

@@ -45,10 +45,13 @@ public class TimeDifferenceCounterTest {
         assertEquals(0, timeDifferenceCounter.getTimeSinceLastCall());
     }
 
+    /**
+     * Jos testi ei mene läpi, yritä uudelleen, kasvata deltaa tai poista testi.
+     */
     @Test
     public void testGetTimeSinceLastCallWithDelayBetweenCalls() {
         long testedTime = 100;
-        long delta = 5;
+        long delta = 10;
         // reset timer
         timeDifferenceCounter.getTimeSinceLastCall();
         long startTime = System.currentTimeMillis();

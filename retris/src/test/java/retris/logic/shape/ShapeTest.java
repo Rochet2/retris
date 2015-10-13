@@ -19,6 +19,7 @@ package retris.logic.shape;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import retris.logic.ArrayUtil;
 
 /**
  *
@@ -251,7 +252,7 @@ public class ShapeTest {
 
     @Test
     public void testCloneArray3DClonesCorrectly() {
-        int[][][] result = shape.cloneArray3D(validShapeFormRotations);
+        int[][][] result = ArrayUtil.cloneArray(validShapeFormRotations);
         assertArrayEquals(validShapeFormRotations, result);
     }
 
@@ -267,7 +268,7 @@ public class ShapeTest {
                 {1, 0},
                 {1, 0, 1}
             }};
-        int[][][] result = shape.cloneArray3D(test3dArr);
+        int[][][] result = ArrayUtil.cloneArray(test3dArr);
         test3dArr[0][1][0] = 0;
         assertArrayEquals(test3dArrcopy, result);
     }

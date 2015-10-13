@@ -16,6 +16,8 @@
  */
 package retris.logic;
 
+import retris.logic.piece.Piece;
+
 /**
  * Pitää kirjaa pelilaudan tilasta.
  *
@@ -91,11 +93,10 @@ public class Board {
             return false;
         }
         int[][] form = piece.GetShape().getCurrentForm();
-        Position position = piece.getPosition();
         for (int y = 0; y < form.length; ++y) {
             for (int x = 0; x < form[y].length; ++x) {
                 if (form[y][x] != 0) {
-                    if (!isOnBoard(position.getX() + x, position.getY() + y)) {
+                    if (!isOnBoard(piece.getX() + x, piece.getY() + y)) {
                         return false;
                     }
                 }
@@ -114,10 +115,7 @@ public class Board {
         if (piece == null || !isOnBoard(piece)) {
             return false;
         }
-        if (!isInFreeSpace(piece)) {
-            return false;
-        }
-        return true;
+        return isInFreeSpace(piece);
     }
 
     /**
@@ -128,11 +126,10 @@ public class Board {
      */
     private boolean isInFreeSpace(Piece piece) {
         int[][] form = piece.GetShape().getCurrentForm();
-        Position position = piece.getPosition();
         for (int y = 0; y < form.length; ++y) {
             for (int x = 0; x < form[y].length; ++x) {
                 if (form[y][x] != 0) {
-                    if (isFilledSpaceOnBoard(position.getX() + x, position.getY() + y)) {
+                    if (isFilledSpaceOnBoard(piece.getX() + x, piece.getY() + y)) {
                         return false;
                     }
                 }
@@ -142,19 +139,12 @@ public class Board {
     }
 
     /**
-     * Palauttaa kopion arraysta joka kertoo kaikki vapaat ja täytetyt kohdat
-     * laudalla
+     * Palauttaa arrayn joka kertoo kaikki vapaat ja täytetyt kohdat laudalla
      *
      * @return täytetyt paikat
      */
-    public int[][] getBoardStateCopy() {
-        int[][] state = new int[boardHeight][boardWidth];
-        for (int y = 0; y < boardHeight; ++y) {
-            for (int x = 0; x < boardWidth; ++x) {
-                state[y][x] = boardState[y][x];
-            }
-        }
-        return state;
+    public int[][] getBoardState() {
+        return boardState;
     }
 
     /**
@@ -190,11 +180,10 @@ public class Board {
      */
     private void fillPiece(Piece piece) {
         int[][] form = piece.GetShape().getCurrentForm();
-        Position position = piece.getPosition();
         for (int y = 0; y < form.length; ++y) {
             for (int x = 0; x < form[y].length; ++x) {
                 if (form[y][x] != 0) {
-                    setSpaceStateOnBoard(position.getX() + x, position.getY() + y, form[y][x]);
+                    setSpaceStateOnBoard(piece.getX() + x, piece.getY() + y, form[y][x]);
                 }
             }
         }
@@ -206,7 +195,7 @@ public class Board {
      *
      * @return poistettujen rivien määrä
      */
-    public int removeFilledRows() {
+    public int removeAndReturnFilledRows() {
         int removedRows = 0;
         for (int y = 0; y < getBoardHeight(); ++y) {
             if (isFilledRow(y)) {

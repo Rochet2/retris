@@ -16,22 +16,27 @@
  */
 package retris.logic;
 
+import retris.logic.piece.Piece;
+import retris.logic.gamestate.GameActions;
+import retris.logic.gamestate.GameState;
+import retris.logic.timer.Updateable;
 import retris.logic.timer.Timer;
 import java.util.ArrayList;
 import java.util.Random;
 import retris.logic.shape.Shape;
 
 /**
- * Pitää kirjaa pelin tilasta eri olioiden avulla
+ * Pitää kirjaa pelin tilasta eri olioiden avulla. Hoitaa olioiden välistä
+ * keskustelua.
  *
  * @author rochet2_2
  */
-public final class Game {
+public final class Game implements Updateable {
 
     /**
      * pelissä esiintyvät muodot
      */
-    private final ArrayList<Shape> gameShapes = new ArrayList<Shape>();
+    private final ArrayList<Shape> gameShapes = new ArrayList<>();
     /**
      * pelilauta
      */
@@ -49,42 +54,23 @@ public final class Game {
      */
     private final Timer pieceDropTimer;
     /**
-     * pelin tila: käynnissä tai lopeta
+     * pelin tilaolio
      */
-    private boolean running = true;
-    /**
-     * pelaajan pisteet
-     */
-    private long score;
+    private final GameState gameState;
 
     /**
      * Luo uuden pelin.
      *
+     * @param gameState pelin tilaolio
      * @param width pelilaudan leveys
      * @param height pelilaudan korkeus
      * @param dropSpeedMs palan putoamisvauhti millisekunneissa
      */
-    public Game(int width, int height, long dropSpeedMs) {
+    public Game(GameState gameState, int width, int height, long dropSpeedMs) {
+        this.gameState = gameState;
         this.gameBoard = new Board(width, height);
         this.droppingPiece = new Piece();
         this.pieceDropTimer = new Timer(Math.max(0, dropSpeedMs));
-        this.score = 0;
-    }
-
-    /**
-     * Kertoo pitäisikö pelin vielä jatkua
-     *
-     * @return jatka
-     */
-    public synchronized boolean isRunning() {
-        return running;
-    }
-
-    /**
-     * Kertoo pelille että sen tulisi pysäyttää peli
-     */
-    public synchronized void stopRunning() {
-        this.running = false;
     }
 
     /**
@@ -92,16 +78,19 @@ public final class Game {
      *
      * @param diff aika viime päivityksestä millisekunteina
      */
-    public synchronized void update(long diff) {
+    @Override
+    public void update(long diff) {
+        processActions();
         if (pieceDropTimer.updateAndCheckPassed(diff)) {
             movePieceDown();
         }
+        gameState.setBoardState(getCurrentBoardStateCopy());
     }
 
     /**
      * Asettaa uuden muodon palalle ja asettaa sen laudan keskelle ylös
      */
-    public synchronized void resetPiece() {
+    public void resetPiece() {
         Shape shape = selectRandomGameShape();
         droppingPiece.setShape(shape);
         droppingPiece.relocate((int) Math.floor(gameBoard.getBoardWidth() / 2.0 - shape.getMaxWidth() / 2.0), 0);
@@ -111,11 +100,11 @@ public final class Game {
     /**
      * Tarkistaa loppuiko peli ja lopettaa jos loppui
      */
-    public synchronized void endGameIfShould() {
+    public void endGameIfShould() {
         if (!gameBoard.isInFreeSpaceOnBoard(droppingPiece)) {
             droppingPiece.setShape(new Shape());
-            droppingPiece.getPosition().setY(-1);
-            stopRunning();
+            droppingPiece.setY(-1);
+            gameState.setHasEnded(true);
         }
     }
 
@@ -124,7 +113,7 @@ public final class Game {
      *
      * @param shape muoto
      */
-    public synchronized void addShapeToGame(Shape shape) {
+    public void addShapeToGame(Shape shape) {
         if (shape == null) {
             return;
         }
@@ -136,7 +125,7 @@ public final class Game {
      *
      * @return muoto
      */
-    public synchronized Shape selectRandomGameShape() {
+    public Shape selectRandomGameShape() {
         if (gameShapes.isEmpty()) {
             return new Shape();
         }
@@ -149,8 +138,8 @@ public final class Game {
      *
      * @return pelilaudan tila arraynä
      */
-    private synchronized int[][] getCurrentBoardStateCopy() {
-        int[][] array = gameBoard.getBoardStateCopy();
+    public int[][] getCurrentBoardStateCopy() {
+        int[][] array = ArrayUtil.cloneArray(gameBoard.getBoardState());
         droppingPiece.fillFormToArray(array);
         return array;
     }
@@ -160,11 +149,10 @@ public final class Game {
      *
      * @return palaa liikutettiin
      */
-    public synchronized boolean movePieceUp() {
-        Position pos = droppingPiece.getPosition();
-        pos.setY(pos.getY() - 1);
+    public boolean movePieceUp() {
+        droppingPiece.setY(droppingPiece.getY() - 1);
         if (!gameBoard.isInFreeSpaceOnBoard(droppingPiece)) {
-            pos.setY(pos.getY() + 1);
+            droppingPiece.setY(droppingPiece.getY() + 1);
             return false;
         }
         return true;
@@ -175,20 +163,22 @@ public final class Game {
      *
      * @return palaa liikutettiin
      */
-    public synchronized boolean movePieceDown() {
-        Position pos = droppingPiece.getPosition();
-        pos.setY(pos.getY() + 1);
+    public boolean movePieceDown() {
+        droppingPiece.setY(droppingPiece.getY() + 1);
         if (!gameBoard.isInFreeSpaceOnBoard(droppingPiece)) {
-            pos.setY(pos.getY() - 1);
+            droppingPiece.setY(droppingPiece.getY() - 1);
             gameBoard.fillPieceToBoard(droppingPiece);
-            int removedRows = gameBoard.removeFilledRows();
-            if (removedRows > 0) {
-                modifyScore((long) (Math.pow(2, removedRows) * 50));
-            }
+            rewardScore(gameBoard.removeAndReturnFilledRows());
             resetPiece();
             return false;
         }
         return true;
+    }
+
+    public void rewardScore(int removedRows) {
+        if (removedRows > 0) {
+            gameState.modifyScore((long) (Math.pow(2, removedRows) * 50));
+        }
     }
 
     /**
@@ -196,11 +186,10 @@ public final class Game {
      *
      * @return palaa liikutettiin
      */
-    public synchronized boolean movePieceLeft() {
-        Position pos = droppingPiece.getPosition();
-        pos.setX(pos.getX() - 1);
+    public boolean movePieceLeft() {
+        droppingPiece.setX(droppingPiece.getX() - 1);
         if (!gameBoard.isInFreeSpaceOnBoard(droppingPiece)) {
-            pos.setX(pos.getX() + 1);
+            droppingPiece.setX(droppingPiece.getX() + 1);
             return false;
         }
         return true;
@@ -211,11 +200,10 @@ public final class Game {
      *
      * @return palaa liikutettiin
      */
-    public synchronized boolean movePieceRight() {
-        Position pos = droppingPiece.getPosition();
-        pos.setX(pos.getX() + 1);
+    public boolean movePieceRight() {
+        droppingPiece.setX(droppingPiece.getX() + 1);
         if (!gameBoard.isInFreeSpaceOnBoard(droppingPiece)) {
-            pos.setX(pos.getX() - 1);
+            droppingPiece.setX(droppingPiece.getX() - 1);
             return false;
         }
         return true;
@@ -226,7 +214,7 @@ public final class Game {
      *
      * @return käännettiin palaa
      */
-    public synchronized boolean rotatePiece() {
+    public boolean rotatePiece() {
         Shape shape = droppingPiece.GetShape();
         shape.setShapeFormIndex(shape.getShapeFormIndex() + 1);
         if (!gameBoard.isInFreeSpaceOnBoard(droppingPiece)) {
@@ -237,39 +225,46 @@ public final class Game {
     }
 
     /**
-     * Palauttaa kopion pelilaudan tilasta
-     *
-     * @return pelilaudan tila
-     */
-    public synchronized int[][] getGameStateCopy() {
-        return getCurrentBoardStateCopy();
-    }
-
-    /**
      * Palauttaa palan tippumisajastimen
      *
      * @return the pieceDropTimer
      */
-    public synchronized Timer getPieceDropTimer() {
+    public Timer getPieceDropTimer() {
         return pieceDropTimer;
     }
 
     /**
-     * Palauttaa pelaajan pisteet
-     *
-     * @return pisteet
+     * Alustaa pelin ja sen tilan
      */
-    public synchronized long getScore() {
-        return score;
+    public void initializeGameState() {
+        resetPiece();
+        gameState.setBoardState(getCurrentBoardStateCopy());
     }
 
     /**
-     * Muuttaa pistemäärää annetun määrän verran
-     *
-     * @param amount
+     * Suorittaa pelaajan tekemät toimet
      */
-    public synchronized void modifyScore(long amount) {
-        score += amount;
+    public void processActions() {
+        ArrayList<GameActions> actions = gameState.getActionQueue();
+        for (GameActions action : actions) {
+            switch (action) {
+                case MOVE_LEFT:
+                    movePieceLeft();
+                    break;
+                case MOVE_RIGHT:
+                    movePieceRight();
+                    break;
+                case MOVE_UP:
+                    movePieceUp();
+                    break;
+                case MOVE_DOWN:
+                    movePieceDown();
+                    break;
+                case MOVE_ROTATE_LEFT:
+                    rotatePiece();
+                    break;
+            }
+        }
     }
 
 }

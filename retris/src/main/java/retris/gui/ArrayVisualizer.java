@@ -22,6 +22,9 @@ import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.Random;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import retris.logic.ArrayUtil;
+import retris.logic.gamestate.GameState;
 
 /**
  * Piirtää arraytä ruudulle
@@ -42,23 +45,23 @@ public class ArrayVisualizer extends JPanel {
      * satunnaislukugeneraattori
      */
     private final Random random = new Random();
-
     /**
-     * array joka piirretään
+     * pelin tilaa kuvaava olio
      */
-    private int[][] drawnArray = {{}};
+    private final GameState gameState;
 
     /**
      * Luo uuden paneelin joka piirtää arraytä
      *
+     * @param gameState pelin tilaolio
      * @param panelWidth paneelin leveys
      * @param panelHeight paneelin korkeus
      * @param elementSpacing array elementtien välinen tila kuvassa
      */
-    public ArrayVisualizer(int panelWidth, int panelHeight, int elementSpacing) {
+    public ArrayVisualizer(GameState gameState, int panelWidth, int panelHeight, int elementSpacing) {
+        this.gameState = gameState;
         this.elementSpacing = elementSpacing;
-        Dimension dimension = new Dimension(panelWidth, panelHeight);
-        setPreferredSize(dimension);
+        setPreferredSize(new Dimension(panelWidth, panelHeight));
     }
 
     /**
@@ -67,11 +70,15 @@ public class ArrayVisualizer extends JPanel {
      * @param g piirtämiseen käytettävä olio
      */
     @Override
-    protected synchronized void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         setBackground(Color.BLACK);
 
-        if (drawnArray == null || drawnArray.length < 1 || drawnArray[0].length < 1) {
+        final int[][] drawnArray = gameState.getBoardState();
+        if (ArrayUtil.hasNullValue(drawnArray)) {
+            return;
+        }
+        if (drawnArray.length < 1 || drawnArray[0].length < 1) {
             return;
         }
 
@@ -128,15 +135,14 @@ public class ArrayVisualizer extends JPanel {
     }
 
     /**
-     * Asettaa paneelin piirtämän arrayn sisällön
-     *
-     * @param array array joka tulisi piirtää
+     * Päivittää olion
      */
-    public synchronized void setDrawnArray(int[][] array) {
-        if (array == null) {
-            return;
-        }
-        drawnArray = array;
-        repaint();
+    public void update() {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                repaint();
+            }
+        });
     }
 }

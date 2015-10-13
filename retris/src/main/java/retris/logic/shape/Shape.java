@@ -16,6 +16,8 @@
  */
 package retris.logic.shape;
 
+import retris.logic.ArrayUtil;
+
 /**
  * Tämä luokka toimii pohjana eri tetromino palasille. Aliluokat, eli eri
  * palasten luokat, kutsuvat metodia setShapeFormRotations konstruktorissaan
@@ -43,7 +45,7 @@ public class Shape {
      */
     public Shape(Shape shape) {
         if (shape != null) {
-            this.shapeFormRotations = cloneArray3D(shape.shapeFormRotations);
+            this.shapeFormRotations = ArrayUtil.cloneArray(shape.shapeFormRotations);
         }
     }
 
@@ -123,25 +125,8 @@ public class Shape {
                 || !formsAreVisible(shapeFormRotations)) {
             return;
         }
-        int[][][] forms = cloneArray3D(shapeFormRotations);
+        int[][][] forms = ArrayUtil.cloneArray(shapeFormRotations);
         this.shapeFormRotations = forms;
-    }
-
-    /**
-     * Kopioi kolmiulotteisen arrayn
-     *
-     * @param array 3D array
-     * @return kopio
-     */
-    public final int[][][] cloneArray3D(int[][][] array) {
-        int[][][] forms = array.clone();
-        for (int i = 0; i < array.length; ++i) {
-            forms[i] = array[i].clone();
-            for (int j = 0; j < array[i].length; ++j) {
-                forms[i][j] = array[i][j].clone();
-            }
-        }
-        return forms;
     }
 
     /**
@@ -168,7 +153,7 @@ public class Shape {
      * @return tasojen pituudet nollaa isompia
      */
     public boolean arrayDimensionLenghtsAboveZero(int[][][] array) {
-        if (array.length < 1) {
+        if (ArrayUtil.hasNullValue(array) || array.length < 1) {
             return false;
         }
         for (int i = 0; i < array.length; ++i) {

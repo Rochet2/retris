@@ -17,3 +17,4 @@
 - 9.10. 1h, Sekvenssikaaviot ja javadoc
 - 11.10. 2h, GUI uudelleenkoodausta joka ei päätynyt repositoryyn kuitenkaan
 - 12.10. 2h, Joitakin lisäominaisuuksia (pisteytys, game over teksti) ja hieman refaktorointia jotta lisäominaisuudet on helpompi lisätä.
+- 13.10. 9h, Pelin perus päivitystoiminnon uudelleenkirjoitus höystettynä muiden toimintojen osittaisena uudelleenkirjoituksena. Testit uudelle koodille ja dokumentointi. Vielä pitää päivittää kaaviot.

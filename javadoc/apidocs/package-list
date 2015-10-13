@@ -1,5 +1,7 @@
 retris
 retris.gui
 retris.logic
+retris.logic.gamestate
+retris.logic.piece
 retris.logic.shape
 retris.logic.timer

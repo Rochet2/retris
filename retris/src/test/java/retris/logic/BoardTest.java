@@ -16,6 +16,7 @@
  */
 package retris.logic;
 
+import retris.logic.piece.Piece;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -221,7 +222,7 @@ public class BoardTest {
             {3},
             {5}
         };
-        assertArrayEquals(expected, board.getBoardStateCopy());
+        assertArrayEquals(expected, board.getBoardState());
     }
 
     @Test
@@ -238,7 +239,7 @@ public class BoardTest {
         for (int x = 0; x < width; ++x) {
             board.setSpaceStateOnBoard(x, 7, 1);
         }
-        int removedRows = board.removeFilledRows();
+        int removedRows = board.removeAndReturnFilledRows();
         assertEquals(2, removedRows);
         assertFalse(board.isFilledRow(5));
         assertFalse(board.isFilledRow(6));
@@ -256,7 +257,7 @@ public class BoardTest {
         for (int y = 0; y < height; ++y) {
             board.setSpaceStateOnBoard(0, y, y + 1);
         }
-        assertEquals(5, board.removeFilledRows());
+        assertEquals(5, board.removeAndReturnFilledRows());
 
         int[][] expected = {
             {0},
@@ -265,7 +266,7 @@ public class BoardTest {
             {0},
             {0}
         };
-        assertArrayEquals(expected, board.getBoardStateCopy());
+        assertArrayEquals(expected, board.getBoardState());
     }
 
     @Test
@@ -279,7 +280,7 @@ public class BoardTest {
                 board.setSpaceStateOnBoard(1, y, y + 1);
             }
         }
-        assertEquals(2, board.removeFilledRows());
+        assertEquals(2, board.removeAndReturnFilledRows());
 
         int[][] expected = {
             {0, 0},
@@ -288,7 +289,7 @@ public class BoardTest {
             {3, 0},
             {5, 0}
         };
-        assertArrayEquals(expected, board.getBoardStateCopy());
+        assertArrayEquals(expected, board.getBoardState());
     }
 
     @Test
@@ -302,7 +303,7 @@ public class BoardTest {
                 board.setSpaceStateOnBoard(1, y, y + 1);
             }
         }
-        assertEquals(3, board.removeFilledRows());
+        assertEquals(3, board.removeAndReturnFilledRows());
 
         int[][] expected = {
             {0, 0},
@@ -311,7 +312,7 @@ public class BoardTest {
             {2, 0},
             {4, 0}
         };
-        assertArrayEquals(expected, board.getBoardStateCopy());
+        assertArrayEquals(expected, board.getBoardState());
     }
 
     @Test
@@ -400,7 +401,7 @@ public class BoardTest {
         assertFalse(board.isInFreeSpaceOnBoard(piece));
         board.setSpaceStateOnBoard(1, 1, 0);
         board.fillPieceToBoard(piece);
-        assertEquals(3, board.removeFilledRows());
+        assertEquals(3, board.removeAndReturnFilledRows());
         assertTrue(board.isInFreeSpaceOnBoard(piece));
     }
 
@@ -427,6 +428,6 @@ public class BoardTest {
         int height = 1;
         Board board = new Board(width, height);
         board.fillPieceToBoard(null);
-        assertArrayEquals(new int[][]{{0}}, board.getBoardStateCopy());
+        assertArrayEquals(new int[][]{{0}}, board.getBoardState());
     }
 }
