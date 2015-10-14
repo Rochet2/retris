@@ -6,6 +6,7 @@ retris, eli siis perinteinen tetris peli ihan vaan huvinpitoon ja ajanvietteesee
 - [Kuvaus ja Rakenne](dokumentointi/aiheenKuvausJaRakenne.md)
 - [Ohjelman rakenteen kuvaus](dokumentointi/Ohjelman rakenteen kuvaus.md)
 - [Tuntikirjanpito](dokumentointi/tuntikirjanpito.md)
+- [Testausdokumentaatio](dokumentointi/Testausdokumentaatio.md)
 - [API](http://rochet2.github.io/retris/)
 
 ##GUI
