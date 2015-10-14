@@ -175,6 +175,11 @@ public final class Game implements Updateable {
         return true;
     }
 
+    /**
+     * Antaa pisteet pelaajalle tuhottujen rivien määrän mukaan
+     *
+     * @param removedRows tuhotut rivit
+     */
     public void rewardScore(int removedRows) {
         if (removedRows > 0) {
             gameState.modifyScore((long) (Math.pow(2, removedRows) * 50));

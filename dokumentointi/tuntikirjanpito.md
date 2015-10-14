@@ -18,3 +18,4 @@
 - 11.10. 2h, GUI uudelleenkoodausta joka ei päätynyt repositoryyn kuitenkaan
 - 12.10. 2h, Joitakin lisäominaisuuksia (pisteytys, game over teksti) ja hieman refaktorointia jotta lisäominaisuudet on helpompi lisätä.
 - 13.10. 9h, Pelin perus päivitystoiminnon uudelleenkirjoitus höystettynä muiden toimintojen osittaisena uudelleenkirjoituksena. Testit uudelle koodille ja dokumentointi. Vielä pitää päivittää kaaviot.
+- 14.10. 4h, Päivitä luokka- ja sekvenssikaaviot. Ikävästi luokkakaaviosta tuli sekava relaatioiden määrän takia. Vanhojen luokkakaavioiden läpikäynti auttaa ymmärtämään paremmin miten asiat liittyvät toisiinsa.
