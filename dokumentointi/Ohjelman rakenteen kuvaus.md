@@ -12,4 +12,4 @@ Käyttöliittymä siis tarkistelee GameState oliosta pelin tilannetta ja Game ol
 Board on pelilauta joka pitää kirjaa vain pelilaudalla kiinteästi olevista paloista. Piece on tippuva pala ja Shape on sen muoto.
 Game olio omaa listan eri muodoista jotka main metodi luo alussa ja joita sitten jaellaan Piece oliolle satunnaisesti.
 
-![dokumentointi/JAVALABRA luokkakaavio 3.png](dokumentointi/JAVALABRA luokkakaavio 3.png)
+![JAVALABRA luokkakaavio 3.png](JAVALABRA luokkakaavio 3.png)
