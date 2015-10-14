@@ -2,7 +2,9 @@
 retris, eli siis perinteinen tetris peli ihan vaan huvinpitoon ja ajanvietteeseen.
 
 - [Kurssisivu](https://github.com/javaLabra/Javalabra2015-1)
+- [Käyttöohje](dokumentointi/Käyttöohje.md)
 - [Kuvaus ja Rakenne](dokumentointi/aiheenKuvausJaRakenne.md)
+- [Ohjelman rakenteen kuvaus](dokumentointi/Ohjelman rakenteen kuvaus.md)
 - [Tuntikirjanpito](dokumentointi/tuntikirjanpito.md)
 - [API](http://rochet2.github.io/retris/)
 
