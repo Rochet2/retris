@@ -12,4 +12,11 @@ Käyttöliittymä siis tarkistelee GameState oliosta pelin tilannetta ja Game ol
 Board on pelilauta joka pitää kirjaa vain pelilaudalla kiinteästi olevista paloista. Piece on tippuva pala ja Shape on sen muoto.
 Game olio omaa listan eri muodoista jotka main metodi luo alussa ja joita sitten jaellaan Piece oliolle satunnaisesti.
 
+Alla on kaksi luokkakaaviota.  
+Toisessa on kaikki relaatiot luokkien välillä ja toisessa on selkeyden vuoksi jätetty pois osa vähemmän tärkeistä relaatioista.
+
+###Kaikki relaatiot
 ![JAVALABRA luokkakaavio 3.png](JAVALABRA luokkakaavio 3.png)
+
+###Tärkeimmät yhteydet
+![JAVALABRA luokkakaavio 3 Vähemmän relaatioita.png](JAVALABRA luokkakaavio 3 Vähemmän relaatioita.png)
