@@ -20,3 +20,7 @@ Toisessa on kaikki relaatiot luokkien välillä ja toisessa on selkeyden vuoksi 
 
 ###Tärkeimmät yhteydet
 ![JAVALABRA luokkakaavio 3 Vähemmän relaatioita.png](JAVALABRA luokkakaavio 3 Vähemmän relaatioita.png)
+
+##Lisähuomio
+Lisättävä on, että ohjelman rakenne on nykyisellään alkuperäistä monimutkaisempi. Sen aiheuttaa moniajovirheiden estämisen tuoma monimutkaisuus yhdessä single responsibility periaatteen kanssa. Tässä esimerkkinä vanha luokkakaavio ohjelman rakenteesta ennen isompia muutoksia, jotka mahdollistivat paremman oliotason rakenteen ja uusien toimintojen lisäämisen:  
+https://raw.githubusercontent.com/Rochet2/retris/master/dokumentointi/JAVALABRA%20luokkakaavio%202.png
