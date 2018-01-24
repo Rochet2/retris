@@ -1,4 +1,4 @@
-#Ohjelman rakenne
+# Ohjelman rakenne
 Retriksen main metodi retrisMain luokassa luo käyttöliittymän, peliolion (Game), pelin päivittäjän (Updater) ja GameState olion.
 Tämän jälkeen oliot jatkavat itsenäisesti elämäänsä Updater olion päivittämänä.
 
@@ -15,12 +15,12 @@ Game olio omaa listan eri muodoista jotka main metodi luo alussa ja joita sitten
 Alla on kaksi luokkakaaviota.  
 Toisessa on kaikki relaatiot luokkien välillä ja toisessa on selkeyden vuoksi jätetty pois osa vähemmän tärkeistä relaatioista.
 
-###Kaikki relaatiot
-![JAVALABRA luokkakaavio 3.png](JAVALABRA luokkakaavio 3.png)
+### Kaikki relaatiot
+![JAVALABRA luokkakaavio 3.png](JAVALABRA%20luokkakaavio%203.png)
 
-###Tärkeimmät yhteydet
-![JAVALABRA luokkakaavio 3 Vähemmän relaatioita.png](JAVALABRA luokkakaavio 3 Vähemmän relaatioita.png)
+### Tärkeimmät yhteydet
+![JAVALABRA luokkakaavio 3 Vähemmän relaatioita.png](JAVALABRA%20luokkakaavio%203%20Vähemmän%20relaatioita.png)
 
-##Lisähuomio
+## Lisähuomio
 Lisättävä on, että ohjelman rakenne on nykyisellään alkuperäistä monimutkaisempi. Sen aiheuttaa moniajovirheiden estämisen tuoma monimutkaisuus yhdessä single responsibility periaatteen kanssa. Tässä esimerkkinä vanha luokkakaavio ohjelman rakenteesta ennen isompia muutoksia, jotka mahdollistivat paremman oliotason rakenteen ja uusien toimintojen lisäämisen:  
 https://raw.githubusercontent.com/Rochet2/retris/master/dokumentointi/JAVALABRA%20luokkakaavio%202.png
