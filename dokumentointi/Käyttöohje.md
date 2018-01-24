@@ -1,4 +1,4 @@
-#Käyttöohje
+# Käyttöohje
 Retris on hyvin yksinkertainen.
 Peli aloitetaan käynnistämällä jar tiedosto:
 - Windowsilla voi jar tiedostoa kaksoisklikata.
